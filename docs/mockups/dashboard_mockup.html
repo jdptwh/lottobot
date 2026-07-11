@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>panel satellite — mission control</title>
+<!--
+  DESIGN NOTES (ROUTING.md Rule 11 — cite references + intent)
+  Reference: NOVA Control Panel (user-supplied) + Grafana/Datadog telemetry consoles +
+  Linear/Vercel product surfaces. KEY PARADIGM borrowed (not just palette): a COMPACT,
+  TABBED, SINGLE-VIEW control panel — one bounded app canvas, content segmented by tabs
+  (Overview / Verdict / Cost / Config), dense visual composition instead of a long scroll.
+  Moves: working CSS-only tabs (no JS), soft raised panels, a satellite logo mark, teal
+  telemetry accent (amber/red reserved for severity/limits), inline-SVG ring gauges +
+  sparklines, segmented enum pickers, a real toggle switch, model "chips" with avatar dots,
+  mono-for-data vs geometric-sans headings, letter-spaced micro-labels.
+  Honesty: every value maps to real dashboard data (verdict, cost vs cap, runs, the 17-key
+  editable allowlist). No invented KPIs; no run/prompt/task-initiation control anywhere.
+  Offline-clean: inline CSS + inline SVG only, no CDN/JS/fonts (matches the stdlib build).
+  Empty state (no verdict on disk): the build renders an explicit "No verdict yet" placeholder in
+  the KPI + Latest-verdict slots instead of sample data (mockup shows the populated + danger + invalid states).
+-->
+<style>
+  :root{
+    --bg:#070b0c; --app:#0a1113; --panel:#0d1618; --panel2:#101d1e; --raise:#12211f;
+    --line:#172422; --line2:#213230; --hair:rgba(255,255,255,.04);
+    --ink:#eaf4f0; --ink2:#9fb4ac; --ink3:#61756e; --ink4:#405049;
+    --teal:#4fe3c1; --teal2:#26b598; --tealink:#04140f; --cyan:#67d0fd;
+    --pass:#4fe3a1; --pass-bg:rgba(79,227,161,.10); --pass-line:rgba(79,227,161,.32);
+    --fail:#ff5d6c; --fail-bg:rgba(255,93,108,.10); --fail-line:rgba(255,93,108,.34);
+    --revise:#f5c451; --revise-bg:rgba(245,196,81,.10); --revise-line:rgba(245,196,81,.32);
+    --amber:#f5c451; --red:#ff5d6c;
+    --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+    --sans:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    --r:16px; --r-sm:11px; --r-xs:8px;
+    --soft:inset 0 1px 0 var(--hair), 0 10px 26px rgba(0,0,0,.36);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{min-height:100vh;background:
+        radial-gradient(1000px 500px at 82% -12%, rgba(79,227,193,.10), transparent 60%),
+        radial-gradient(760px 420px at 4% 2%, rgba(103,208,253,.06), transparent 55%), var(--bg);
+       color:var(--ink);font:13.5px/1.5 var(--sans);-webkit-font-smoothing:antialiased;
+       display:flex;justify-content:center;padding:26px}
+  .lab{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);font-weight:600}
+  .mono{font-family:var(--mono)}
+
+  /* ---- tab radios (CSS-only, no JS) ---- */
+  .tabr{position:absolute;opacity:0;pointer-events:none}
+
+  /* ---- app shell ---- */
+  .app{width:100%;max-width:1160px;background:linear-gradient(180deg,var(--app),#080e0f);
+       border:1px solid var(--line);border-radius:22px;box-shadow:var(--soft);overflow:hidden;
+       display:flex;flex-direction:column;min-height:720px}
+  .top{display:flex;align-items:center;gap:14px;padding:16px 22px;border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand .name{font-weight:650;letter-spacing:.24em;font-size:13px}
+  .brand .sub{color:var(--ink3);font-size:10px;letter-spacing:.2em;text-transform:uppercase}
+  .grow{flex:1}
+  .status{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;
+          border:1px solid var(--line2);background:var(--panel);font-size:11.5px;font-weight:600;color:var(--ink2)}
+  .status .dot{width:7px;height:7px;border-radius:50%;background:var(--ink3)}
+  .status.rw{color:var(--ink3)}
+  .iconbtn{width:33px;height:33px;border-radius:9px;border:1px solid var(--line2);background:var(--panel);
+           color:var(--ink2);display:grid;place-items:center;cursor:pointer}
+  .iconbtn:hover{border-color:var(--teal2);color:var(--teal)}
+
+  /* ---- tab bar ---- */
+  .tabs{display:flex;gap:4px;padding:8px 16px 0;border-bottom:1px solid var(--line);background:linear-gradient(180deg,rgba(79,227,193,.03),transparent)}
+  .tabs label{padding:11px 16px 13px;color:var(--ink3);font-size:12.5px;font-weight:600;cursor:pointer;
+              border-bottom:2px solid transparent;border-radius:8px 8px 0 0;user-select:none;display:inline-flex;gap:8px;align-items:center}
+  .tabs label:hover{color:var(--ink2);background:rgba(255,255,255,.02)}
+  .tabs label .c{font-family:var(--mono);font-size:10px;color:var(--ink4);background:var(--panel);
+                 border:1px solid var(--line2);border-radius:6px;padding:0 6px;line-height:16px}
+  #tab-ov:checked ~ .app .tabs label[for=tab-ov],
+  #tab-vd:checked ~ .app .tabs label[for=tab-vd],
+  #tab-ct:checked ~ .app .tabs label[for=tab-ct],
+  #tab-cf:checked ~ .app .tabs label[for=tab-cf]{color:var(--ink);border-bottom-color:var(--teal)}
+
+  /* ---- stage / views ---- */
+  .stage{padding:18px 22px 22px;flex:1}
+  .view{display:none}
+  #tab-ov:checked ~ .app .view.ov{display:block}
+  #tab-vd:checked ~ .app .view.vd{display:block}
+  #tab-ct:checked ~ .app .view.ct{display:block}
+  #tab-cf:checked ~ .app .view.cf{display:block}
+
+  /* ---- shared panel + bits ---- */
+  .card{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);
+        border-radius:var(--r);box-shadow:var(--soft);padding:16px}
+  .ch{display:flex;align-items:center;gap:9px;margin-bottom:12px}
+  .ch h2{margin:0;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);font-weight:650}
+  .ch .m{margin-left:auto;color:var(--ink3);font-size:10.5px}
+  .vbadge{display:inline-block;font-weight:750;letter-spacing:.5px;padding:4px 12px;border-radius:8px;font-size:13px}
+  .vbadge.PASS{color:var(--pass);background:var(--pass-bg);border:1px solid var(--pass-line)}
+  .vbadge.FAIL{color:var(--fail);background:var(--fail-bg);border:1px solid var(--fail-line)}
+  .vbadge.REVISE{color:var(--revise);background:var(--revise-bg);border:1px solid var(--revise-line)}
+  .gate-chip{font-family:var(--mono);font-size:11px;color:var(--teal);background:rgba(79,227,193,.08);
+             border:1px solid var(--line2);padding:3px 9px;border-radius:7px}
+  .chip{display:inline-flex;align-items:center;gap:7px;padding:5px 10px;border-radius:999px;background:var(--raise);
+        border:1px solid var(--line2);font-family:var(--mono);font-size:11.5px;color:var(--ink2)}
+  .chip .av{width:14px;height:14px;border-radius:50%;flex:0 0 auto}
+  .chip .av.a{background:linear-gradient(135deg,#4fe3c1,#26b598)} .chip .av.b{background:linear-gradient(135deg,#67d0fd,#3d7bd6)}
+  .chip .av.c{background:linear-gradient(135deg,#f5c451,#e08a2f)} .chip .av.d{background:linear-gradient(135deg,#b98cff,#6d4fd6)}
+  .meter{display:flex;align-items:center;gap:8px}
+  .meter .track{flex:1;height:5px;border-radius:99px;background:#081210;border:1px solid var(--line2);overflow:hidden}
+  .meter .track>i{display:block;height:100%;background:linear-gradient(90deg,var(--teal2),var(--teal))}
+  .meter .n{font-family:var(--mono);font-size:10.5px;color:var(--ink3)}
+  .sev{display:inline-flex;align-items:center;gap:7px;font-weight:600}
+  .sev .d{width:8px;height:8px;border-radius:50%}
+  .sev.critical{color:var(--fail)} .sev.critical .d{background:var(--fail);box-shadow:0 0 8px var(--fail)}
+  .sev.major{color:var(--amber)} .sev.major .d{background:var(--amber);box-shadow:0 0 8px var(--amber)}
+  .sev.minor{color:var(--ink2)} .sev.minor .d{background:var(--ink3)}
+  table{width:100%;border-collapse:collapse;font-size:12px}
+  thead th{text-align:left;color:var(--ink3);font-weight:600;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;padding:6px 8px;border-bottom:1px solid var(--line2)}
+  tbody td{padding:8px;border-bottom:1px solid var(--line);color:var(--ink2)} tbody tr:last-child td{border-bottom:0}
+  .ruling.up{color:var(--pass);font-weight:600} .ruling.na{color:var(--ink4)}
+
+  /* KPI tiles */
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .kpi{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);
+       border-radius:var(--r-sm);padding:13px 14px;box-shadow:var(--soft);position:relative;overflow:hidden}
+  .kpi .r{display:flex;align-items:center;justify-content:space-between}
+  .kpi .v{font-family:var(--mono);font-size:23px;font-weight:600;letter-spacing:-.5px;margin:8px 0 1px}
+  .kpi .s{color:var(--ink3);font-size:10.5px} .kpi .warn{color:var(--amber)}
+
+  /* overview grid */
+  .ov-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:14px;margin-top:14px}
+  .stack{display:flex;flex-direction:column;gap:14px}
+  .flags{display:flex;flex-direction:column;gap:8px}
+  .flag{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:var(--r-xs);border:1px solid var(--line2);background:var(--raise);font-size:11.5px}
+  .flag .fi{width:8px;height:8px;border-radius:50%;flex:0 0 auto}
+  .flag.warn{border-color:var(--revise-line);background:var(--revise-bg)} .flag.warn .fi{background:var(--amber);box-shadow:0 0 8px var(--amber)}
+  .flag.info .fi{background:var(--ink3)} .flag .s{margin-left:auto;color:var(--ink3);font-family:var(--mono);font-size:10px}
+  .pipeline{display:flex;align-items:center;gap:8px;margin-top:4px}
+  .pnode{display:flex;align-items:center;gap:7px;padding:6px 11px;border-radius:999px;border:1px solid var(--line2);background:var(--raise);font-size:11px;color:var(--ink2)}
+  .pnode .d{width:7px;height:7px;border-radius:50%;background:var(--teal)}
+  .pline{flex:1;height:1px;background:linear-gradient(90deg,var(--teal2),transparent)}
+
+  /* segmented + switch + inputs (config) */
+  .seg{display:inline-flex;background:#081210;border:1px solid var(--line2);border-radius:9px;padding:3px;gap:2px}
+  .seg span{padding:6px 11px;border-radius:7px;font-size:11.5px;color:var(--ink3);cursor:default;font-family:var(--mono)}
+  .seg span.on{background:linear-gradient(180deg,var(--teal),var(--teal2));color:var(--tealink);font-weight:650}
+  .switch{display:inline-flex;align-items:center;gap:10px}
+  .switch input{position:absolute;opacity:0} 
+  .switch .tk{width:44px;height:24px;border-radius:99px;background:#0a1412;border:1px solid var(--line2);position:relative;transition:.15s}
+  .switch .tk::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:var(--ink3);transition:.15s}
+  .switch input:checked + .tk{background:var(--fail-bg);border-color:var(--fail-line)}
+  .switch input:checked + .tk::after{left:22px;background:var(--fail)}
+  .switch .lb{font-family:var(--mono);font-size:12px;color:var(--ink2)}
+  .cfg-in{width:100%;padding:8px 10px;background:#081210;border:1px solid var(--line2);color:var(--ink);border-radius:8px;font:12px var(--mono)}
+  .cfg-in:focus{outline:none;border-color:var(--teal2);box-shadow:0 0 0 3px rgba(79,227,193,.14)}
+  select.cfg-in{appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--ink3) 50%),linear-gradient(135deg,var(--ink3) 50%,transparent 50%);background-position:calc(100% - 16px) 55%,calc(100% - 11px) 55%;background-size:5px 5px;background-repeat:no-repeat;cursor:pointer}
+  .multi{display:flex;flex-wrap:wrap;gap:6px}.multi input{position:absolute;opacity:0;pointer-events:none}
+  .multi label{padding:6px 11px;border-radius:999px;border:1px solid var(--line2);background:#081210;font:11.5px var(--mono);color:var(--ink3);cursor:pointer;user-select:none}
+  .multi label:hover{border-color:var(--teal2);color:var(--ink2)}
+  .multi input:checked+label{background:linear-gradient(180deg,var(--teal),var(--teal2));border-color:var(--teal2);color:var(--tealink);font-weight:650}
+  .fld{margin-bottom:2px} .fld .l{font-size:11.5px;color:var(--ink);font-weight:600;margin-bottom:2px}
+  .fld .h{font-size:10.5px;color:var(--ink3);margin:0 0 6px}
+  .bad .cfg-in{border-color:var(--fail-line);box-shadow:0 0 0 3px rgba(255,93,108,.12)}
+  .bad .e{color:var(--fail);font-size:10.5px;margin-top:4px}
+  .warnrow{display:flex;gap:10px;align-items:center;padding:9px 12px;border-radius:var(--r-xs);border:1px solid var(--fail-line);background:var(--fail-bg);color:#ffd7db;font-size:11.5px;margin-top:10px}
+  .locked{display:flex;align-items:center;gap:8px;color:var(--ink3);font-size:10.5px;border-top:1px dashed var(--line2);padding-top:10px;margin-top:12px}
+  .savebar{display:flex;align-items:center;gap:12px;margin-top:14px}
+  .btn{padding:9px 18px;border-radius:10px;border:0;cursor:pointer;font-weight:650;font-size:12.5px;
+       background:linear-gradient(180deg,var(--teal),var(--teal2));color:var(--tealink);box-shadow:0 6px 16px rgba(38,181,152,.28)}
+  .savebar .note{color:var(--ink3);font-size:10.5px}
+
+  /* config sub-segments (CSS-only) */
+  .cfseg{position:absolute;opacity:0;pointer-events:none}
+  .subnav{display:inline-flex;gap:3px;background:#081210;border:1px solid var(--line2);border-radius:10px;padding:3px;margin-bottom:14px}
+  .subnav label{padding:7px 13px;border-radius:8px;font-size:11.5px;color:var(--ink3);cursor:pointer;font-weight:600}
+  #cs-tog:checked ~ .subnav label[for=cs-tog],
+  #cs-rol:checked ~ .subnav label[for=cs-rol],
+  #cs-lin:checked ~ .subnav label[for=cs-lin],
+  #cs-ast:checked ~ .subnav label[for=cs-ast],
+  #cs-bud:checked ~ .subnav label[for=cs-bud]{background:var(--raise);color:var(--ink);border:1px solid var(--line2)}
+  .seg-view{display:none}
+  #cs-tog:checked ~ .segwrap .sv.tog,
+  #cs-rol:checked ~ .segwrap .sv.rol,
+  #cs-lin:checked ~ .segwrap .sv.lin,
+  #cs-ast:checked ~ .segwrap .sv.ast,
+  #cs-bud:checked ~ .segwrap .sv.bud{display:block}
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px 20px}
+  .foot{color:var(--ink4);font-size:10.5px;padding:12px 22px;border-top:1px solid var(--line)}
+  @media(max-width:820px){.kpis{grid-template-columns:1fr 1fr}.ov-grid,.duo{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<!-- tab state (CSS-only) -->
+<input class="tabr" type="radio" name="tab" id="tab-ov" checked>
+<input class="tabr" type="radio" name="tab" id="tab-vd">
+<input class="tabr" type="radio" name="tab" id="tab-ct">
+<input class="tabr" type="radio" name="tab" id="tab-cf">
+
+<div class="app">
+  <div class="top">
+    <div class="brand">
+      <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
+        <circle cx="15" cy="15" r="11" fill="none" stroke="#26b598" stroke-width="1.4" opacity=".55"/>
+        <ellipse cx="15" cy="15" rx="13.5" ry="6" fill="none" stroke="#4fe3c1" stroke-width="1.3" transform="rotate(-28 15 15)"/>
+        <circle cx="15" cy="15" r="3.2" fill="#4fe3c1"/><circle cx="26" cy="9" r="1.8" fill="#67d0fd"/>
+      </svg>
+      <div><div class="name">PANEL&nbsp;SATELLITE</div><div class="sub">mission control</div></div>
+    </div>
+    <span class="grow"></span>
+    <span class="status"><span class="dot"></span> Panel dormant</span>
+    <span class="status rw">observe · config</span>
+    <button class="iconbtn" title="Refresh" aria-label="Refresh">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-2.64-6.36M21 3v6h-6"/></svg>
+    </button>
+  </div>
+
+  <nav class="tabs">
+    <label for="tab-ov">Overview</label>
+    <label for="tab-vd">Verdict</label>
+    <label for="tab-ct">Cost <span class="c">97%</span></label>
+    <label for="tab-cf">Config</label>
+  </nav>
+
+  <main class="stage">
+    <!-- ============ OVERVIEW ============ -->
+    <section class="view ov">
+      <div class="kpis">
+        <div class="kpi"><div class="r"><span class="lab">Verdict</span>
+          <svg width="24" height="24" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="#172422" stroke-width="4"/><circle cx="18" cy="18" r="15" fill="none" stroke="#4fe3a1" stroke-width="4" stroke-linecap="round" stroke-dasharray="94.2" transform="rotate(-90 18 18)"/></svg></div>
+          <div class="v"><span class="vbadge PASS">PASS</span></div><div class="s">review gate · exit 0</div></div>
+        <div class="kpi"><div class="r"><span class="lab">This run</span></div>
+          <div class="v">$0.51</div><div class="s">2 reviewers + arbiter</div></div>
+        <div class="kpi"><div class="r"><span class="lab">Cap headroom</span>
+          <svg width="38" height="38" viewBox="0 0 42 42"><circle cx="21" cy="21" r="16" fill="none" stroke="#172422" stroke-width="5"/><circle cx="21" cy="21" r="16" fill="none" stroke="#f5c451" stroke-width="5" stroke-linecap="round" stroke-dasharray="100.5" stroke-dashoffset="3" transform="rotate(-90 21 21)"/></svg></div>
+          <div class="v warn">97%</div><div class="s">$1.94 / $2.00 cap</div></div>
+        <div class="kpi"><div class="r"><span class="lab">Runs</span>
+          <svg width="64" height="24" viewBox="0 0 64 24" preserveAspectRatio="none"><polyline points="2,7 22,18 42,19 62,19" fill="none" stroke="#26b598" stroke-width="2"/><circle cx="2" cy="7" r="2.2" fill="#4fe3c1"/><circle cx="62" cy="19" r="2.4" fill="#67d0fd"/></svg></div>
+          <div class="v">3</div><div class="s">cumulative $1.94</div></div>
+      </div>
+
+      <div class="ov-grid">
+        <div class="card">
+          <div class="ch"><h2>Latest verdict</h2><span class="gate-chip">REVIEW · union+arbiter</span></div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+            <span class="vbadge PASS">PASS</span>
+            <span class="mono" style="color:var(--ink3);font-size:11.5px">wave2-provider-adapters-review</span>
+          </div>
+          <div class="pipeline">
+            <span class="pnode"><span class="d"></span> dispatch · 2</span><span class="pline"></span>
+            <span class="pnode"><span class="d"></span> union</span><span class="pline"></span>
+            <span class="pnode"><span class="d" style="background:#f5c451"></span> arbiter · 1</span><span class="pline"></span>
+            <span class="pnode"><span class="d" style="background:#4fe3a1"></span> PASS</span>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
+            <span class="chip"><span class="av a"></span>opus-4.8 · 0.90</span>
+            <span class="chip"><span class="av b"></span>deepseek-v4-pro · 0.71</span>
+          </div>
+          <div style="margin-top:12px;color:var(--ink2);font-size:12px">
+            <span class="sev major"><span class="d"></span>major</span> &nbsp;Missing per-call timeout on the streaming path
+            <span class="ruling up" style="margin-left:6px">upheld</span>
+          </div>
+        </div>
+
+        <div class="stack">
+          <div class="card">
+            <div class="ch"><h2>Cost</h2><span class="m">dashboard log</span></div>
+            <div style="display:flex;align-items:center;gap:12px">
+              <div><div class="mono" style="font-size:24px;font-weight:600">$1.94</div><div class="s lab" style="letter-spacing:.1em">3 runs</div></div>
+              <svg width="108" height="42" viewBox="0 0 108 42" preserveAspectRatio="none" style="flex:1">
+                <defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#4fe3c1" stop-opacity=".35"/><stop offset="1" stop-color="#4fe3c1" stop-opacity="0"/></linearGradient></defs>
+                <polyline points="4,10 40,28 74,30 104,30" fill="none" stroke="#4fe3c1" stroke-width="2"/>
+                <polygon points="4,10 40,28 74,30 104,30 104,42 4,42" fill="url(#g)"/><circle cx="104" cy="30" r="2.6" fill="#67d0fd"/></svg>
+            </div>
+            <div class="meter" style="margin-top:12px"><div class="track" style="height:7px"><i style="width:97%;background:linear-gradient(90deg,#c79a2f,#f5c451)"></i></div></div>
+            <div style="display:flex;justify-content:space-between;color:var(--ink3);font-size:10.5px;margin-top:6px"><span class="mono">$1.94</span><span>approaching cap</span><span class="mono">$2.00</span></div>
+          </div>
+          <div class="card">
+            <div class="ch"><h2>System flags</h2></div>
+            <div class="flags">
+              <div class="flag warn"><span class="fi"></span> Cost approaching cap (97%)<span class="s">now</span></div>
+              <div class="flag info"><span class="fi"></span> Panel dormant · PANEL_ENABLED=0<span class="s">config</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VERDICT ============ -->
+    <section class="view vd">
+      <div class="ov-grid" style="grid-template-columns:1.4fr 1fr;margin-top:0">
+        <div class="card">
+          <div class="ch"><h2>Reviewers</h2><span class="m">seeded order · identity-stripped</span></div>
+          <div class="duo">
+            <div style="background:var(--raise);border:1px solid var(--line2);border-radius:11px;padding:12px">
+              <div style="display:flex;justify-content:space-between"><span class="mono" style="color:var(--teal);font-size:11.5px">anthropic/claude-opus-4.8</span><span class="lab">reviewer</span></div>
+              <p style="color:var(--ink2);font-size:12px;margin:8px 0 10px">Adapter lacks a timeout on the streaming path; a retry could double-charge if a side-effecting tool ran.</p>
+              <div class="meter"><div class="track"><i style="width:90%"></i></div><span class="n">0.90</span></div>
+            </div>
+            <div style="background:var(--raise);border:1px solid var(--line2);border-radius:11px;padding:12px">
+              <div style="display:flex;justify-content:space-between"><span class="mono" style="color:var(--teal);font-size:11.5px">deepseek/deepseek-v4-pro</span><span class="lab">reviewer</span></div>
+              <p style="color:var(--ink2);font-size:12px;margin:8px 0 10px">Cost meter reads usage before checking for a null usage block on a provider fallback.</p>
+              <div class="meter"><div class="track"><i style="width:71%"></i></div><span class="n">0.71</span></div>
+            </div>
+          </div>
+          <div class="ch" style="margin-top:16px"><h2>Findings</h2><span class="m">union · arbiter on disputed only</span></div>
+          <table><thead><tr><th>Severity</th><th>Finding</th><th>Source</th><th>Arbiter</th></tr></thead><tbody>
+            <tr><td><span class="sev major"><span class="d"></span>major</span></td><td>Missing per-call timeout on the streaming path</td><td class="mono" style="color:var(--ink3)">opus-4.8</td><td class="ruling up">upheld</td></tr>
+            <tr><td><span class="sev minor"><span class="d"></span>minor</span></td><td>Guard missing usage-accounting fields on fallback routes</td><td class="mono" style="color:var(--ink3)">deepseek</td><td class="ruling na">not disputed</td></tr>
+          </tbody></table>
+        </div>
+        <div class="stack">
+          <div class="card"><div class="ch"><h2>Verdict</h2></div>
+            <div style="text-align:center;padding:6px 0 12px"><span class="vbadge PASS" style="font-size:16px;padding:8px 20px">PASS</span>
+              <div class="s" style="margin-top:10px">exit code 0 · gate REVIEW</div></div>
+            <div style="border-top:1px solid var(--line);padding-top:12px;color:var(--ink2);font-size:12px">
+              <b style="color:var(--teal)">Consensus.</b> Retry safety needs an explicit no-side-effect assertion.
+              No unresolved contradictions; no blind spots.</div>
+          </div>
+          <div class="card"><div class="ch"><h2>Disagreement</h2></div>
+            <div class="flags">
+              <div class="flag info"><span class="fi"></span> Contradictions<span class="s">0</span></div>
+              <div class="flag info"><span class="fi"></span> Blind spots<span class="s">0</span></div>
+              <div class="flag info"><span class="fi"></span> Dropped experts<span class="s">0</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ COST ============ -->
+    <section class="view ct">
+      <div class="ov-grid" style="grid-template-columns:1fr 1.3fr;margin-top:0">
+        <div class="card" style="display:flex;flex-direction:column;align-items:center;justify-content:center">
+          <div class="ch" style="align-self:flex-start"><h2>Cap headroom</h2></div>
+          <svg width="150" height="150" viewBox="0 0 42 42"><circle cx="21" cy="21" r="16" fill="none" stroke="#172422" stroke-width="4"/><circle cx="21" cy="21" r="16" fill="none" stroke="#f5c451" stroke-width="4" stroke-linecap="round" stroke-dasharray="100.5" stroke-dashoffset="3" transform="rotate(-90 21 21)"/></svg>
+          <div class="mono" style="font-size:26px;font-weight:600;margin-top:12px">$1.94 <span style="color:var(--ink3);font-size:14px">/ $2.00</span></div>
+          <div class="s">97% of per-invocation cap</div>
+        </div>
+        <div class="stack">
+          <div class="card"><div class="ch"><h2>Cost history</h2><span class="m">observed runs</span></div>
+            <svg width="100%" height="70" viewBox="0 0 320 70" preserveAspectRatio="none">
+              <defs><linearGradient id="g2" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#4fe3c1" stop-opacity=".3"/><stop offset="1" stop-color="#4fe3c1" stop-opacity="0"/></linearGradient></defs>
+              <polyline points="10,20 160,52 250,54 310,54" fill="none" stroke="#4fe3c1" stroke-width="2"/>
+              <polygon points="10,20 160,52 250,54 310,54 310,70 10,70" fill="url(#g2)"/>
+              <circle cx="10" cy="20" r="3" fill="#4fe3c1"/><circle cx="160" cy="52" r="3" fill="#4fe3c1"/><circle cx="310" cy="54" r="3.4" fill="#67d0fd"/></svg>
+          </div>
+          <div class="card"><div class="ch"><h2>Cost log</h2><span class="m">.claude/state/panel_cost_log.jsonl</span></div>
+            <table><thead><tr><th>Task</th><th>Gate</th><th>Verdict</th><th>Cost</th></tr></thead><tbody>
+              <tr><td class="mono">wave2-plan</td><td>plan</td><td><span class="sev minor"><span class="d" style="background:#4fe3a1"></span>PASS</span></td><td class="mono">$0.90</td></tr>
+              <tr><td class="mono">wave3-orch</td><td>plan</td><td><span class="sev major"><span class="d"></span>REVISE</span></td><td class="mono">$0.53</td></tr>
+              <tr><td class="mono">wave2-review</td><td>review</td><td><span class="sev minor"><span class="d" style="background:#4fe3a1"></span>PASS</span></td><td class="mono">$0.51</td></tr>
+            </tbody></table>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ============ CONFIG ============ -->
+    <section class="view cf">
+      <input class="cfseg" type="radio" name="cfseg" id="cs-tog" checked>
+      <input class="cfseg" type="radio" name="cfseg" id="cs-rol">
+      <input class="cfseg" type="radio" name="cfseg" id="cs-lin">
+      <input class="cfseg" type="radio" name="cfseg" id="cs-ast">
+      <input class="cfseg" type="radio" name="cfseg" id="cs-bud">
+      <nav class="subnav">
+        <label for="cs-tog">Toggles</label><label for="cs-rol">Roles</label>
+        <label for="cs-lin">Lineups</label><label for="cs-ast">Assets</label>
+        <label for="cs-bud">Budgets &amp; cap</label>
+      </nav>
+
+      <div class="segwrap">
+        <!-- toggles -->
+        <div class="seg-view sv tog"><div class="card">
+          <div class="ch"><h2>Panel toggles</h2><span class="m">behaviour</span></div>
+          <div class="duo">
+            <div class="fld"><div class="l">PANEL_ENABLED</div><p class="h">Master switch · dormant no-op by default</p>
+              <label class="switch"><input type="checkbox"><span class="tk"></span><span class="lb">0 — disabled</span></label></div>
+            <div class="fld"><div class="l">PANEL_TRIGGER</div><p class="h">When the lead invokes a panel</p>
+              <div class="seg"><span class="on">novelty</span><span>always</span><span>escalation</span></div></div>
+            <div class="fld"><div class="l">PANEL_MODE_PLAN</div><p class="h">PLAN aggregation</p>
+              <div class="seg"><span class="on">aggregate</span><span>union</span></div></div>
+            <div class="fld"><div class="l">PANEL_MODE_REVIEW</div><p class="h">REVIEW aggregation</p>
+              <div class="seg"><span>aggregate</span><span class="on">union</span></div></div>
+          </div>
+          <div class="warnrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex:0 0 auto"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4"/><circle cx="12" cy="17.5" r=".6" fill="currentColor" stroke="none"/></svg><span><b>Enabling</b> arms real, paid OpenRouter calls on the next gate.</span></div>
+        </div></div>
+
+        <!-- roles -->
+        <div class="seg-view sv rol"><div class="card">
+          <div class="ch"><h2>Roles</h2><span class="m">models · dropdowns</span></div>
+          <div class="duo">
+            <div class="fld"><div class="l">PLANNER_MODEL</div>
+              <select class="cfg-in"><option>claude-fable-5</option><option selected>claude-opus-4-8</option><option>opus</option><option>sonnet</option><option>haiku</option></select></div>
+            <div class="fld"><div class="l">REVIEWER_MODEL</div>
+              <select class="cfg-in"><option>claude-fable-5</option><option selected>claude-opus-4-8</option><option>opus</option><option>sonnet</option><option>haiku</option></select></div>
+            <div class="fld"><div class="l">IMPLEMENTER_MODEL</div>
+              <select class="cfg-in"><option>claude-fable-5</option><option>claude-opus-4-8</option><option>opus</option><option selected>sonnet</option><option>haiku</option></select></div>
+            <div class="fld"><div class="l">DRAFTER_MODEL</div>
+              <select class="cfg-in"><option>claude-fable-5</option><option>claude-opus-4-8</option><option>opus</option><option selected>sonnet</option><option>haiku</option></select></div>
+            <div class="fld"><div class="l">BULK_MODEL</div>
+              <select class="cfg-in"><option>claude-fable-5</option><option>claude-opus-4-8</option><option>opus</option><option>sonnet</option><option selected>haiku</option></select></div>
+          </div>
+        </div></div>
+
+        <!-- lineups -->
+        <div class="seg-view sv lin"><div class="card">
+          <div class="ch"><h2>Lineups</h2><span class="m">OpenRouter slugs</span></div>
+          <div class="duo">
+            <div class="fld"><div class="l">PANEL_PLAN_LINEUP</div><p class="h">PLAN experts (pick 2+)</p>
+              <div class="multi">
+                <input type="checkbox" id="mk-pl-1" checked><label for="mk-pl-1">anthropic/claude-fable-5</label>
+                <input type="checkbox" id="mk-pl-2" checked><label for="mk-pl-2">openai/gpt-5.6-sol</label>
+                <input type="checkbox" id="mk-pl-3"><label for="mk-pl-3">openai/gpt-5.6-terra</label>
+                <input type="checkbox" id="mk-pl-4"><label for="mk-pl-4">anthropic/claude-opus-4.8</label>
+                <input type="checkbox" id="mk-pl-5"><label for="mk-pl-5">deepseek/deepseek-v4-pro</label>
+              </div></div>
+            <div class="fld"><div class="l">PANEL_PLAN_SYNTH</div><p class="h">Synthesizer</p>
+              <select class="cfg-in"><option>anthropic/claude-fable-5</option><option selected>anthropic/claude-opus-4.8</option><option>openai/gpt-5.6-sol</option></select></div>
+            <div class="fld"><div class="l">PANEL_REVIEW_LINEUP</div><p class="h">Reviewers (pick 2+)</p>
+              <div class="multi">
+                <input type="checkbox" id="mk-rl-1" checked><label for="mk-rl-1">anthropic/claude-opus-4.8</label>
+                <input type="checkbox" id="mk-rl-2" checked><label for="mk-rl-2">openai/gpt-5.6-sol</label>
+                <input type="checkbox" id="mk-rl-3" checked><label for="mk-rl-3">openai/gpt-5.6-terra</label>
+                <input type="checkbox" id="mk-rl-4"><label for="mk-rl-4">anthropic/claude-fable-5</label>
+              </div></div>
+            <div class="fld"><div class="l">PANEL_REVIEW_ARBITER</div><p class="h">Adjudicates disputed</p>
+              <select class="cfg-in"><option selected>anthropic/claude-fable-5</option><option>anthropic/claude-opus-4.8</option><option>openai/gpt-5.6-sol</option></select></div>
+          </div>
+        </div></div>
+
+        <!-- budgets -->
+        <!-- assets (Rule 13 — asset-forge) -->
+        <div class="seg-view sv ast"><div class="card">
+          <div class="ch"><h2>Asset pipeline</h2><span class="m">asset-forge · Rule 13</span></div>
+          <div class="fld"><div class="l">ASSET_ENABLED</div><p class="h">Master switch · asset-forge refuses to run when 0</p>
+            <label class="switch"><input type="checkbox"><span class="tk"></span><span class="lb">0 — disabled</span></label></div>
+          <div class="duo">
+            <div class="fld"><div class="l">ASSET_MODEL_DEFAULT</div><p class="h">Generator · photoreal / UI comps</p>
+              <select class="cfg-in"><option selected>google/nano-banana-2-pro</option><option>google/nano-banana-2</option><option>openai/gpt-image-2</option><option>bfl/flux-2</option><option>bytedance/seedream-5</option></select></div>
+            <div class="fld"><div class="l">ASSET_MODEL_TEXTED</div><p class="h">Generator when the asset bears text</p>
+              <select class="cfg-in"><option>google/nano-banana-2-pro</option><option selected>openai/gpt-image-2</option><option>bfl/flux-2</option></select></div>
+            <div class="fld"><div class="l">ASSET_QA_JUDGE</div><p class="h">auto = cross-family pick (bias guard)</p>
+              <select class="cfg-in"><option selected>auto</option><option>openai/gpt-5.6-luna</option><option>google/gemini-3.1-flash-lite</option><option>anthropic/claude-opus-4.8</option></select></div>
+            <div class="fld"><div class="l">ASSET_MAX_ATTEMPTS</div><p class="h">generate→judge attempts · int ≥ 1</p>
+              <input class="cfg-in" value="3"></div>
+            <div class="fld"><div class="l">ASSET_MAX_COST_USD</div><p class="h">per-asset loop cap · finite, &gt; 0</p>
+              <input class="cfg-in" value="1.00"></div>
+            <div class="fld"><div class="l">ASSET_VIDEO_MODEL_DEFAULT</div><p class="h">Video generator · Seedance 2.0 has native audio</p>
+              <select class="cfg-in"><option selected>bytedance/seedance-2.0-fast</option><option>bytedance/seedance-2.0-pro</option><option>google/veo-3.1</option><option>kling/kling-3.0-standard</option><option>openai/sora-2</option></select></div>
+            <div class="fld"><div class="l">ASSET_VIDEO_MODEL_AUDIO</div><p class="h">Override seam for audio-critical briefs</p>
+              <select class="cfg-in"><option selected>bytedance/seedance-2.0-fast</option><option>google/veo-3.1</option></select></div>
+            <div class="fld"><div class="l">ASSET_VIDEO_MAX_COST_USD</div><p class="h">per-video loop cap · priced per second</p>
+              <input class="cfg-in" value="5.00"></div>
+            <div class="fld"><div class="l">ASSET_VIDEO_QA_FRAMES</div><p class="h">frames sampled per judge call · int ≥ 1</p>
+              <input class="cfg-in" value="10"></div>
+          </div>
+          <div class="warnrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex:0 0 auto"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4"/><circle cx="12" cy="17.5" r=".6" fill="currentColor" stroke="none"/></svg>
+          <span>An <b>exhausted</b> loop escalates to panel review, then the human — never auto-accepts.</span></div>
+        </div></div>
+
+        <div class="seg-view sv bud"><div class="card">
+          <div class="ch"><h2>Budgets &amp; cost cap</h2><span class="m">limits</span></div>
+          <div class="duo">
+            <div class="fld bad"><div class="l">PANEL_MAX_COST_USD</div><p class="h">Per-invocation cap · finite, &gt; 0</p>
+              <input class="cfg-in" value="inf"><div class="e">must be a finite number &gt; 0 — file left unchanged</div></div>
+            <div class="fld"><div class="l">MAX_IMPL_ATTEMPTS</div><p class="h">int ≥ 1</p><input class="cfg-in" value="3"></div>
+            <div class="fld"><div class="l">MAX_REVIEW_CYCLES</div><p class="h">int ≥ 1</p><input class="cfg-in" value="2"></div>
+            <div class="fld"><div class="l">MAX_BULK_RETRIES</div><p class="h">int ≥ 1</p><input class="cfg-in" value="1"></div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="locked">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+        Locked (edit by hand only): PANEL_PROVIDER · PANEL_ROUTING · PANEL_VERDICT_PATH · VERIFY_CMD · LINT_CMD · UI_VERIFY_CMD · secrets
+      </div>
+      <div class="savebar"><button class="btn" type="button">Save to agent.config</button>
+        <span class="note">Writes only allowlisted keys · comments &amp; other keys preserved byte-for-byte · atomic (temp + replace)</span></div>
+    </section>
+
+  </main>
+  <div class="foot">Static mockup · working CSS-only tabs (no JS) · offline-clean (inline CSS + SVG, no CDN) ·
+  sample data maps to real dashboard fields · design target under ROUTING.md Rule 11 — see file design notes.</div>
+</div>
+</body>
+</html>

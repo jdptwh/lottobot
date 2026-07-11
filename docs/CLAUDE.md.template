@@ -1,0 +1,55 @@
+# CLAUDE.md — <PROJECT NAME>
+# Installed by the panel-satellite agentic harness (v5.1). Personalize the
+# bracketed sections for this project; keep it under ~150 lines.
+
+## What this project is
+<One paragraph: what this repo builds, for whom, and what "shipped" means here.>
+
+The **agentic harness** is installed: the routed agent system (planner /
+spec-drafter / implementer / reviewer / grunt + verification gates + verdict
+discipline), the multi-model panel satellite it can call at the plan/review gates
+(Rule 12), and the asset pipeline for generated visual assets (Rule 13). Every
+capability is DORMANT by default (`PANEL_ENABLED=0`, `ASSET_ENABLED=0`) — until
+enabled, this repo behaves as a plain routed-agent project.
+
+## Current state (correct as needed)
+- Last completed: harness installed; gate green.
+- In progress: <fill>
+- Next up: <fill>
+- Blocked on: <fill>
+
+## Conventions
+- Stack / language: <fill — detected by the installer skill>
+- Verification surface: <fill — the test/lint/build commands that prove work>
+- Verification commands and loop budgets: defined ONCE in `.claude/agent.config`
+  (gate.sh sources it; env vars override per session — ROUTING.md Rule 10).
+
+## Routing
+Follow ROUTING.md. Summary: PLANNER owns specs + arbitrates escalations;
+SPEC-DRAFTER drafts cheaply; IMPLEMENTER does judgment work; REVIEWER reviews and
+escalates hard calls; BULK takes only machine-verifiable work. Route by
+verifiability. Two human touchpoints: approve the spec, accept the result.
+The panel is invoked at the plan/review gates per Rule 12 (PANEL_ENABLED /
+PANEL_TRIGGER; advises, never the verdict of record) — see
+docs/panel_integration.md. Visual assets go through asset-forge per Rule 13
+(ASSET_ENABLED; cross-family QA; exhausted loops escalate to panel then human).
+Loop budgets (`.claude/agent.config`) bound every autonomous run; failed loops
+resume from git state, never replay (Rule 9).
+
+## Keys (never in this file, never committed)
+- `OPENROUTER_API_KEY` in gitignored `.env` — all the panel needs.
+- `ATLASCLOUD_API_KEY` in gitignored `.mcp.json` — asset pipeline (optional).
+- NEVER export `ANTHROPIC_API_KEY` in the lead's environment (metering footgun).
+
+## Definition of done
+- [ ] Verification commands pass (loop 3 gate green)
+- [ ] Acceptance criteria from the spec checked off
+- [ ] No files touched outside the spec
+- [ ] UI work (Rule 11): mockup approved BEFORE build; polish audit vs. the mockup
+- [ ] CLAUDE.md "Current state" updated
+
+## Do not
+- Add runtime dependencies without spec authorization.
+- Route Claude Code subagents through a provider gateway.
+- Export ANTHROPIC_API_KEY in the lead's environment.
+- Refactor beyond the task's declared scope; guess on ambiguous specs — stop and ask.

@@ -1,0 +1,63 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -m panel:*)",
+      "Bash(python -m panel:*)",
+      "Bash(python3 -m pytest:*)",
+      "Bash(python -m pytest:*)",
+      "Bash(npm test:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run lint:*)",
+      "Bash(npx playwright:*)",
+      "Bash(pytest:*)",
+      "Bash(ruff:*)",
+      "Bash(cmake:*)",
+      "Bash(ctest:*)",
+      "Bash(python scripts/:*)",
+      "Bash(python3 .claude/hooks/:*)",
+      "Bash(python .claude/hooks/:*)",
+      "Bash(mkdir -p .claude/state)",
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Read(**)",
+      "Edit(**)",
+      "Write(**)"
+    ],
+    "deny": [
+      "Bash(git push:*)",
+      "Bash(rm -rf:*)",
+      "Bash(curl:*)",
+      "Bash(wget:*)",
+      "Read(.env)",
+      "Read(.env.*)",
+      "Read(**/secrets/**)"
+    ]
+  },
+  "hooks": {
+    "SubagentStop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/gate.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/gate.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": "5.0",
+  "source": "panel",
+  "gate": "plan",
+  "task_id": "wave2-malformed",
+  "expert_opinions": [
+    {
+      "model": "anthropic/claude-fable-5",
+      "role": "expert",
+      "summary": "Missing the required confidence field on this expert opinion.",
+      "recommendation": "n/a"
+    }
+  ],
+  "disagreement_summary": {
+    "consensus_points": [],
+    "contradictions": [],
+    "unique_insights": [],
+    "blind_spots": []
+  },
+  "synthesis": {
+    "synthesizer": "anthropic/claude-opus-4.8",
+    "artifact": null,
+    "rationale": "This fixture is structurally invalid on purpose (expert missing 'confidence') to exercise exit 3."
+  },
+  "verdict": "PASS",
+  "cost_usd_total": 0.4,
+  "cost_cap_breached": false
+}

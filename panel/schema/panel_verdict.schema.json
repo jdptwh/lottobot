@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://panel-satellite/schema/panel_verdict.schema.json",
+  "title": "panel_verdict",
+  "description": "Verdict emitted by the panel satellite (source=panel). Extends the v4 verdict contract. verdict_lint.py hand-mirrors the required keys and enums below (stdlib only, no jsonschema); a drift-tripwire test keeps this file and the validator in sync.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "source",
+    "gate",
+    "task_id",
+    "expert_opinions",
+    "disagreement_summary",
+    "synthesis",
+    "verdict",
+    "cost_usd_total",
+    "cost_cap_breached"
+  ],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "source": { "const": "panel" },
+    "gate": { "enum": ["plan", "review"] },
+    "task_id": { "type": "string" },
+    "expert_opinions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["model", "summary", "confidence"],
+        "properties": {
+          "model": { "type": "string" },
+          "role": { "type": "string" },
+          "summary": { "type": "string" },
+          "recommendation": { "type": "string" },
+          "confidence": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+          "tokens_in": { "type": "integer", "minimum": 0 },
+          "tokens_out": { "type": "integer", "minimum": 0 },
+          "cost_usd": { "type": "number", "minimum": 0.0 }
+        }
+      }
+    },
+    "disagreement_summary": {
+      "type": "object",
+      "properties": {
+        "consensus_points": { "type": "array", "items": { "type": "string" } },
+        "contradictions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "topic": { "type": "string" },
+              "positions": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "model": { "type": "string" },
+                    "stance": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "unique_insights": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "model": { "type": "string" },
+              "insight": { "type": "string" }
+            }
+          }
+        },
+        "blind_spots": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "synthesis": {
+      "type": "object",
+      "required": ["synthesizer", "artifact"],
+      "properties": {
+        "synthesizer": { "type": "string" },
+        "artifact": { "type": ["string", "null"] },
+        "rationale": { "type": "string" },
+        "findings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["severity"],
+            "properties": {
+              "id": { "type": "string" },
+              "severity": { "enum": ["critical", "major", "minor"] },
+              "confidence": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+              "source_models": { "type": "array", "items": { "type": "string" } },
+              "disputed": { "type": "boolean" },
+              "arbiter_ruling": { "enum": ["upheld", "rejected", null] }
+            }
+          }
+        }
+      }
+    },
+    "verdict": { "enum": ["PASS", "FAIL", "REVISE"] },
+    "cost_usd_total": { "type": "number", "minimum": 0.0 },
+    "cost_cap_breached": { "type": "boolean" }
+  }
+}

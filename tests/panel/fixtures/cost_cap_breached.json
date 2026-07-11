@@ -1,0 +1,43 @@
+{
+  "schema_version": "5.0",
+  "source": "panel",
+  "gate": "plan",
+  "task_id": "wave2-adapters-costcap",
+  "expert_opinions": [
+    {
+      "model": "anthropic/claude-fable-5",
+      "role": "expert",
+      "summary": "Reached a plan, but the panel exceeded PANEL_MAX_COST_USD mid-synthesis.",
+      "recommendation": "Treat as untrustworthy; escalate to human despite the nominal PASS.",
+      "confidence": 0.7,
+      "tokens_in": 20000,
+      "tokens_out": 4000,
+      "cost_usd": 1.5
+    },
+    {
+      "model": "openai/gpt-5.5",
+      "role": "expert",
+      "summary": "Concurs on the plan direction.",
+      "recommendation": "Proceed.",
+      "confidence": 0.68,
+      "tokens_in": 20000,
+      "tokens_out": 4000,
+      "cost_usd": 0.6
+    }
+  ],
+  "disagreement_summary": {
+    "consensus_points": ["Plan direction agreed"],
+    "contradictions": [],
+    "unique_insights": [],
+    "blind_spots": []
+  },
+  "synthesis": {
+    "synthesizer": "anthropic/claude-opus-4.8",
+    "artifact": "SPEC: (partial) — synthesis truncated when the cost cap was hit.",
+    "rationale": "Cost cap breached during synthesis; verdict is nominally PASS but must not be trusted as final.",
+    "findings": []
+  },
+  "verdict": "PASS",
+  "cost_usd_total": 2.375,
+  "cost_cap_breached": true
+}

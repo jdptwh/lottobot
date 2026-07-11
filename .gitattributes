@@ -1,0 +1,13 @@
+# Normalise line endings to LF in the repo and on checkout (cross-platform safe).
+# Critical for .claude/hooks/gate.sh (bash) and the Python gate path — CRLF can break
+# the shebang / config sourcing on some setups.
+* text=auto eol=lf
+*.cmd   text eol=crlf
+*.bat   text eol=crlf
+*.sh    text eol=lf
+*.py    text eol=lf
+*.json  text eol=lf
+*.md    text eol=lf
+*.html  text eol=lf
+*.zip   binary
+*.png   binary

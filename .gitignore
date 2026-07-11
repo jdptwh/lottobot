@@ -1,0 +1,9 @@
+# agentic harness (installed)
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+.env.*
+.mcp.json
+.claude/state/*
+!.claude/state/.gitkeep

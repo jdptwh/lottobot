@@ -1,0 +1,62 @@
+{
+  "schema_version": "5.0",
+  "source": "panel",
+  "gate": "review",
+  "task_id": "wave2-provider-adapters-review",
+  "expert_opinions": [
+    {
+      "model": "anthropic/claude-opus-4.8",
+      "role": "reviewer",
+      "summary": "Adapter lacks a timeout on the streaming path; retry could double-charge if a side-effecting tool ran.",
+      "recommendation": "Add per-call timeout; assert no side-effect ran before retry.",
+      "confidence": 0.9,
+      "tokens_in": 20000,
+      "tokens_out": 4000,
+      "cost_usd": 0.225
+    },
+    {
+      "model": "deepseek/deepseek-v4-pro",
+      "role": "reviewer",
+      "summary": "Cost meter reads usage before checking for null usage block on provider fallback.",
+      "recommendation": "Guard against missing usage-accounting fields on fallback routes.",
+      "confidence": 0.71,
+      "tokens_in": 20000,
+      "tokens_out": 4000,
+      "cost_usd": 0.012
+    }
+  ],
+  "disagreement_summary": {
+    "consensus_points": ["Retry safety needs an explicit no-side-effect assertion"],
+    "contradictions": [],
+    "unique_insights": [
+      {"model": "deepseek/deepseek-v4-pro", "insight": "Fallback routes can omit usage-accounting fields."}
+    ],
+    "blind_spots": []
+  },
+  "synthesis": {
+    "synthesizer": "anthropic/claude-opus-4.8",
+    "artifact": null,
+    "rationale": "Union of independent findings; arbiter (Fable) adjudicated the disputed timeout severity.",
+    "findings": [
+      {
+        "id": "F1",
+        "severity": "major",
+        "confidence": 0.9,
+        "source_models": ["anthropic/claude-opus-4.8"],
+        "disputed": true,
+        "arbiter_ruling": "upheld"
+      },
+      {
+        "id": "F2",
+        "severity": "minor",
+        "confidence": 0.71,
+        "source_models": ["deepseek/deepseek-v4-pro"],
+        "disputed": false,
+        "arbiter_ruling": null
+      }
+    ]
+  },
+  "verdict": "PASS",
+  "cost_usd_total": 0.237,
+  "cost_cap_breached": false
+}

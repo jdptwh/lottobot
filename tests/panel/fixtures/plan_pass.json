@@ -1,0 +1,53 @@
+{
+  "schema_version": "5.0",
+  "source": "panel",
+  "gate": "plan",
+  "task_id": "wave2-provider-adapters",
+  "expert_opinions": [
+    {
+      "model": "anthropic/claude-fable-5",
+      "role": "expert",
+      "summary": "Adapter should wrap the OpenRouter OpenAI-compatible endpoint with provider fallback.",
+      "recommendation": "Single OpenRouter key; enable Exacto for tool calls; capture per-generation cost via /api/v1/generation.",
+      "confidence": 0.82,
+      "tokens_in": 20000,
+      "tokens_out": 4000,
+      "cost_usd": 0.4
+    },
+    {
+      "model": "openai/gpt-5.5",
+      "role": "expert",
+      "summary": "Favor structured outputs and a strict timeout; retries only on 429/5xx.",
+      "recommendation": "Add safe_retry with idempotency guard; panel calls are read-only so retry is safe.",
+      "confidence": 0.77,
+      "tokens_in": 20000,
+      "tokens_out": 4000,
+      "cost_usd": 0.22
+    }
+  ],
+  "disagreement_summary": {
+    "consensus_points": ["Use OpenRouter as the single gateway", "Retries safe because panel is read-only"],
+    "contradictions": [
+      {
+        "topic": "caching",
+        "positions": [
+          {"model": "anthropic/claude-fable-5", "stance": "rely on Anthropic prompt caching"},
+          {"model": "openai/gpt-5.5", "stance": "do not depend on caching across provider switches"}
+        ]
+      }
+    ],
+    "unique_insights": [
+      {"model": "openai/gpt-5.5", "insight": "Pin providers if leaning on caching (breaks across Bedrock/Vertex)."}
+    ],
+    "blind_spots": ["No mention of OpenRouter rate-limit headers"]
+  },
+  "synthesis": {
+    "synthesizer": "anthropic/claude-opus-4.8",
+    "artifact": "SPEC: Wave 2 provider adapters. Wrap OpenRouter OpenAI-compatible endpoint; single key; Exacto on for tool calls; structured outputs; safe_retry on 429/5xx only; per-generation cost via /api/v1/generation. Do not depend on cross-provider caching.",
+    "rationale": "Merged both experts; kept the caching caveat as an explicit non-dependency.",
+    "findings": []
+  },
+  "verdict": "PASS",
+  "cost_usd_total": 0.895,
+  "cost_cap_breached": false
+}

@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "atlascloud": {
+      "command": "{{HARNESS_ROOT}}/scripts/atlas-mcp.cmd",
+      "args": [],
+      "env": { "ATLASCLOUD_API_KEY": "{{ATLASCLOUD_API_KEY}}" }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": "5.0",
+  "source": "panel",
+  "gate": "plan",
+  "task_id": "wave3-orchestrator",
+  "expert_opinions": [
+    {
+      "model": "deepseek/deepseek-v4-pro",
+      "role": "expert",
+      "summary": "Synthesis prompt underspecifies the union+arbiter path for REVIEW mode.",
+      "recommendation": "Split PLAN aggregate prompt from REVIEW arbiter prompt before implementing.",
+      "confidence": 0.6,
+      "tokens_in": 20000,
+      "tokens_out": 4000,
+      "cost_usd": 0.012
+    },
+    {
+      "model": "openai/gpt-5.5",
+      "role": "expert",
+      "summary": "Spec conflates aggregate and union aggregation; needs disambiguation.",
+      "recommendation": "Return the task for re-scoping.",
+      "confidence": 0.64,
+      "tokens_in": 20000,
+      "tokens_out": 4000,
+      "cost_usd": 0.22
+    }
+  ],
+  "disagreement_summary": {
+    "consensus_points": ["Aggregation modes must be specified separately"],
+    "contradictions": [],
+    "unique_insights": [],
+    "blind_spots": ["No prompt-injection hardening discussed for expert outputs"]
+  },
+  "synthesis": {
+    "synthesizer": "anthropic/claude-opus-4.8",
+    "artifact": null,
+    "rationale": "Both experts flag the same scoping defect; returning for revision rather than forcing a merged artifact.",
+    "findings": []
+  },
+  "verdict": "REVISE",
+  "cost_usd_total": 0.507,
+  "cost_cap_breached": false
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": "5.0",
+  "source": "panel",
+  "gate": "review",
+  "task_id": "wave3-orchestrator-review",
+  "expert_opinions": [
+    {
+      "model": "anthropic/claude-opus-4.8",
+      "role": "reviewer",
+      "summary": "Orchestrator dispatches experts sequentially, not in parallel — violates the async requirement and doubles latency.",
+      "recommendation": "Reject; require asyncio.gather dispatch per the component spec.",
+      "confidence": 0.94,
+      "tokens_in": 20000,
+      "tokens_out": 4000,
+      "cost_usd": 0.225
+    }
+  ],
+  "disagreement_summary": {
+    "consensus_points": [],
+    "contradictions": [],
+    "unique_insights": [],
+    "blind_spots": []
+  },
+  "synthesis": {
+    "synthesizer": "anthropic/claude-opus-4.8",
+    "artifact": null,
+    "rationale": "A critical, undisputed defect against an explicit spec requirement — fail.",
+    "findings": [
+      {
+        "id": "F1",
+        "severity": "critical",
+        "confidence": 0.94,
+        "source_models": ["anthropic/claude-opus-4.8"],
+        "disputed": false,
+        "arbiter_ruling": null
+      }
+    ]
+  },
+  "verdict": "FAIL",
+  "cost_usd_total": 0.225,
+  "cost_cap_breached": false
+}

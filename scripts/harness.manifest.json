@@ -1,0 +1,45 @@
+{
+  "version": "5.1",
+  "description": "The installable agentic harness — one source of truth for what setup.py --install-into copies into a target project.",
+  "copy_dirs": [
+    ".claude/agents",
+    ".claude/hooks",
+    ".claude/skills",
+    "panel",
+    "tests",
+    "docs"
+  ],
+  "copy_files": [
+    ".claude/agent.config",
+    ".claude/settings.json",
+    "conftest.py",
+    "pyproject.toml",
+    "ROUTING.md",
+    "INSTALL.md",
+    ".mcp.json.example",
+    ".gitattributes",
+    "scripts/setup.py",
+    "scripts/atlas-mcp.cmd",
+    "scripts/harness.manifest.json"
+  ],
+  "guard_if_exists": [
+    "pyproject.toml",
+    "conftest.py",
+    ".gitattributes",
+    ".claude/settings.json"
+  ],
+  "claude_md_template": "docs/CLAUDE.md.template",
+  "state_dirs": [".claude/state"],
+  "force_dormant_keys": ["PANEL_ENABLED", "ASSET_ENABLED"],
+  "gitignore_lines": [
+    "__pycache__/",
+    "*.pyc",
+    ".pytest_cache/",
+    ".env",
+    ".env.*",
+    ".mcp.json",
+    ".claude/state/*",
+    "!.claude/state/.gitkeep"
+  ],
+  "copy_ignore": ["__pycache__", "*.pyc", ".pytest_cache"]
+}
