@@ -19,11 +19,13 @@ capability is DORMANT by default (`PANEL_ENABLED=0`, `ASSET_ENABLED=0`) — unti
 enabled, this repo behaves as a plain routed-agent project.
 
 ## Current state (correct as needed)
-- Last completed: harness installed (v5.1); gate green; CRLF fix applied to
-  scripts/atlas-mcp.cmd (+ .gitattributes rule — upstream C:\dev copy still has the bug).
-- In progress: panel composition (docs/panel/panel-composition.md) awaiting human approval.
-- Next up: M1 — scraper + frozen fixture + parser/schema gate tests.
-- Blocked on: human approval of the panel composition.
+- Last completed: M1 green (commit eaefaa4) — scraper + frozen 2026-07-11 fixture
+  (65 games), §6.1 parser gate + §6.3 schema gate, reviewer PASS (verdict.json).
+  Panel composition approved 2026-07-11. Dashboard port is 8207 (project-unique).
+- In progress: —
+- Next up: M2 — print-run scrape (games.json) per panel S1; needs ~8 polite
+  fetches of the per-price-point detail pages (fresh fixtures to freeze).
+- Blocked on: human go-ahead to continue to M2 (M1 stop-and-report rule).
 
 ## Conventions
 - Stack / language: Python 3.11 target (3.12 local OK); scraper deps `requests` +
