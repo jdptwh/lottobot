@@ -135,7 +135,7 @@ class _Handler(BaseHTTPRequestHandler):
             self.end_headers()
 
 
-def make_server(host="127.0.0.1", port=8787, *, config_path, verdict_path=None, cost_log_path):
+def make_server(host="127.0.0.1", port=8207, *, config_path, verdict_path=None, cost_log_path):
     """Build (but do not serve) the dashboard server. Refuses any non-loopback host."""
     if host not in _LOOPBACK:
         raise ValueError(f"refusing to bind non-loopback host {host!r}; use 127.0.0.1/localhost")

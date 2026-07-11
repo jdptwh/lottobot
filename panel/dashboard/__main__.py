@@ -15,7 +15,7 @@ def main(argv=None):
     p = argparse.ArgumentParser(prog="panel.dashboard",
                                 description="Local observe/config dashboard for the panel satellite.")
     p.add_argument("--host", default="127.0.0.1")
-    p.add_argument("--port", type=int, default=8787)
+    p.add_argument("--port", type=int, default=8207)  # project-unique (Maine area code), not the harness default 8787
     p.add_argument("--config", default=".claude/agent.config")
     p.add_argument("--verdict-path", default=None)
     p.add_argument("--cost-log", default=".claude/state/panel_cost_log.jsonl")

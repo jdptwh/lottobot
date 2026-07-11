@@ -12,7 +12,7 @@ and does nothing until you switch it on and provide keys.
 ```
 cd panel-satellite
 python scripts/setup.py            # prompts for keys (all skippable), reports optional deps, runs the gate
-python -m panel.dashboard          # open http://127.0.0.1:8787/  (observe / configure)
+python -m panel.dashboard          # open http://127.0.0.1:8207/  (observe / configure)
 ```
 That's it — everything stays a no-op until you flip `PANEL_ENABLED` / `ASSET_ENABLED`.
 

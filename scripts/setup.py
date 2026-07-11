@@ -311,7 +311,7 @@ def main(argv=None):
         print("[setup] gate green.")
 
     print("\nNext:")
-    print("  • Dashboard (observe/config):  python -m panel.dashboard   -> http://127.0.0.1:8787/")
+    print("  • Dashboard (observe/config):  python -m panel.dashboard   -> http://127.0.0.1:8207/")
     print("  • Enable the panel when ready:  set PANEL_ENABLED=1 in .claude/agent.config (or the dashboard Config tab)")
     print("  • Prove the wire path (~1c):    python -m pytest -q -m live")
     print("  • See docs/RUNBOOK.md for the full safe-enable checklist.")

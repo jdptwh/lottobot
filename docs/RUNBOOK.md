@@ -27,7 +27,7 @@ python -m pytest -q            # GATE 1: full suite, mocked, zero network, zero 
 
 ## The dashboard (observe / configure)
 ```
-python -m panel.dashboard      # → http://127.0.0.1:8787/   (127.0.0.1 only)
+python -m panel.dashboard      # → http://127.0.0.1:8207/   (127.0.0.1 only)
 ```
 Tabs: Overview / Verdict / Cost / Config. The Config tab edits an allowlist of
 `agent.config` keys (roles / lineups / budgets / cost cap / toggles) with a byte-preserving
