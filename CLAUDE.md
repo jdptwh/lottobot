@@ -19,13 +19,17 @@ capability is DORMANT by default (`PANEL_ENABLED=0`, `ASSET_ENABLED=0`) — unti
 enabled, this repo behaves as a plain routed-agent project.
 
 ## Current state (correct as needed)
-- Last completed: M1 green (commit eaefaa4) — scraper + frozen 2026-07-11 fixture
-  (65 games), §6.1 parser gate + §6.3 schema gate, reviewer PASS (verdict.json).
-  Panel composition approved 2026-07-11. Dashboard port is 8207 (project-unique).
+- Last completed: M2 green — scraper/games.py + data/games.json: 58 article
+  fixtures (35 live pull under the §8 owner-approved exception + 23 Wayback
+  Machine recoveries; provenance in fixtures/games/PROVENANCE.json), print-run
+  coverage 56/65 active = 86.2% (gate ≥80%), tile-primary price sourcing,
+  reviewer FAIL→fix→PASS across 2 cycles. M1 green at eaefaa4. Dashboard port
+  8207. Panel composition approved 2026-07-11.
 - In progress: —
-- Next up: M2 — print-run scrape (games.json) per panel S1; needs ~8 polite
-  fetches of the per-price-point detail pages (fresh fixtures to freeze).
-- Blocked on: human go-ahead to continue to M2 (M1 stop-and-report rule).
+- Next up: M3 — EV v1 (compute.py) + latest.json; hand-check 3 games (human).
+  9 articleless games (586, 648, 664, 668, 669, 681, 689, 697, 710) use the
+  null-print-run relative-score fallback.
+- Blocked on: human go-ahead to continue to M3 (stop-and-report rule).
 
 ## Conventions
 - Stack / language: Python 3.11 target (3.12 local OK); scraper deps `requests` +
