@@ -53,6 +53,8 @@
         "ev_per_ticket": { "type": ["number", "null"] },
         "ev_ratio": { "type": ["number", "null"] },
         "ev_ratio_adjusted": { "type": ["number", "null"] },
+        "relative_score": { "type": ["number", "null"] },
+        "top_prize_odds_now": { "type": ["number", "null"] },
         "dead_game": { "type": "boolean" },
         "flags": {
           "type": "array",
