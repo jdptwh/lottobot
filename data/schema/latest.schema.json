@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mainescratchevranker.example/schemas/latest.schema.json",
+  "title": "latest.json — site contract (maine-scratch-ev-spec.md §4)",
+  "description": "Additive-only contract: fields are never removed, only added.",
+  "type": "object",
+  "required": ["as_of", "source_timestamp", "games"],
+  "properties": {
+    "as_of": {
+      "type": "string",
+      "description": "ISO date the run happened (run truth, not page truth)."
+    },
+    "source_timestamp": {
+      "type": "string",
+      "description": "The page's own 'as of ...' timestamp (page truth)."
+    },
+    "games": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/game" }
+    }
+  },
+  "$defs": {
+    "game": {
+      "type": "object",
+      "required": [
+        "game_no",
+        "name",
+        "price",
+        "percent_unsold",
+        "total_unclaimed",
+        "top_prizes",
+        "print_run",
+        "remaining_tickets",
+        "ev_per_ticket",
+        "ev_ratio",
+        "ev_ratio_adjusted",
+        "dead_game",
+        "flags",
+        "confidence"
+      ],
+      "properties": {
+        "game_no": { "type": "integer" },
+        "name": { "type": "string" },
+        "price": { "type": "number" },
+        "percent_unsold": { "type": "number" },
+        "total_unclaimed": { "type": "number" },
+        "top_prizes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/top_prize" }
+        },
+        "print_run": { "type": ["integer", "null"] },
+        "remaining_tickets": { "type": ["number", "null"] },
+        "ev_per_ticket": { "type": ["number", "null"] },
+        "ev_ratio": { "type": ["number", "null"] },
+        "ev_ratio_adjusted": { "type": ["number", "null"] },
+        "dead_game": { "type": "boolean" },
+        "flags": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "confidence": {
+          "type": "string",
+          "enum": ["high", "medium", "low"]
+        }
+      }
+    },
+    "top_prize": {
+      "type": "object",
+      "required": ["level", "remaining"],
+      "properties": {
+        "level": { "type": "integer" },
+        "remaining": { "type": "integer" }
+      }
+    }
+  }
+}
