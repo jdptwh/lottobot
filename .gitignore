@@ -7,3 +7,8 @@ __pycache__/
 .mcp.json
 .claude/state/*
 !.claude/state/.gitkeep
+
+# stray scratch/verification output (never a project artifact)
+*.err
+gen*.json
+/scratch/
