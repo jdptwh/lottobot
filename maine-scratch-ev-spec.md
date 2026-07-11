@@ -156,6 +156,14 @@ Rules: never delete fields from this schema, only add. Nulls allowed where data 
 - Prominent, non-buried statement: this ranks games by expected value; it cannot predict wins; all scratch games are negative-EV in normal conditions; 1-800-GAMBLER link.
 - Data is republished state public data with attribution and a discrepancy disclaimer mirroring the Lottery's own ("Official Outstanding Prize List prevails").
 - Polite scraping: 1 request/day to the unclaimed page, identify with a UA string, respect robots.txt.
+  - **Documented exception (owner-approved 2026-07-11):** per-game detail data
+    (print run via "Tickets Printed", overall odds, on-sale date) exists only on
+    maine.gov's `/tools/whatsnew/` news CMS, whose robots.txt disallow is a blanket
+    CMS rule; mainelottery.com's own game pages link the public there. Approved:
+    one-time rate-limited pull (~65 pages, ≥2 s delay, identifying UA) frozen as
+    repo fixtures, plus one fetch per new game launch (~1–2/month). The daily
+    automated pipeline NEVER requests from maine.gov. All other robots.txt rules
+    remain binding.
 - No accounts, no tracking, no monetization in v1. (If this ever grows toward the ScratchSmarter-style subscription space, that's a separate business decision with its own diligence.)
 
 ## 9. Open Questions
