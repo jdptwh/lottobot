@@ -56,6 +56,12 @@
      "fine print" register, consistent with the editorial reference's
      "also tested" appendix treatment.
 
+  W2 amendment (2026-07-13): hero qualifier + detail-sheet upper-bound
+  labeling/EV-range/scenario-block/launch-odds rows + excluded-section
+  rename/depletion-note + explainer sentence added per w2_v15_honesty_spec.md
+  Amendments of record 1-5; sample data extended with the six new pipeline
+  fields (real re-frozen-artifact values for all 38 rated games shown).
+
   Anti-generic checklist (self-audit against ui_mockup_protocol.md):
    - no flat grid of same-size dark cards            -> hero band + ranked
      row rhythm, two distinct card treatments, not a uniform grid.
@@ -385,6 +391,16 @@ header.site-header::after {
   border-left: 3px solid var(--gold-500);
   padding-left: 10px;
 }
+.hero-qualifier {
+  font-size: 12px;
+  line-height: 1.4;
+  margin: 6px 0 0;
+  color: var(--gold-300);
+  font-style: italic;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .hero-empty {
   background: var(--cream-100);
   border: 1.5px dashed var(--line);
@@ -490,6 +506,34 @@ details.expander summary::-webkit-details-marker { display: none; }
   margin: 2px 4px 2px 0;
 }
 .pending-note {
+  font-size: 12px;
+  color: var(--ink-soft);
+  font-style: italic;
+  margin: 4px 0 0;
+}
+.scenario-block {
+  margin: 10px 0 0;
+}
+.scenario-heading {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 4px;
+}
+.scenario-list {
+  margin: 0 0 6px;
+  padding-left: 0;
+  list-style: none;
+}
+.scenario-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 3px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 12.5px;
+}
+.scenario-disclaimer {
   font-size: 12px;
   color: var(--ink-soft);
   font-style: italic;
@@ -663,7 +707,7 @@ footer.site-footer a { font-weight: 600; }
 
     <details class="explainer" id="explainer">
       <summary><span class="chev">▶</span> How the score works</summary>
-      <div class="explainer-body">The score (0–100) compares each game's naive expected value per dollar against every other rateable Maine scratch game today, discounted when the inventory data behind it is thin. Grades are fixed bands on that score. Scores are relative and re-anchor every day — a 95 today is not a 95 tomorrow, and no score predicts a win. Every scratch game loses money on average; the best pick is only the least bad.</div>
+      <div class="explainer-body">The score (0–100) compares each game's naive expected value per dollar against every other rateable Maine scratch game today, discounted when the inventory data behind it is thin. That expected value is an upper bound on unclaimed prize value per estimated unsold ticket — some unclaimed prizes sit on tickets already sold but not yet claimed, so the true expected value is lower. Grades are fixed bands on that score. Scores are relative and re-anchor every day — a 95 today is not a 95 tomorrow, and no score predicts a win. Every scratch game loses money on average; the best pick is only the least bad.</div>
     </details>
 
     <div class="price-filter">
@@ -687,10 +731,11 @@ footer.site-footer a { font-weight: 600; }
 
     <section class="claim-lag-section" aria-labelledby="claim-lag-heading">
       <div class="claim-lag-header">
-        <h2 id="claim-lag-heading">Excluded: claim-lag games</h2>
+        <h2 id="claim-lag-heading">Excluded from best pick</h2>
         <span class="claim-lag-count tabular" id="claim-lag-count"></span>
       </div>
       <p class="claim-lag-caveat">Caution: &quot;unclaimed&quot; prizes are often on already-sold tickets awaiting redemption, so naive EV overstates value — most severely on nearly-sold-out games. Treat an unusually high EV as a warning sign, not a tip.</p>
+      <p class="claim-lag-caveat">Nearly sold-out games are also excluded: with so few tickets left, the estimate is too unstable to rank.</p>
       <details class="claim-lag-list-toggle">
         <summary><span class="chev">▶</span> Show the 11 claim-lag games</summary>
         <div id="claim-lag-slot"></div>
@@ -744,58 +789,58 @@ footer.site-footer a { font-weight: 600; }
 
   // Rated + eligible, ranks 1 (hero) through 10 — PINNED.
   var TOP10 = [
-    { game_no: 630, name: "$500,000 ROYAL CASH", price: 20, percent_unsold: 11.2, total_unclaimed: 2940760, ev_ratio: 1.367541, ev_per_ticket: 27.350818, print_run: 960000, remaining_tickets: 107520, confidence: "medium", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 53760, top_prizes: [
+    { game_no: 630, name: "$500,000 ROYAL CASH", price: 20, percent_unsold: 11.2, total_unclaimed: 2940760, ev_ratio: 1.367541, ev_per_ticket: 27.350818, print_run: 960000, remaining_tickets: 107520, confidence: "medium", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 53760, remaining_tickets_min: 107040, remaining_tickets_max: 108000, ev_ratio_min: 1.361463, ev_ratio_max: 1.373673, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.683771 }, { assumed_claimed_share: 0.8, ev_ratio: 0.273508 }, { assumed_claimed_share: 0.95, ev_ratio: 0.068377 }], overall_odds_launch: 2.84, top_prizes: [
         { level: 500000, remaining: 2 }, { level: 10000, remaining: 3 }, { level: 5000, remaining: 7 }, { level: 1000, remaining: 114 }, { level: 500, remaining: 310 }
       ], value_score: 95, grade: "A", rated: true, reason: REASON.medium },
-    { game_no: 662, name: "COUNT `EM UP", price: 2, percent_unsold: 13.2, total_unclaimed: 326405, ev_ratio: 1.287899, ev_per_ticket: 2.575797, print_run: 960000, remaining_tickets: 126720, confidence: "medium", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 126720, top_prizes: [
+    { game_no: 662, name: "COUNT `EM UP", price: 2, percent_unsold: 13.2, total_unclaimed: 326405, ev_ratio: 1.287899, ev_per_ticket: 2.575797, print_run: 960000, remaining_tickets: 126720, confidence: "medium", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 126720, remaining_tickets_min: 126240, remaining_tickets_max: 127200, ev_ratio_min: 1.283039, ev_ratio_max: 1.292795, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.64395 }, { assumed_claimed_share: 0.8, ev_ratio: 0.25758 }, { assumed_claimed_share: 0.95, ev_ratio: 0.064395 }], overall_odds_launch: 4.19, top_prizes: [
         { level: 15000, remaining: 1 }, { level: 1000, remaining: 5 }
       ], value_score: 87, grade: "A", rated: true, reason: REASON.medium },
-    { game_no: 708, name: "ELECTRIC 8'S", price: 2, percent_unsold: 33.9, total_unclaimed: 619540, ev_ratio: 1.087828, print_run: 840000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 142380, value_score: 87, grade: "A", rated: true, reason: REASON.high },
-    { game_no: 685, name: "20X THE WIN", price: 5, percent_unsold: 15.5, total_unclaimed: 1295845, ev_ratio: 1.071832, print_run: 1560000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 120900, value_score: 85, grade: "A", rated: true, reason: REASON.high },
-    { game_no: 647, name: "MAINE CROSSWORD", price: 3, percent_unsold: 8.6, total_unclaimed: 1743381, ev_ratio: 1.25135, print_run: 5400000, confidence: "medium", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 116100, value_score: 84, grade: "A-", rated: true, reason: REASON.medium },
-    { game_no: 699, name: "LEAP FOR LOOT", price: 3, percent_unsold: 24.7, total_unclaimed: 883012, ev_ratio: 0.993041, print_run: 1200000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 296400, value_score: 76, grade: "B+", rated: true, reason: REASON.high },
-    { game_no: 709, name: "CA$H BLA$T", price: 5, percent_unsold: 25.6, total_unclaimed: 1210330, ev_ratio: 0.984969, print_run: 960000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 245760, value_score: 75, grade: "B+", rated: true, reason: REASON.high },
-    { game_no: 687, name: "10X THE WIN", price: 2, percent_unsold: 23.9, total_unclaimed: 722926, ev_ratio: 0.969486, print_run: 1560000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 186420, value_score: 73, grade: "B", rated: true, reason: REASON.high },
-    { game_no: 705, name: "ALL THE MONEY", price: 2, percent_unsold: 50.1, total_unclaimed: 817079, ev_ratio: 0.970772, print_run: 840000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 84168, value_score: 73, grade: "B", rated: true, reason: REASON.high },
-    { game_no: 730, name: "GRAB A GRAND", price: 1, percent_unsold: 60.1, total_unclaimed: 553821, ev_ratio: 0.959895, print_run: 960000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 48080, value_score: 72, grade: "B", rated: true, reason: REASON.high }
+    { game_no: 708, name: "ELECTRIC 8'S", price: 2, percent_unsold: 33.9, total_unclaimed: 619540, ev_ratio: 1.087828, print_run: 840000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 142380, value_score: 87, grade: "A", rated: true, reason: REASON.high, remaining_tickets_min: 284340, remaining_tickets_max: 285180, ev_ratio_min: 1.086226, ev_ratio_max: 1.089435, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.543914 }, { assumed_claimed_share: 0.8, ev_ratio: 0.217566 }, { assumed_claimed_share: 0.95, ev_ratio: 0.054391 }], overall_odds_launch: 4.22 },
+    { game_no: 685, name: "20X THE WIN", price: 5, percent_unsold: 15.5, total_unclaimed: 1295845, ev_ratio: 1.071832, print_run: 1560000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 120900, value_score: 85, grade: "A", rated: true, reason: REASON.high, remaining_tickets_min: 241020, remaining_tickets_max: 242580, ev_ratio_min: 1.068386, ev_ratio_max: 1.075301, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.535916 }, { assumed_claimed_share: 0.8, ev_ratio: 0.214366 }, { assumed_claimed_share: 0.95, ev_ratio: 0.053592 }], overall_odds_launch: 3.87 },
+    { game_no: 647, name: "MAINE CROSSWORD", price: 3, percent_unsold: 8.6, total_unclaimed: 1743381, ev_ratio: 1.25135, print_run: 5400000, confidence: "medium", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 116100, value_score: 84, grade: "A-", rated: true, reason: REASON.medium, remaining_tickets_min: 461700, remaining_tickets_max: 467100, ev_ratio_min: 1.244117, ev_ratio_max: 1.258668, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.625675 }, { assumed_claimed_share: 0.8, ev_ratio: 0.25027 }, { assumed_claimed_share: 0.95, ev_ratio: 0.062568 }], overall_odds_launch: 3.32 },
+    { game_no: 699, name: "LEAP FOR LOOT", price: 3, percent_unsold: 24.7, total_unclaimed: 883012, ev_ratio: 0.993041, print_run: 1200000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 296400, value_score: 76, grade: "B+", rated: true, reason: REASON.high, remaining_tickets_min: 295800, remaining_tickets_max: 297000, ev_ratio_min: 0.991035, ev_ratio_max: 0.995055, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.496521 }, { assumed_claimed_share: 0.8, ev_ratio: 0.198608 }, { assumed_claimed_share: 0.95, ev_ratio: 0.049652 }], overall_odds_launch: 3.37 },
+    { game_no: 709, name: "CA$H BLA$T", price: 5, percent_unsold: 25.6, total_unclaimed: 1210330, ev_ratio: 0.984969, print_run: 960000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 245760, value_score: 75, grade: "B+", rated: true, reason: REASON.high, remaining_tickets_min: 245280, remaining_tickets_max: 246240, ev_ratio_min: 0.983049, ev_ratio_max: 0.986897, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.492485 }, { assumed_claimed_share: 0.8, ev_ratio: 0.196994 }, { assumed_claimed_share: 0.95, ev_ratio: 0.049248 }], overall_odds_launch: 3.87 },
+    { game_no: 687, name: "10X THE WIN", price: 2, percent_unsold: 23.9, total_unclaimed: 722926, ev_ratio: 0.969486, print_run: 1560000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 186420, value_score: 73, grade: "B", rated: true, reason: REASON.high, remaining_tickets_min: 372060, remaining_tickets_max: 373620, ev_ratio_min: 0.967462, ev_ratio_max: 0.971518, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.484743 }, { assumed_claimed_share: 0.8, ev_ratio: 0.193897 }, { assumed_claimed_share: 0.95, ev_ratio: 0.048474 }], overall_odds_launch: 4.31 },
+    { game_no: 705, name: "ALL THE MONEY", price: 2, percent_unsold: 50.1, total_unclaimed: 817079, ev_ratio: 0.970772, print_run: 840000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 84168, value_score: 73, grade: "B", rated: true, reason: REASON.high, remaining_tickets_min: 420420, remaining_tickets_max: 421260, ev_ratio_min: 0.969804, ev_ratio_max: 0.971741, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.485386 }, { assumed_claimed_share: 0.8, ev_ratio: 0.194154 }, { assumed_claimed_share: 0.95, ev_ratio: 0.048539 }], overall_odds_launch: 4.17 },
+    { game_no: 730, name: "GRAB A GRAND", price: 1, percent_unsold: 60.1, total_unclaimed: 553821, ev_ratio: 0.959895, print_run: 960000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 48080, value_score: 72, grade: "B", rated: true, reason: REASON.high, remaining_tickets_min: 576480, remaining_tickets_max: 577440, ev_ratio_min: 0.959097, ev_ratio_max: 0.960694, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.479948 }, { assumed_claimed_share: 0.8, ev_ratio: 0.191979 }, { assumed_claimed_share: 0.95, ev_ratio: 0.047995 }], overall_odds_launch: 4.43 }
   ];
 
   // Remaining 17 eligible games (rank 11+, revealed by "Show all rated games").
   // 711 / 674 / 682 use m4a's exact pinned worksheet values (70/69/68, all B).
   // The rest are synthesized to fill the B-/C bands of the pinned distribution.
   var SHOW_ALL = [
-    { game_no: 711, name: "HAMILTON", price: 10, percent_unsold: 36.0, total_unclaimed: 4082135, ev_ratio: 0.944939, print_run: 1200000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 216000, value_score: 70, grade: "B", rated: true, reason: REASON.high },
-    { game_no: 674, name: "CASH TIMES 10", price: 10, percent_unsold: 14.1, total_unclaimed: 1853755, ev_ratio: 1.0956, print_run: 1200000, confidence: "medium", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 169200, value_score: 69, grade: "B", rated: true, reason: REASON.medium },
-    { game_no: 682, name: "BIG MONEY SPECTACULAR", price: 2, percent_unsold: 64.6, total_unclaimed: 1000190, ev_ratio: 0.921596, print_run: 840000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 108528, value_score: 68, grade: "B", rated: true, reason: REASON.high },
-    { game_no: 656, name: "POWER SPOT", price: 5, percent_unsold: 26.9, total_unclaimed: 1484520, ev_ratio: 0.836161, print_run: 1320000, confidence: "high", flags: [], dead_game: false, top_prize_odds_now: 355080, value_score: 67, grade: "B-", rated: true, reason: REASON.high },
-    { game_no: 677, name: "BLAZING BUCKS", price: 10, percent_unsold: 27.0, total_unclaimed: 3190405, ev_ratio: 0.895175, print_run: 1320000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 356400, value_score: 66, grade: "B-", rated: true, reason: REASON.high },
-    { game_no: 686, name: "25X THE WIN", price: 10, percent_unsold: 49.2, total_unclaimed: 5817915, ev_ratio: 0.821183, print_run: 1440000, confidence: "high", flags: [], dead_game: false, top_prize_odds_now: 708480, value_score: 65, grade: "B-", rated: true, reason: REASON.high },
-    { game_no: 692, name: "MONEY VAULT MULTIPLIER", price: 5, percent_unsold: 42.5, total_unclaimed: 2445975, ev_ratio: 0.872005, print_run: 1320000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 280500, value_score: 64, grade: "B-", rated: true, reason: REASON.high },
-    { game_no: 716, name: "COLOR BLAST CROSSWORD", price: 10, percent_unsold: 86.2, total_unclaimed: 12853820, ev_ratio: 0.828424, print_run: 1800000, confidence: "high", flags: [], dead_game: false, top_prize_odds_now: 387900, value_score: 63, grade: "B-", rated: true, reason: REASON.high },
-    { game_no: 717, name: "HI OR LO", price: 5, percent_unsold: 45.1, total_unclaimed: 1817920, ev_ratio: 0.839763, print_run: 960000, confidence: "high", flags: [], dead_game: false, top_prize_odds_now: 432960, value_score: 62, grade: "B-", rated: true, reason: REASON.high },
-    { game_no: 718, name: "$70 MILLION SUPREME", price: 30, percent_unsold: 72.4, total_unclaimed: 58543650, ev_ratio: 0.869477, print_run: 3100000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 561100, value_score: 61, grade: "C", rated: true, reason: REASON.high },
-    { game_no: 720, name: "CROSSWORD", price: 5, percent_unsold: 89.2, total_unclaimed: 5572450, ev_ratio: 0.800916, print_run: 1560000, confidence: "high", flags: [], dead_game: false, top_prize_odds_now: 278304, value_score: 59, grade: "C", rated: true, reason: REASON.high },
-    { game_no: 723, name: "RED HOT RICHES", price: 5, percent_unsold: 45.4, total_unclaimed: 1996165, ev_ratio: 0.916008, print_run: 960000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 217920, value_score: 57, grade: "C", rated: true, reason: REASON.high },
-    { game_no: 725, name: "HIGH CARD POKER", price: 5, percent_unsold: 63.6, total_unclaimed: 2618385, ev_ratio: 0.857699, print_run: 960000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 305280, value_score: 55, grade: "C", rated: true, reason: REASON.high },
-    { game_no: 729, name: "7-11-21", price: 1, percent_unsold: 72.0, total_unclaimed: 632240, ev_ratio: 0.914699, print_run: 960000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 57600, value_score: 53, grade: "C", rated: true, reason: REASON.high },
-    { game_no: 735, name: "LOTERIA", price: 3, percent_unsold: 79.9, total_unclaimed: 1710868, ev_ratio: 0.849707, print_run: 840000, confidence: "high", flags: [], dead_game: false, top_prize_odds_now: 223720, value_score: 52, grade: "C", rated: true, reason: REASON.high },
-    { game_no: 737, name: "FIND $500!", price: 5, percent_unsold: 77.5, total_unclaimed: 3318190, ev_ratio: 0.891987, print_run: 960000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 396.588486, value_score: 52, grade: "C", rated: true, reason: REASON.high },
-    { game_no: 675, name: "BASEBALL", price: 2, percent_unsold: 47.7, total_unclaimed: 585996, ev_ratio: 0.731252, print_run: 840000, confidence: "high", flags: [], dead_game: false, top_prize_odds_now: 200340, value_score: 46, grade: "D", rated: true, reason: REASON.high }
+    { game_no: 711, name: "HAMILTON", price: 10, percent_unsold: 36.0, total_unclaimed: 4082135, ev_ratio: 0.944939, print_run: 1200000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 216000, value_score: 70, grade: "B", rated: true, reason: REASON.high, remaining_tickets_min: 431400, remaining_tickets_max: 432600, ev_ratio_min: 0.943628, ev_ratio_max: 0.946253, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.47247 }, { assumed_claimed_share: 0.8, ev_ratio: 0.188988 }, { assumed_claimed_share: 0.95, ev_ratio: 0.047247 }], overall_odds_launch: 3.39 },
+    { game_no: 674, name: "CASH TIMES 10", price: 10, percent_unsold: 14.1, total_unclaimed: 1853755, ev_ratio: 1.0956, print_run: 1200000, confidence: "medium", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 169200, value_score: 69, grade: "B", rated: true, reason: REASON.medium, remaining_tickets_min: 168600, remaining_tickets_max: 169800, ev_ratio_min: 1.091729, ev_ratio_max: 1.099499, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.5478 }, { assumed_claimed_share: 0.8, ev_ratio: 0.21912 }, { assumed_claimed_share: 0.95, ev_ratio: 0.05478 }], overall_odds_launch: 3.39 },
+    { game_no: 682, name: "BIG MONEY SPECTACULAR", price: 2, percent_unsold: 64.6, total_unclaimed: 1000190, ev_ratio: 0.921596, print_run: 840000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 108528, value_score: 68, grade: "B", rated: true, reason: REASON.high, remaining_tickets_min: 542220, remaining_tickets_max: 543060, ev_ratio_min: 0.920884, ev_ratio_max: 0.92231, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.460798 }, { assumed_claimed_share: 0.8, ev_ratio: 0.184319 }, { assumed_claimed_share: 0.95, ev_ratio: 0.04608 }], overall_odds_launch: 4.16 },
+    { game_no: 656, name: "POWER SPOT", price: 5, percent_unsold: 26.9, total_unclaimed: 1484520, ev_ratio: 0.836161, print_run: 1320000, confidence: "high", flags: [], dead_game: false, top_prize_odds_now: 355080, value_score: 67, grade: "B-", rated: true, reason: REASON.high, remaining_tickets_min: 354420, remaining_tickets_max: 355740, ev_ratio_min: 0.83461, ev_ratio_max: 0.837718, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.418081 }, { assumed_claimed_share: 0.8, ev_ratio: 0.167232 }, { assumed_claimed_share: 0.95, ev_ratio: 0.041808 }], overall_odds_launch: 3.82 },
+    { game_no: 677, name: "BLAZING BUCKS", price: 10, percent_unsold: 27.0, total_unclaimed: 3190405, ev_ratio: 0.895175, print_run: 1320000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 356400, value_score: 66, grade: "B-", rated: true, reason: REASON.high, remaining_tickets_min: 355740, remaining_tickets_max: 357060, ev_ratio_min: 0.893521, ev_ratio_max: 0.896836, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.447588 }, { assumed_claimed_share: 0.8, ev_ratio: 0.179035 }, { assumed_claimed_share: 0.95, ev_ratio: 0.044759 }], overall_odds_launch: 3.41 },
+    { game_no: 686, name: "25X THE WIN", price: 10, percent_unsold: 49.2, total_unclaimed: 5817915, ev_ratio: 0.821183, print_run: 1440000, confidence: "high", flags: [], dead_game: false, top_prize_odds_now: 708480, value_score: 65, grade: "B-", rated: true, reason: REASON.high, remaining_tickets_min: 707760, remaining_tickets_max: 709200, ev_ratio_min: 0.820349, ev_ratio_max: 0.822018, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.410592 }, { assumed_claimed_share: 0.8, ev_ratio: 0.164237 }, { assumed_claimed_share: 0.95, ev_ratio: 0.041059 }], overall_odds_launch: 3.36 },
+    { game_no: 692, name: "MONEY VAULT MULTIPLIER", price: 5, percent_unsold: 42.5, total_unclaimed: 2445975, ev_ratio: 0.872005, print_run: 1320000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 280500, value_score: 64, grade: "B-", rated: true, reason: REASON.high, remaining_tickets_min: 560340, remaining_tickets_max: 561660, ev_ratio_min: 0.870981, ev_ratio_max: 0.873032, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.436003 }, { assumed_claimed_share: 0.8, ev_ratio: 0.174401 }, { assumed_claimed_share: 0.95, ev_ratio: 0.0436 }], overall_odds_launch: 3.79 },
+    { game_no: 716, name: "COLOR BLAST CROSSWORD", price: 10, percent_unsold: 86.2, total_unclaimed: 12853820, ev_ratio: 0.828424, print_run: 1800000, confidence: "high", flags: [], dead_game: false, top_prize_odds_now: 387900, value_score: 63, grade: "B-", rated: true, reason: REASON.high, remaining_tickets_min: 1550700, remaining_tickets_max: 1552500, ev_ratio_min: 0.827943, ev_ratio_max: 0.828904, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.414212 }, { assumed_claimed_share: 0.8, ev_ratio: 0.165685 }, { assumed_claimed_share: 0.95, ev_ratio: 0.041421 }], overall_odds_launch: 3.15 },
+    { game_no: 717, name: "HI OR LO", price: 5, percent_unsold: 45.1, total_unclaimed: 1817920, ev_ratio: 0.839763, print_run: 960000, confidence: "high", flags: [], dead_game: false, top_prize_odds_now: 432960, value_score: 62, grade: "B-", rated: true, reason: REASON.high, remaining_tickets_min: 432480, remaining_tickets_max: 433440, ev_ratio_min: 0.838834, ev_ratio_max: 0.840696, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.419882 }, { assumed_claimed_share: 0.8, ev_ratio: 0.167953 }, { assumed_claimed_share: 0.95, ev_ratio: 0.041988 }], overall_odds_launch: 3.87 },
+    { game_no: 718, name: "$70 MILLION SUPREME", price: 30, percent_unsold: 72.4, total_unclaimed: 58543650, ev_ratio: 0.869477, print_run: 3100000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 561100, value_score: 61, grade: "C", rated: true, reason: REASON.high, remaining_tickets_min: 2242850, remaining_tickets_max: 2245950, ev_ratio_min: 0.868877, ev_ratio_max: 0.870078, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.434739 }, { assumed_claimed_share: 0.8, ev_ratio: 0.173895 }, { assumed_claimed_share: 0.95, ev_ratio: 0.043474 }], overall_odds_launch: 2.98 },
+    { game_no: 720, name: "CROSSWORD", price: 5, percent_unsold: 89.2, total_unclaimed: 5572450, ev_ratio: 0.800916, print_run: 1560000, confidence: "high", flags: [], dead_game: false, top_prize_odds_now: 278304, value_score: 59, grade: "C", rated: true, reason: REASON.high, remaining_tickets_min: 1390740, remaining_tickets_max: 1392300, ev_ratio_min: 0.800467, ev_ratio_max: 0.801365, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.400458 }, { assumed_claimed_share: 0.8, ev_ratio: 0.160183 }, { assumed_claimed_share: 0.95, ev_ratio: 0.040046 }], overall_odds_launch: 3.52 },
+    { game_no: 723, name: "RED HOT RICHES", price: 5, percent_unsold: 45.4, total_unclaimed: 1996165, ev_ratio: 0.916008, print_run: 960000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 217920, value_score: 57, grade: "C", rated: true, reason: REASON.high, remaining_tickets_min: 435360, remaining_tickets_max: 436320, ev_ratio_min: 0.915, ev_ratio_max: 0.917018, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.458004 }, { assumed_claimed_share: 0.8, ev_ratio: 0.183202 }, { assumed_claimed_share: 0.95, ev_ratio: 0.0458 }], overall_odds_launch: 3.87 },
+    { game_no: 725, name: "HIGH CARD POKER", price: 5, percent_unsold: 63.6, total_unclaimed: 2618385, ev_ratio: 0.857699, print_run: 960000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 305280, value_score: 55, grade: "C", rated: true, reason: REASON.high, remaining_tickets_min: 610080, remaining_tickets_max: 611040, ev_ratio_min: 0.857026, ev_ratio_max: 0.858374, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.42885 }, { assumed_claimed_share: 0.8, ev_ratio: 0.17154 }, { assumed_claimed_share: 0.95, ev_ratio: 0.042885 }], overall_odds_launch: 3.91 },
+    { game_no: 729, name: "7-11-21", price: 1, percent_unsold: 72.0, total_unclaimed: 632240, ev_ratio: 0.914699, print_run: 960000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 57600, value_score: 53, grade: "C", rated: true, reason: REASON.high, remaining_tickets_min: 690720, remaining_tickets_max: 691680, ev_ratio_min: 0.914064, ev_ratio_max: 0.915335, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.45735 }, { assumed_claimed_share: 0.8, ev_ratio: 0.18294 }, { assumed_claimed_share: 0.95, ev_ratio: 0.045735 }], overall_odds_launch: 4.66 },
+    { game_no: 735, name: "LOTERIA", price: 3, percent_unsold: 79.9, total_unclaimed: 1710868, ev_ratio: 0.849707, print_run: 840000, confidence: "high", flags: [], dead_game: false, top_prize_odds_now: 223720, value_score: 52, grade: "C", rated: true, reason: REASON.high, remaining_tickets_min: 670740, remaining_tickets_max: 671580, ev_ratio_min: 0.849176, ev_ratio_max: 0.850239, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.424854 }, { assumed_claimed_share: 0.8, ev_ratio: 0.169941 }, { assumed_claimed_share: 0.95, ev_ratio: 0.042485 }], overall_odds_launch: 3.51 },
+    { game_no: 737, name: "FIND $500!", price: 5, percent_unsold: 77.5, total_unclaimed: 3318190, ev_ratio: 0.891987, print_run: 960000, confidence: "high", flags: ["anomaly_candidate"], dead_game: false, top_prize_odds_now: 396.588486, value_score: 52, grade: "C", rated: true, reason: REASON.high, remaining_tickets_min: 743520, remaining_tickets_max: 744480, ev_ratio_min: 0.891411, ev_ratio_max: 0.892562, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.445994 }, { assumed_claimed_share: 0.8, ev_ratio: 0.178397 }, { assumed_claimed_share: 0.95, ev_ratio: 0.044599 }], overall_odds_launch: 3.58 },
+    { game_no: 675, name: "BASEBALL", price: 2, percent_unsold: 47.7, total_unclaimed: 585996, ev_ratio: 0.731252, print_run: 840000, confidence: "high", flags: [], dead_game: false, top_prize_odds_now: 200340, value_score: 46, grade: "D", rated: true, reason: REASON.high, remaining_tickets_min: 400260, remaining_tickets_max: 401100, ev_ratio_min: 0.730486, ev_ratio_max: 0.732019, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.365626 }, { assumed_claimed_share: 0.8, ev_ratio: 0.14625 }, { assumed_claimed_share: 0.95, ev_ratio: 0.036563 }], overall_odds_launch: 4.11 }
   ];
 
   // All 11 rated ev_out_of_range games — PINNED F 40, exact claim_lag reason.
   var CLAIM_LAG = [
-    { game_no: 624, name: "CASH BLAST", price: 2, percent_unsold: 0.3, total_unclaimed: 80508, ev_ratio: 13.977083, print_run: 960000, confidence: "low", flags: ["anomaly_candidate", "ev_out_of_range", "low_inventory"], dead_game: false, top_prize_odds_now: 1440 },
-    { game_no: 638, name: "TIC TAC MULTIPLIER", price: 2, percent_unsold: 0.3, total_unclaimed: 124556, ev_ratio: 24.713492, print_run: 840000, confidence: "low", flags: ["anomaly_candidate", "ev_out_of_range", "low_inventory"], dead_game: false, top_prize_odds_now: 2520 },
-    { game_no: 661, name: "$50,000 BANKROLL", price: 20, percent_unsold: 0.1, total_unclaimed: 772270, ev_ratio: 53.629861, print_run: 720000, confidence: "low", flags: ["anomaly_candidate", "ev_out_of_range", "low_inventory"], dead_game: false, top_prize_odds_now: 720 },
-    { game_no: 690, name: "$", price: 1, percent_unsold: 0.9, total_unclaimed: 93038, ev_ratio: 10.768287, print_run: 960000, confidence: "low", flags: ["anomaly_candidate", "ev_out_of_range", "low_inventory"], dead_game: false, top_prize_odds_now: 8640 },
-    { game_no: 693, name: "JURASSIC PARK", price: 10, percent_unsold: 26.2, total_unclaimed: 5552020, ev_ratio: 1.76591, print_run: 1200000, confidence: "low", flags: ["anomaly_candidate", "ev_out_of_range"], dead_game: false, top_prize_odds_now: 157200 },
-    { game_no: 694, name: "CA$H IN", price: 1, percent_unsold: 16.2, total_unclaimed: 251483, ev_ratio: 1.617046, print_run: 960000, confidence: "low", flags: ["anomaly_candidate", "ev_out_of_range"], dead_game: false, top_prize_odds_now: 51840 },
-    { game_no: 695, name: "CASH LINE BINGO", price: 3, percent_unsold: 11.7, total_unclaimed: 547864, ev_ratio: 1.625902, print_run: 960000, confidence: "low", flags: ["anomaly_candidate", "ev_out_of_range"], dead_game: false, top_prize_odds_now: 112320 },
-    { game_no: 696, name: "SKEE-BALL", price: 3, percent_unsold: 7.0, total_unclaimed: 441089, ev_ratio: 1.750353, print_run: 1200000, confidence: "low", flags: ["anomaly_candidate", "ev_out_of_range"], dead_game: false, top_prize_odds_now: 84000 },
-    { game_no: 702, name: "HOLIDAY $500S", price: 5, percent_unsold: 0.4, total_unclaimed: 166190, ev_ratio: 8.655729, print_run: 960000, confidence: "low", flags: ["anomaly_candidate", "ev_out_of_range", "low_inventory"], dead_game: false, top_prize_odds_now: 106.666667 },
-    { game_no: 703, name: "HOLIDAY $1,000S", price: 10, percent_unsold: 19.4, total_unclaimed: 1303090, ev_ratio: 1.865822, print_run: 360000, confidence: "low", flags: ["anomaly_candidate", "ev_out_of_range"], dead_game: false, top_prize_odds_now: 151.168831 },
-    { game_no: 706, name: "DOUBLE YOUR DOLLARS", price: 5, percent_unsold: 0.3, total_unclaimed: 468555, ev_ratio: 32.538542, print_run: 960000, confidence: "low", flags: ["anomaly_candidate", "ev_out_of_range", "low_inventory"], dead_game: false, top_prize_odds_now: 2880 }
+    { game_no: 624, name: "CASH BLAST", price: 2, percent_unsold: 0.3, total_unclaimed: 80508, ev_ratio: 13.977083, print_run: 960000, confidence: "low", flags: ["anomaly_candidate", "ev_out_of_range", "low_inventory"], dead_game: false, top_prize_odds_now: 1440, remaining_tickets_min: 2400, remaining_tickets_max: 3360, ev_ratio_min: 11.980357, ev_ratio_max: 16.7725, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 6.988542 }, { assumed_claimed_share: 0.8, ev_ratio: 2.795417 }, { assumed_claimed_share: 0.95, ev_ratio: 0.698854 }], overall_odds_launch: 4.21 },
+    { game_no: 638, name: "TIC TAC MULTIPLIER", price: 2, percent_unsold: 0.3, total_unclaimed: 124556, ev_ratio: 24.713492, print_run: 840000, confidence: "low", flags: ["anomaly_candidate", "ev_out_of_range", "low_inventory"], dead_game: false, top_prize_odds_now: 2520, remaining_tickets_min: 2100, remaining_tickets_max: 2940, ev_ratio_min: 21.182993, ev_ratio_max: 29.65619, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 12.356746 }, { assumed_claimed_share: 0.8, ev_ratio: 4.942698 }, { assumed_claimed_share: 0.95, ev_ratio: 1.235675 }], overall_odds_launch: 4.27 },
+    { game_no: 661, name: "$50,000 BANKROLL", price: 20, percent_unsold: 0.1, total_unclaimed: 772270, ev_ratio: 53.629861, print_run: 720000, confidence: "low", flags: ["anomaly_candidate", "ev_out_of_range", "low_inventory"], dead_game: false, top_prize_odds_now: 720, remaining_tickets_min: 360, remaining_tickets_max: 1080, ev_ratio_min: 35.753241, ev_ratio_max: 107.259722, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 26.814931 }, { assumed_claimed_share: 0.8, ev_ratio: 10.725972 }, { assumed_claimed_share: 0.95, ev_ratio: 2.681493 }], overall_odds_launch: 2.81 },
+    { game_no: 690, name: "$", price: 1, percent_unsold: 0.9, total_unclaimed: 93038, ev_ratio: 10.768287, print_run: 960000, confidence: "low", flags: ["anomaly_candidate", "ev_out_of_range", "low_inventory"], dead_game: false, top_prize_odds_now: 8640, remaining_tickets_min: 8160, remaining_tickets_max: 9120, ev_ratio_min: 10.201535, ev_ratio_max: 11.401716, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 5.384144 }, { assumed_claimed_share: 0.8, ev_ratio: 2.153657 }, { assumed_claimed_share: 0.95, ev_ratio: 0.538414 }], overall_odds_launch: 4.47 },
+    { game_no: 693, name: "JURASSIC PARK", price: 10, percent_unsold: 26.2, total_unclaimed: 5552020, ev_ratio: 1.76591, print_run: 1200000, confidence: "low", flags: ["anomaly_candidate", "ev_out_of_range"], dead_game: false, top_prize_odds_now: 157200, remaining_tickets_min: 313800, remaining_tickets_max: 315000, ev_ratio_min: 1.762546, ev_ratio_max: 1.769286, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.882955 }, { assumed_claimed_share: 0.8, ev_ratio: 0.353182 }, { assumed_claimed_share: 0.95, ev_ratio: 0.088296 }], overall_odds_launch: 3.36 },
+    { game_no: 694, name: "CA$H IN", price: 1, percent_unsold: 16.2, total_unclaimed: 251483, ev_ratio: 1.617046, print_run: 960000, confidence: "low", flags: ["anomaly_candidate", "ev_out_of_range"], dead_game: false, top_prize_odds_now: 51840, remaining_tickets_min: 155040, remaining_tickets_max: 156000, ev_ratio_min: 1.612071, ev_ratio_max: 1.622052, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.808523 }, { assumed_claimed_share: 0.8, ev_ratio: 0.323409 }, { assumed_claimed_share: 0.95, ev_ratio: 0.080852 }], overall_odds_launch: 4.66 },
+    { game_no: 695, name: "CASH LINE BINGO", price: 3, percent_unsold: 11.7, total_unclaimed: 547864, ev_ratio: 1.625902, print_run: 960000, confidence: "low", flags: ["anomaly_candidate", "ev_out_of_range"], dead_game: false, top_prize_odds_now: 112320, remaining_tickets_min: 111840, remaining_tickets_max: 112800, ev_ratio_min: 1.618983, ev_ratio_max: 1.63288, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.812951 }, { assumed_claimed_share: 0.8, ev_ratio: 0.32518 }, { assumed_claimed_share: 0.95, ev_ratio: 0.081295 }], overall_odds_launch: 3.4 },
+    { game_no: 696, name: "SKEE-BALL", price: 3, percent_unsold: 7.0, total_unclaimed: 441089, ev_ratio: 1.750353, print_run: 1200000, confidence: "low", flags: ["anomaly_candidate", "ev_out_of_range"], dead_game: false, top_prize_odds_now: 84000, remaining_tickets_min: 83400, remaining_tickets_max: 84600, ev_ratio_min: 1.737939, ev_ratio_max: 1.762946, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.875177 }, { assumed_claimed_share: 0.8, ev_ratio: 0.350071 }, { assumed_claimed_share: 0.95, ev_ratio: 0.087518 }], overall_odds_launch: 3.43 },
+    { game_no: 702, name: "HOLIDAY $500S", price: 5, percent_unsold: 0.4, total_unclaimed: 166190, ev_ratio: 8.655729, print_run: 960000, confidence: "low", flags: ["anomaly_candidate", "ev_out_of_range", "low_inventory"], dead_game: false, top_prize_odds_now: 106.666667, remaining_tickets_min: 3360, remaining_tickets_max: 4320, ev_ratio_min: 7.693981, ev_ratio_max: 9.892262, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 4.327865 }, { assumed_claimed_share: 0.8, ev_ratio: 1.731146 }, { assumed_claimed_share: 0.95, ev_ratio: 0.432786 }], overall_odds_launch: 3.56 },
+    { game_no: 703, name: "HOLIDAY $1,000S", price: 10, percent_unsold: 19.4, total_unclaimed: 1303090, ev_ratio: 1.865822, print_run: 360000, confidence: "low", flags: ["anomaly_candidate", "ev_out_of_range"], dead_game: false, top_prize_odds_now: 151.168831, remaining_tickets_min: 69660, remaining_tickets_max: 70020, ev_ratio_min: 1.861025, ev_ratio_max: 1.870643, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 0.932911 }, { assumed_claimed_share: 0.8, ev_ratio: 0.373164 }, { assumed_claimed_share: 0.95, ev_ratio: 0.093291 }], overall_odds_launch: 3.63 },
+    { game_no: 706, name: "DOUBLE YOUR DOLLARS", price: 5, percent_unsold: 0.3, total_unclaimed: 468555, ev_ratio: 32.538542, print_run: 960000, confidence: "low", flags: ["anomaly_candidate", "ev_out_of_range", "low_inventory"], dead_game: false, top_prize_odds_now: 2880, remaining_tickets_min: 2400, remaining_tickets_max: 3360, ev_ratio_min: 27.890179, ev_ratio_max: 39.04625, ev_scenarios: [{ assumed_claimed_share: 0.5, ev_ratio: 16.269271 }, { assumed_claimed_share: 0.8, ev_ratio: 6.507708 }, { assumed_claimed_share: 0.95, ev_ratio: 1.626927 }], overall_odds_launch: 3.83 }
   ].map(function (g) { g.value_score = 40; g.grade = "F"; g.rated = true; g.reason = REASON.claim_lag; return g; });
 
   // Not-rated: 18 dead-reason (incl. both sold-out games, dead wins precedence) + 9 no_print_run.
@@ -958,10 +1003,29 @@ footer.site-footer a { font-weight: 600; }
       '<p class="hero-game-name">' + esc(g.name) + "</p>" +
       '<p class="hero-meta tabular">#' + g.game_no + " · " + priceLabel(g.price) + " ticket</p>" +
       '<p class="hero-reason">' + esc(g.reason) + "</p>" +
+      '<p class="hero-qualifier">Built on an upper-bound EV estimate — the true expected value is lower.</p>' +
       "</div></div>";
   }
 
   /* ---------------- shortlist rows ---------------- */
+  function evRange2(min, max) {
+    var lo = min == null ? "—" : min.toFixed(2);
+    var hi = max == null ? "—" : max.toFixed(2);
+    return lo + " – " + hi;
+  }
+  function scenarioBlock(scenarios) {
+    if (!scenarios || !scenarios.length) return "";
+    var pctFor = { 0.5: 50, 0.8: 80, 0.95: 95 };
+    var rows = scenarios.map(function (s) {
+      var pct = pctFor[s.assumed_claimed_share] || Math.round(s.assumed_claimed_share * 100);
+      return "<li><span>If " + pct + "% of unclaimed value is on already-sold tickets</span><span class=\"tabular\">" + s.ev_ratio.toFixed(2) + "</span></li>";
+    }).join("");
+    return '<div class="scenario-block">' +
+      '<p class="scenario-heading">What if some of it is already claimed-in-waiting?</p>' +
+      '<ul class="scenario-list tabular">' + rows + "</ul>" +
+      '<p class="scenario-disclaimer">Illustrative scenarios, not bounds — no measurement yet says which assumption is right.</p>' +
+      "</div>";
+  }
   function detailSheet(g, opts) {
     opts = opts || {};
     var evAdj = "— pending (v2)";
@@ -974,14 +1038,17 @@ footer.site-footer a { font-weight: 600; }
       '<dl class="detail-grid tabular">' +
       "<dt>Percent unsold</dt><dd>" + pct1(g.percent_unsold) + "</dd>" +
       "<dt>Total unclaimed</dt><dd>" + money(g.total_unclaimed) + "</dd>" +
-      "<dt>EV per ticket</dt><dd>" + (g.ev_per_ticket == null ? "—" : money(g.ev_per_ticket)) + "</dd>" +
-      "<dt>EV ratio</dt><dd>" + evr2(g.ev_ratio) + "</dd>" +
+      "<dt>EV per ticket (upper-bound est.)</dt><dd>" + (g.ev_per_ticket == null ? "—" : money(g.ev_per_ticket)) + "</dd>" +
+      "<dt>EV ratio (upper-bound est.)</dt><dd>" + evr2(g.ev_ratio) + "</dd>" +
       "<dt>EV ratio, adjusted</dt><dd>" + evAdj + "</dd>" +
+      "<dt>EV ratio range</dt><dd>" + evRange2(g.ev_ratio_min, g.ev_ratio_max) + "<br><span style=\"font-weight:400;font-size:11px;color:var(--ink-soft);\">from the state's 0.1-point inventory rounding</span></dd>" +
+      "<dt>Overall odds at launch (any prize)</dt><dd>" + (g.overall_odds_launch == null ? "—" : "1 in " + g.overall_odds_launch.toFixed(2)) + "</dd>" +
       "<dt>Top-prize odds now</dt><dd>" + oddsLabel(g.top_prize_odds_now) + "</dd>" +
       "<dt>Print run</dt><dd>" + (g.print_run == null ? "—" : g.print_run.toLocaleString("en-US")) + "</dd>" +
       relScoreRow +
       "</dl>" +
-      (opts.showRelativeScore ? "" : '<p class="pending-note">Launch-odds comparison pending (v2).</p>') +
+      scenarioBlock(g.ev_scenarios) +
+      (opts.showRelativeScore ? "" : '<p class="pending-note">Full launch (book) EV needs the complete prize table — pending (M6).</p>') +
       "<div>" + flagChips(g.flags) + "</div>" +
       "</div>";
   }
