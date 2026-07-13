@@ -33,10 +33,20 @@ enabled, this repo behaves as a plain routed-agent project.
   the push himself — agent git-push stays denied by settings.json). Pages LIVE:
   https://jdptwh.github.io/lottobot/site/ (master / root). Worksheet
   hand-checks (m4a A–G, m3 3-game) remain available to the owner any time.
-- In progress: M5 plan loop (drafter → planner → owner approval).
-- Next up: M5 build — .github/workflows/daily.yml; 7 consecutive green
-  scheduled runs = shipped (calendar DoD, tracked post-deploy).
-- Blocked on: owner approval of the M5 spec (touchpoint 1).
+- M5 AUTOMATION LIVE: spec a62ea14 → build ee0dc3a (reviewer PASS cycle 1,
+  zero findings) → CP3 green 2026-07-13: owner-triggered workflow_dispatch
+  produced the first bot commit ("daily: snapshot 2026-07-13"), live site
+  self-updated with freshly scraped data (source July 12), all gates enforced
+  at runtime. STREAK OBSERVATION: 7 consecutive green SCHEDULED runs = M6-
+  eligible "shipped" (manual dispatches neither count nor reset; red scheduled
+  run resets). First scheduled run: 2026-07-13 10:30 UTC.
+- In progress: streak observation (check the Actions tab / daily-run-failure
+  issues).
+- Next up: M6 — claim-lag model v2 (needs ~30 accumulated history snapshots,
+  so earliest ~mid-August 2026). Backlog: bump actions/checkout+setup-python
+  versions (Node-20 deprecation warning, cosmetic; planner-gated YAML change);
+  source-staleness signal (m5 Resolution 6).
+- Blocked on: calendar (streak) — no agent work pending.
 
 ## Conventions
 - Stack / language: Python 3.11 target (3.12 local OK); scraper deps `requests` +
