@@ -362,3 +362,121 @@ def test_socket_connect_is_blocked_by_the_guard():
 
     with pytest.raises(AssertionError):
         socket.socket().connect(("example.com", 80))
+
+
+# ============================================================================
+# M6a noncash addendum (docs/specs/m6a_noncash_addendum.md): tolerant record
+# shape, has_noncash_prize, parser_version bump, schema validation.
+# ============================================================================
+
+VEHICLE_FIXTURE_HTML = "unclaimed_prizes_2015-01-01_vehicle_prize.html"
+
+
+def test_parser_version_is_bumped_to_v2():
+    assert wb.PARSER_VERSION == "scraper.scrape@2"
+
+
+def test_build_records_from_html_calls_parse_in_tolerant_mode():
+    # The real vehicle-prize capture would raise ParseError under the old
+    # (non-tolerant) call; build_records_from_html must not raise.
+    html = _html(VEHICLE_FIXTURE_HTML)
+    records = wb.build_records_from_html(
+        html,
+        capture_ts="2015-01-01T19:31:27+00:00",
+        capture_url="https://web.archive.org/web/20150101193127id_/x",
+        retrieved_at="2026-07-13T00:00:00+00:00",
+        content_hash="deadbeef",
+    )
+    assert records, "expected at least one parsed game record"
+
+
+def test_vehicle_game_record_has_noncash_prize_true_and_schema_valid():
+    html = _html(VEHICLE_FIXTURE_HTML)
+    records = wb.build_records_from_html(
+        html,
+        capture_ts="2015-01-01T19:31:27+00:00",
+        capture_url="https://web.archive.org/web/20150101193127id_/x",
+        retrieved_at="2026-07-13T00:00:00+00:00",
+        content_hash="deadbeef",
+    )
+    by_game_no = {r["game_no"]: r for r in records}
+    vehicle_rec = by_game_no[229]
+    assert vehicle_rec["has_noncash_prize"] is True
+    vehicle_items = [tp for tp in vehicle_rec["top_prizes"] if tp["level"] is None]
+    assert len(vehicle_items) == 1
+    assert vehicle_items[0]["level_label"] == "CHEVROLET CAMARO 2SS"
+
+    schema = _schema()
+    for rec in records:
+        validate(instance=rec, schema=schema)
+
+
+def test_non_vehicle_records_have_has_noncash_prize_false():
+    html = _html(VEHICLE_FIXTURE_HTML)
+    records = wb.build_records_from_html(
+        html,
+        capture_ts="2015-01-01T19:31:27+00:00",
+        capture_url="https://web.archive.org/web/20150101193127id_/x",
+        retrieved_at="2026-07-13T00:00:00+00:00",
+        content_hash="deadbeef",
+    )
+    non_vehicle = [r for r in records if r["game_no"] != 229]
+    assert non_vehicle, "expected at least one non-vehicle game in the capture"
+    assert all(r["has_noncash_prize"] is False for r in non_vehicle)
+    assert all(r["has_noncash_prize"] is True for r in records if r["game_no"] == 229)
+
+
+# --- schema: level:null requires level_label; has_noncash_prize required ----
+
+def test_schema_rejects_null_level_item_without_level_label():
+    schema = _schema()
+    bad_record = {
+        "game_no": 229,
+        "game_key": "229:camaro",
+        "obs_date": "2015-01-01",
+        "capture_ts": "2015-01-01T19:31:27+00:00",
+        "source": "wayback",
+        "capture_url": "https://web.archive.org/web/x",
+        "retrieved_at": "2026-07-13T00:00:00+00:00",
+        "content_hash": "hash",
+        "parser_version": wb.PARSER_VERSION,
+        "percent_unsold": 7.5,
+        "pu_interval": wb.pu_interval(7.5),
+        "total_unclaimed": 524255.0,
+        "top_prizes": [{"level": None, "remaining": 1}],  # missing level_label
+        "price": 5.0,
+        "name": "CAMARO",
+        "lifecycle_status": None,
+        "has_noncash_prize": True,
+    }
+    from jsonschema import ValidationError
+
+    with pytest.raises(ValidationError):
+        validate(instance=bad_record, schema=schema)
+
+
+def test_schema_requires_has_noncash_prize_field():
+    schema = _schema()
+    record_without_flag = {
+        "game_no": 706,
+        "game_key": "706:double-your-dollars",
+        "obs_date": "2026-01-01",
+        "capture_ts": "2026-01-01T00:00:00+00:00",
+        "source": "wayback",
+        "capture_url": "https://web.archive.org/web/x",
+        "retrieved_at": "2026-07-13T00:00:00+00:00",
+        "content_hash": "hash",
+        "parser_version": wb.PARSER_VERSION,
+        "percent_unsold": 0.3,
+        "pu_interval": wb.pu_interval(0.3),
+        "total_unclaimed": 468555.0,
+        "top_prizes": [{"level": 100000, "remaining": 1}],
+        "price": 5.0,
+        "name": "DOUBLE YOUR DOLLARS",
+        "lifecycle_status": None,
+        # has_noncash_prize deliberately omitted
+    }
+    from jsonschema import ValidationError
+
+    with pytest.raises(ValidationError):
+        validate(instance=record_without_flag, schema=schema)

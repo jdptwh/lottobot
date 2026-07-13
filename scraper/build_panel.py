@@ -105,6 +105,11 @@ def load_daily_observations(history_dir: Path = HISTORY_DIR) -> list[dict]:
                     "price": game["price"],
                     "name": game["name"],
                     "lifecycle_status": None,
+                    # By construction: daily records derive from data/latest.json,
+                    # whose games passed the strict production parser (rejects any
+                    # non-numeric prize cell) -- a vehicle prize cannot exist here
+                    # (m6a_noncash_addendum.md ruling 2).
+                    "has_noncash_prize": False,
                 }
             )
     return records

@@ -406,3 +406,108 @@ def test_cli_parse_failure_is_nonzero_exit_and_writes_nothing(tmp_path):
     )
     assert result.returncode != 0
     assert not out_path.exists()
+
+
+# ============================================================================
+# M6a noncash addendum (docs/specs/m6a_noncash_addendum.md): prize_level_tolerant
+# opt-in on parse(). NEW tests only, zero edits above this marker.
+# ============================================================================
+
+VEHICLE_FIXTURE_PATH = (
+    REPO_ROOT / "tests" / "scraper" / "fixtures" / "wayback"
+    / "unclaimed_prizes_2015-01-01_vehicle_prize.html"
+)
+
+
+def _vehicle_fixture_html() -> str:
+    return VEHICLE_FIXTURE_PATH.read_text(encoding="utf-8")
+
+
+# --- AC1: production invariance — default mode still raises the existing ---
+# --- ParseError message on the real vehicle-prize capture -------------------
+
+def test_default_mode_still_raises_on_vehicle_fixture():
+    with pytest.raises(ParseError, match=r"malformed prize-level cell"):
+        parse(_vehicle_fixture_html())
+
+
+def test_default_mode_error_message_names_the_vehicle_cell():
+    with pytest.raises(ParseError) as excinfo:
+        parse(_vehicle_fixture_html())
+    assert "CHEVROLET CAMARO 2SS" in str(excinfo.value)
+
+
+# --- AC2: tolerant equivalence — on an all-cash fixture, tolerant and -------
+# --- default output are structurally equal -----------------------------------
+
+def test_tolerant_mode_equals_default_mode_on_an_all_cash_fixture(fixture_html):
+    default_snapshot = parse(fixture_html)
+    tolerant_snapshot = parse(fixture_html, prize_level_tolerant=True)
+    assert default_snapshot == tolerant_snapshot
+
+
+def test_tolerant_mode_default_is_false():
+    # prize_level_tolerant is keyword-only and defaults to False: calling
+    # parse(html) unchanged must be identical to parse(html, prize_level_tolerant=False).
+    html = _vehicle_fixture_html()
+    with pytest.raises(ParseError):
+        parse(html)
+    with pytest.raises(ParseError):
+        parse(html, prize_level_tolerant=False)
+
+
+# --- AC3: tolerant parse of the vehicle fixture -----------------------------
+
+def test_tolerant_mode_parses_the_vehicle_game_with_null_level_and_label():
+    snapshot = parse(_vehicle_fixture_html(), prize_level_tolerant=True)
+    g = _find_game(snapshot, 229)
+    assert g["name"] == "CAMARO"
+    vehicle_items = [tp for tp in g["top_prizes"] if tp["level"] is None]
+    assert len(vehicle_items) == 1
+    vehicle_item = vehicle_items[0]
+    assert vehicle_item["level_label"] == "CHEVROLET CAMARO 2SS"
+    assert isinstance(vehicle_item["remaining"], int)
+    assert vehicle_item["remaining"] == 1
+
+
+def test_tolerant_mode_other_games_in_the_capture_are_unaffected():
+    snapshot = parse(_vehicle_fixture_html(), prize_level_tolerant=True)
+    assert len(snapshot["games"]) >= 60  # the real capture holds ~65 games
+    # every OTHER game's top_prizes items are all-cash: plain int levels,
+    # no level_label key at all (structurally identical to the non-tolerant shape).
+    for g in snapshot["games"]:
+        if g["game_no"] == 229:
+            continue
+        for tp in g["top_prizes"]:
+            assert isinstance(tp["level"], int)
+            assert "level_label" not in tp
+
+
+def test_tolerant_mode_cash_items_never_carry_a_level_label_key():
+    snapshot = parse(_vehicle_fixture_html(), prize_level_tolerant=True)
+    g = _find_game(snapshot, 229)
+    cash_items = [tp for tp in g["top_prizes"] if tp["level"] is not None]
+    assert cash_items  # game 229 has other, cash, prize tiers too
+    for tp in cash_items:
+        assert "level_label" not in tp
+
+
+# --- continuation-row call site: parse threads prize_level_tolerant there ---
+# --- too (design rule 1), via a synthetic minimal snippet -------------------
+
+def test_tolerant_mode_handles_a_non_numeric_continuation_row_cell():
+    html = MINIMAL_TABLE_HEAD + (
+        "<tr><td>$5.00</td><td>900</td><td>SYNTHETIC VEHICLE GAME</td><td>10.0</td>"
+        "<td>$50,000.00</td><td>$1000</td><td>2</td></tr>"
+        "<tr><td>           </td><td>        </td><td>         </td>"
+        "<td>              </td><td>               </td>"
+        "<td>TOYOTA TACOMA</td><td>1</td></tr></table>"
+    )
+    snapshot = parse(html, prize_level_tolerant=True)
+    g = _find_game(snapshot, 900)
+    assert g["top_prizes"] == [
+        {"level": 1000, "remaining": 2},
+        {"level": None, "level_label": "TOYOTA TACOMA", "remaining": 1},
+    ]
+    with pytest.raises(ParseError, match=r"malformed prize-level cell"):
+        parse(html)

@@ -40,7 +40,7 @@ def _daily_snapshot(as_of: str, games: list[dict]) -> dict:
     }
 
 
-def _wb_record(game_no, name, obs_date, capture_ts, percent_unsold, total_unclaimed=1000.0, price=5.0):
+def _wb_record(game_no, name, obs_date, capture_ts, percent_unsold, total_unclaimed=1000.0, price=5.0, has_noncash_prize=False):
     return {
         "game_no": game_no,
         "game_key": bp.game_key(game_no, name),
@@ -58,6 +58,7 @@ def _wb_record(game_no, name, obs_date, capture_ts, percent_unsold, total_unclai
         "price": price,
         "name": name,
         "lifecycle_status": None,
+        "has_noncash_prize": has_noncash_prize,
     }
 
 
@@ -94,6 +95,10 @@ def test_load_daily_observations_shape(tmp_path):
     # relative-path *shape* the real (in-repo) call produces: history/<file>.
     assert rec["capture_url"].replace("\\", "/").endswith("history/2026-07-13.json")
     assert rec["content_hash"] == hashlib.sha256(raw).hexdigest()
+    # By construction (m6a_noncash_addendum.md ruling 2): daily records derive
+    # from data/latest.json, which only ever contains games that passed the
+    # strict production parser -- a vehicle prize cannot exist here.
+    assert rec["has_noncash_prize"] is False
     validate(instance={**rec, "lifecycle_status": "active"}, schema=_schema())
 
 
@@ -267,6 +272,19 @@ def test_merged_records_validate_against_schema(tmp_path):
     schema = _schema()
     for line in out_path.read_text(encoding="utf-8").splitlines():
         validate(instance=json.loads(line), schema=schema)
+
+
+def test_wayback_has_noncash_prize_flows_through_verbatim(tmp_path):
+    """build_panel does not recompute has_noncash_prize for wayback records --
+    the wayback backfill sets it, and the merge must preserve it as-is."""
+    wayback_path = tmp_path / "wayback_observations.jsonl"
+    _write_jsonl(
+        wayback_path,
+        [_wb_record(706, "DOUBLE YOUR DOLLARS", "2026-01-01", "2026-01-01T00:00:00+00:00", 10.0, has_noncash_prize=True)],
+    )
+    merged, _ = bp.merge_panel(bp.load_wayback_observations(wayback_path), [])
+    assert len(merged) == 1
+    assert merged[0]["has_noncash_prize"] is True
 
 
 # --- design rule 3b: never modifies data/history/ ---------------------------

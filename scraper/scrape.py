@@ -78,11 +78,27 @@ def _parse_int(cell_text: str) -> int:
         raise ParseError(f"malformed integer cell: {cell_text!r}") from exc
 
 
-def _parse_prize_level(cell_text: str) -> int:
+def _parse_prize_level(cell_text: str, *, tolerant: bool = False):
+    """Parse a top-prize-level cell.
+
+    Default (``tolerant=False``): behavior and the raised message are
+    byte-identical to the pre-existing parser — returns ``int`` or raises
+    :class:`ParseError`.
+
+    ``tolerant=True`` (opt-in, ``wayback_backfill.py`` only — see
+    docs/specs/m6a_noncash_addendum.md): on a non-numeric cell (observed in
+    the wild as a noncash/vehicle prize, e.g. "CHEVROLET CAMARO 2SS"),
+    returns ``(None, label)`` instead of raising, where ``label`` is the
+    cell text verbatim with internal whitespace normalized. Numeric cells
+    are unaffected either way.
+    """
     text = cell_text.replace("\xa0", " ").strip().replace("$", "").replace(",", "")
     try:
         return int(text)
     except ValueError as exc:
+        if tolerant:
+            label = " ".join(cell_text.replace("\xa0", " ").split())
+            return None, label
         raise ParseError(f"malformed prize-level cell: {cell_text!r}") from exc
 
 
@@ -99,7 +115,15 @@ def _extract_timestamp(soup: BeautifulSoup) -> str:
 # Public API
 # --------------------------------------------------------------------------
 
-def parse(html: str) -> dict:
+def _prize_item(raw_level, remaining: int) -> dict:
+    """Build one top_prizes item from a `_parse_prize_level` return value."""
+    if isinstance(raw_level, tuple):
+        level, level_label = raw_level
+        return {"level": level, "level_label": level_label, "remaining": remaining}
+    return {"level": raw_level, "remaining": remaining}
+
+
+def parse(html: str, *, prize_level_tolerant: bool = False) -> dict:
     """Parse the unclaimed-prizes HTML into ``{"source_timestamp", "games"}``.
 
     ``games`` is a list of dicts (page order):
@@ -108,6 +132,14 @@ def parse(html: str) -> dict:
 
     Raises :class:`ParseError` on a missing table, an orphan continuation
     row, a row with other than 7 ``<td>`` cells, or a malformed cell value.
+
+    ``prize_level_tolerant`` (default ``False``, keyword-only): opt-in used
+    only by ``scraper/wayback_backfill.py`` for historical noncash/vehicle
+    prize cells (docs/specs/m6a_noncash_addendum.md). At the default, this
+    parameter changes nothing — production behavior stays byte-identical.
+    When ``True``, a non-numeric top-prize-level cell yields
+    ``{"level": None, "level_label": "<verbatim, whitespace-normalized>",
+    "remaining": int}`` instead of raising.
     """
     soup = BeautifulSoup(html, "html.parser")
     source_timestamp = _extract_timestamp(soup)
@@ -132,9 +164,9 @@ def parse(html: str) -> dict:
                 raise ParseError(
                     "orphan continuation row: no preceding game row to attach to"
                 )
-            level = _parse_prize_level(cells[5])
+            raw_level = _parse_prize_level(cells[5], tolerant=prize_level_tolerant)
             remaining = _parse_int(cells[6])
-            games[-1]["top_prizes"].append({"level": level, "remaining": remaining})
+            games[-1]["top_prizes"].append(_prize_item(raw_level, remaining))
             continue
 
         price = _parse_money(cells[0])
@@ -142,7 +174,7 @@ def parse(html: str) -> dict:
         name = cells[2].replace("\xa0", " ").strip()
         percent_unsold = _parse_percent(cells[3])
         total_unclaimed = _parse_money(cells[4])
-        level = _parse_prize_level(cells[5])
+        raw_level = _parse_prize_level(cells[5], tolerant=prize_level_tolerant)
         remaining = _parse_int(cells[6])
 
         games.append(
@@ -152,7 +184,7 @@ def parse(html: str) -> dict:
                 "price": price,
                 "percent_unsold": percent_unsold,
                 "total_unclaimed": total_unclaimed,
-                "top_prizes": [{"level": level, "remaining": remaining}],
+                "top_prizes": [_prize_item(raw_level, remaining)],
             }
         )
 

@@ -42,8 +42,10 @@ ERA_START = _dt.date(2015, 1, 1)
 FETCH_DELAY_S = 2.0
 FETCH_TIMEOUT_S = 30
 # Tied to the production parser this module reuses (scraper.scrape.parse);
-# bump if that parser's output shape changes in a way that matters to the panel.
-PARSER_VERSION = "scraper.scrape@1"
+# bump if that parser's output shape changes in a way that matters to the
+# panel. @2 (docs/specs/m6a_noncash_addendum.md): wayback_backfill now calls
+# parse(..., prize_level_tolerant=True) and records gained has_noncash_prize.
+PARSER_VERSION = "scraper.scrape@2"
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 RAW_CACHE_DIR = REPO_ROOT / "data" / "panel" / "raw_cache"
@@ -182,14 +184,22 @@ def build_records_from_html(
 ) -> list[dict]:
     """Parse one capture's HTML into per-game wayback observation records.
 
+    Calls the production parser with ``prize_level_tolerant=True``
+    (docs/specs/m6a_noncash_addendum.md ruling 1): the handful of historical
+    captures with a noncash/vehicle top-prize cell (e.g. "CHEVROLET CAMARO
+    2SS") parse instead of raising. ``has_noncash_prize`` records whether any
+    ``top_prizes`` item on a game came back with ``level: null`` (ruling 2).
+
     ``lifecycle_status`` is left ``null`` here — it is assigned only at
     ``build_panel.py`` merge time (design rule 2), which needs the full
     cross-capture sequence to tell ``active`` from ``exited_unobserved``.
     """
-    snapshot = parse(html)
+    snapshot = parse(html, prize_level_tolerant=True)
     obs_date = parse_obs_date(snapshot["source_timestamp"])
     records = []
     for game in snapshot["games"]:
+        top_prizes = [dict(tp) for tp in game["top_prizes"]]
+        has_noncash_prize = any(tp["level"] is None for tp in top_prizes)
         records.append(
             {
                 "game_no": game["game_no"],
@@ -204,10 +214,11 @@ def build_records_from_html(
                 "percent_unsold": game["percent_unsold"],
                 "pu_interval": pu_interval(game["percent_unsold"]),
                 "total_unclaimed": game["total_unclaimed"],
-                "top_prizes": [dict(tp) for tp in game["top_prizes"]],
+                "top_prizes": top_prizes,
                 "price": game["price"],
                 "name": game["name"],
                 "lifecycle_status": None,
+                "has_noncash_prize": has_noncash_prize,
             }
         )
     return records

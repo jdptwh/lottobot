@@ -20,7 +20,8 @@
     "top_prizes",
     "price",
     "name",
-    "lifecycle_status"
+    "lifecycle_status",
+    "has_noncash_prize"
   ],
   "properties": {
     "game_no": { "type": "integer" },
@@ -75,6 +76,10 @@
       "type": ["string", "null"],
       "enum": ["active", "exited_observed", "exited_unobserved", null],
       "description": "Assigned at build_panel.py merge time; null on pre-merge wayback/daily observation records. exited_observed = last record shows 0% unsold or a scratchdates-confirmed end. exited_unobserved = the game vanishes between captures (interval-censored exit, final hidden value not observed)."
+    },
+    "has_noncash_prize": {
+      "type": "boolean",
+      "description": "docs/specs/m6a_noncash_addendum.md ruling 2: true iff any top_prizes item has level: null (a noncash/vehicle prize cell parsed in wayback_backfill.py's prize_level_tolerant mode). total_unclaimed's treatment of vehicle value is unknowable from the page alone (docs/m6_semantics.md ruling-3 entry) — this flag exists so later analysis phases can exclude or sensitivity-test these lifecycles rather than guess."
     }
   },
   "$defs": {
@@ -82,8 +87,18 @@
       "type": "object",
       "required": ["level", "remaining"],
       "properties": {
-        "level": { "type": "integer" },
+        "level": { "type": ["integer", "null"] },
+        "level_label": {
+          "type": "string",
+          "description": "The noncash prize cell text verbatim, whitespace-normalized (e.g. 'CHEVROLET CAMARO 2SS'). Present only when level is null."
+        },
         "remaining": { "type": "integer" }
+      },
+      "if": {
+        "properties": { "level": { "const": null } }
+      },
+      "then": {
+        "required": ["level_label"]
       }
     }
   }
