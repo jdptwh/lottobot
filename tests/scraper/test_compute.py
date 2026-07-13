@@ -27,7 +27,9 @@ from scraper.compute import compute_latest, diff_gate
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SCHEMA_PATH = REPO_ROOT / "data" / "schema" / "latest.schema.json"
 GAMES_PATH = REPO_ROOT / "data" / "games.json"
-LATEST_PATH = REPO_ROOT / "data" / "latest.json"
+FROZEN_ARTIFACT_PATH = (
+    REPO_ROOT / "tests" / "scraper" / "fixtures" / "latest_2026-07-11.json"
+)
 FIXTURE_PATH = (
     REPO_ROOT / "tests" / "scraper" / "fixtures" / "unclaimed_prizes_2026-07-11.html"
 )
@@ -324,7 +326,11 @@ def test_cli_two_runs_are_byte_identical(tmp_path):
     assert out1.read_bytes() == out2.read_bytes()
 
 
-def test_cli_reproduces_the_committed_latest_json_exactly():
+def test_cli_reproduces_the_frozen_regression_artifact_exactly():
+    # data/latest.json is now overwritten daily by the M5 bot (live data), so
+    # this regression check compares against a frozen artifact captured from
+    # the fixture pipeline instead (tests/scraper/fixtures/latest_2026-07-11.json,
+    # the exact bytes of the pre-bot committed data/latest.json at e4a8b7a).
     result = subprocess.run(
         [
             sys.executable, "-m", "scraper.compute",
@@ -337,10 +343,10 @@ def test_cli_reproduces_the_committed_latest_json_exactly():
         text=True,
     )
     assert result.returncode == 0, result.stderr
-    committed = LATEST_PATH.read_text(encoding="utf-8")
+    frozen = FROZEN_ARTIFACT_PATH.read_text(encoding="utf-8")
     # The CLI prints to stdout without a trailing newline appended by json.dumps;
     # subprocess capture may add a trailing newline via the print() call.
-    assert result.stdout.rstrip("\n") == committed.rstrip("\n")
+    assert result.stdout.rstrip("\n") == frozen.rstrip("\n")
 
 
 # --- 11. Schema additive-only ------------------------------------------------

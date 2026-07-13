@@ -91,3 +91,16 @@ resume from git state, never replay (Rule 9).
 - Route Claude Code subagents through a provider gateway.
 - Export ANTHROPIC_API_KEY in the lead's environment.
 - Refactor beyond the task's declared scope; guess on ambiguous specs — stop and ask.
+- Pin fixture-specific counts/game_nos/bytes against data/latest.json in tests —
+  the M5 bot rewrites it daily. Live-file tests assert invariants only; exact
+  regression pins target tests/scraper/fixtures/latest_2026-07-11.json
+  (m5a spec, 2026-07-13 incident).
+
+## Landmines
+- While the repo gate is RED, the SubagentStop hook bounces EVERY subagent's
+  completion — including read-only agents (planner/drafter) that cannot fix a
+  red gate; they loop until force-ended and their final message may be lost.
+  During a red gate: dispatch only agents whose task makes the gate green, and
+  recover trapped read-only output via SendMessage resume afterward.
+- Windows Path.write_text without newline="\n" emits CRLF — breaks byte-identity
+  vs LF-committed artifacts. All pipeline CLI writes pin newline="\n" (m5a).

@@ -35,7 +35,9 @@ from scraper.scrape import parse
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SCHEMA_PATH = REPO_ROOT / "data" / "schema" / "latest.schema.json"
 GAMES_PATH = REPO_ROOT / "data" / "games.json"
-LATEST_PATH = REPO_ROOT / "data" / "latest.json"
+FROZEN_ARTIFACT_PATH = (
+    REPO_ROOT / "tests" / "scraper" / "fixtures" / "latest_2026-07-11.json"
+)
 FIXTURE_PATH = (
     REPO_ROOT / "tests" / "scraper" / "fixtures" / "unclaimed_prizes_2026-07-11.html"
 )
@@ -75,7 +77,11 @@ def _run_cli(args: list[str]) -> subprocess.CompletedProcess:
 
 # --- 1. Fixture happy path + zero-reimplementation proof --------------------
 
-def test_fixture_happy_path_byte_identical_to_committed_latest(tmp_path):
+def test_fixture_happy_path_byte_identical_to_frozen_regression_artifact(tmp_path):
+    # data/latest.json is now overwritten daily by the M5 bot (live data), so
+    # this regression check compares against a frozen artifact captured from
+    # the fixture pipeline instead (tests/scraper/fixtures/latest_2026-07-11.json,
+    # the exact bytes of the pre-bot committed data/latest.json at e4a8b7a).
     out_path = tmp_path / "latest.json"
     history_dir = tmp_path / "history"
 
@@ -90,7 +96,7 @@ def test_fixture_happy_path_byte_identical_to_committed_latest(tmp_path):
     )
 
     assert result.returncode == 0, result.stderr
-    assert out_path.read_bytes() == LATEST_PATH.read_bytes()
+    assert out_path.read_bytes() == FROZEN_ARTIFACT_PATH.read_bytes()
     history_path = history_dir / f"{AS_OF}.json"
     assert history_path.read_bytes() == out_path.read_bytes()
 

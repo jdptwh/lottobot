@@ -467,7 +467,7 @@ def main(argv: list[str] | None = None) -> int:
 
     output = json.dumps(new_doc, indent=2)
     if args.out is not None:
-        args.out.write_text(output, encoding="utf-8")
+        args.out.write_text(output, encoding="utf-8", newline="\n")
     else:
         print(output)
     return 0

@@ -128,9 +128,11 @@ def main(argv: list[str] | None = None) -> int:
 
         output = json.dumps(new_doc, indent=2)
 
-        args.out.write_text(output, encoding="utf-8")
+        args.out.write_text(output, encoding="utf-8", newline="\n")
         args.history_dir.mkdir(parents=True, exist_ok=True)
-        (args.history_dir / f"{as_of}.json").write_text(output, encoding="utf-8")
+        (args.history_dir / f"{as_of}.json").write_text(
+            output, encoding="utf-8", newline="\n"
+        )
     except (
         ParseError,
         GateError,
