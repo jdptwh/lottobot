@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mainescratchevranker.example/schemas/panel_record.schema.json",
+  "title": "panel record — research contract (docs/specs/m6_v2_program_spec.md Phase 0)",
+  "description": "One JSON object per line (JSONL) in data/panel/wayback_observations.jsonl and data/panel/panel.jsonl. Distinct from, and not governed by, the frozen site contract in data/schema/latest.schema.json. lifecycle_status is null on raw wayback/daily observation records and is assigned only at build_panel.py merge time (design rule 2); it is required to be present as a key but may be null pre-merge.",
+  "type": "object",
+  "required": [
+    "game_no",
+    "game_key",
+    "obs_date",
+    "capture_ts",
+    "source",
+    "capture_url",
+    "retrieved_at",
+    "content_hash",
+    "parser_version",
+    "percent_unsold",
+    "pu_interval",
+    "total_unclaimed",
+    "top_prizes",
+    "price",
+    "name",
+    "lifecycle_status"
+  ],
+  "properties": {
+    "game_no": { "type": "integer" },
+    "game_key": {
+      "type": "string",
+      "description": "'{game_no}:{name-slug}' — guards game-number reuse across the 2015-2026 span."
+    },
+    "obs_date": {
+      "type": "string",
+      "description": "ISO date, page truth: parsed from the page's own 'as of' line (ET), never the capture timestamp."
+    },
+    "capture_ts": {
+      "type": "string",
+      "description": "ISO datetime UTC: CDX timestamp for wayback records, run timestamp for daily records."
+    },
+    "source": {
+      "type": "string",
+      "enum": ["wayback", "daily"]
+    },
+    "capture_url": {
+      "type": "string",
+      "description": "wayback URL, or the repo-relative data/history/YYYY-MM-DD.json path."
+    },
+    "retrieved_at": {
+      "type": "string",
+      "description": "ISO datetime UTC of when this record was fetched/derived."
+    },
+    "content_hash": {
+      "type": "string",
+      "description": "sha256 (hex) of the raw source bytes."
+    },
+    "parser_version": { "type": "string" },
+    "percent_unsold": {
+      "type": "number",
+      "description": "As published, 0.1-point rounding."
+    },
+    "pu_interval": {
+      "type": "array",
+      "description": "[lo, hi) pair modeling the 0.1-point rounding as interval censoring: [x-0.05, x+0.05), floored at 0. Never treated as exact.",
+      "items": { "type": "number" },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "total_unclaimed": { "type": "number" },
+    "top_prizes": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/top_prize" }
+    },
+    "price": { "type": "number" },
+    "name": { "type": "string" },
+    "lifecycle_status": {
+      "type": ["string", "null"],
+      "enum": ["active", "exited_observed", "exited_unobserved", null],
+      "description": "Assigned at build_panel.py merge time; null on pre-merge wayback/daily observation records. exited_observed = last record shows 0% unsold or a scratchdates-confirmed end. exited_unobserved = the game vanishes between captures (interval-censored exit, final hidden value not observed)."
+    }
+  },
+  "$defs": {
+    "top_prize": {
+      "type": "object",
+      "required": ["level", "remaining"],
+      "properties": {
+        "level": { "type": "integer" },
+        "remaining": { "type": "integer" }
+      }
+    }
+  }
+}

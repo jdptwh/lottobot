@@ -12,3 +12,8 @@ __pycache__/
 *.err
 gen*.json
 /scratch/
+
+# M6a panel research contract: raw wayback fetch cache (resumable; huge; not a
+# project artifact — data/panel/wayback_observations.jsonl and panel.jsonl ARE
+# committed artifacts and stay tracked).
+data/panel/raw_cache/

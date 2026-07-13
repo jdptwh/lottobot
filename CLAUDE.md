@@ -104,3 +104,6 @@ resume from git state, never replay (Rule 9).
   recover trapped read-only output via SendMessage resume afterward.
 - Windows Path.write_text without newline="\n" emits CRLF — breaks byte-identity
   vs LF-committed artifacts. All pipeline CLI writes pin newline="\n" (m5a).
+- The lead's Stop-hook gate races concurrent background implementers: a red
+  sample of another agent's in-flight tree is noise. Authoritative gates are
+  each agent's own completion gate + the lead's pre-commit run (2026-07-13).
