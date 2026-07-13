@@ -52,14 +52,30 @@ enabled, this repo behaves as a plain routed-agent project.
   mode), semantics note (tier-coverage ambiguity = stated Phase-1 assumption),
   worksheet docs/reports/m6a_panel_worksheet.md. First SCHEDULED run green
   (streak day 1 of 7).
-- In progress: M6b detectability study (synthetic-recovery test surface first,
-  then pooled distributed-lag over the panel; ends in HARD OWNER STOP on the
-  report).
-- Next up: on M6b GO + owner ruling — M6c sub-spec (planner) then offline fit.
-  Backlog: Node-20 action-version bump; source-staleness signal; excluded-
-  toggle wording when a depleted game first appears; Lottery data request
-  (owner declined for now — would resolve the tier-coverage ambiguity).
-- Blocked on: M6b report (in build), then the owner's hard-stop ruling.
+- In progress: M6b detectability study, MID-ESCALATION. State: estimator WIP
+  at analysis/{phase1_detectability,synthetic}.py (UNCOMMITTED) + tests
+  QUARANTINED at wip/m6b_tests_analysis/ (moved out of pytest collection to
+  unwedge the gate — restore to tests/analysis/ only at convergence). The
+  redesign addendum (docs/specs/m6b_estimator_redesign_addendum.md) is
+  implemented EXCEPT one diagnosed defect: shared lifecycle decay trends
+  survive demeaning → all-bins false positives on null data. Pending fix:
+  amend addendum rule 3 to per-lifecycle DETRENDING (linear residualization of
+  both series; permutation operates on residuals). Recovery tests passed
+  pre-quarantine; only null tests fail.
+- NEXT SESSION FIRST MOVES (owner-directed after coordination failures):
+  (1) PANEL consult (Rule 12 novelty — python -m panel.cli plan, ~$1.24) on
+  the estimator design incl. the detrending amendment BEFORE more implementer
+  iterations; (2) ONE synchronous foreground implementer transcribes the
+  outcome; (3) restore quarantined tests; (4) report → owner HARD STOP.
+- Backlog: Node-20 action bump; source-staleness signal; excluded-toggle
+  wording; Lottery data request (declined for now).
+- OPERATING CORRECTIONS (owner-mandated 2026-07-13, binding on the lead):
+  /clear after EVERY milestone (Rule 6 — one task per session, CLAUDE.md is
+  the memory spine; the mega-session pattern burned quadratic context);
+  SEQUENTIAL dispatches only, never background-parallel implementers;
+  dispatches are POINTERS to on-disk specs (3 lines + path), never inline
+  restatements; panel consult at every genuine novelty point before
+  implementer iteration (it is ~100x cheaper than agent thrash).
 
 ## Conventions
 - Stack / language: Python 3.11 target (3.12 local OK); scraper deps `requests` +
@@ -120,3 +136,9 @@ resume from git state, never replay (Rule 9).
 - The lead's Stop-hook gate races concurrent background implementers: a red
   sample of another agent's in-flight tree is noise. Authoritative gates are
   each agent's own completion gate + the lead's pre-commit run (2026-07-13).
+- NEVER run iterative R&D (statistical methods, exploratory algorithms) through
+  BACKGROUND agents while their failing tests sit in pytest's collection path:
+  the red gate wedges every agent's stop, queued steers never deliver, and the
+  system deadlocks silently. Pattern: quarantine the WIP test surface outside
+  testpaths (e.g. wip/) until the method converges, run the developer
+  synchronously (foreground), restore tests at convergence (2026-07-13, M6b).
