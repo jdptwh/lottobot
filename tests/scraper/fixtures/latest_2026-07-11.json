@@ -41,7 +41,13 @@
       "value_score": null,
       "grade": null,
       "rated": false,
-      "reason": "Print run unknown \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+      "reason": "Print run unknown \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only.",
+      "remaining_tickets_min": null,
+      "remaining_tickets_max": null,
+      "ev_ratio_min": null,
+      "ev_ratio_max": null,
+      "ev_scenarios": null,
+      "overall_odds_launch": null
     },
     {
       "game_no": 617,
@@ -70,7 +76,13 @@
       "value_score": null,
       "grade": null,
       "rated": false,
-      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
+      "remaining_tickets_min": null,
+      "remaining_tickets_max": null,
+      "ev_ratio_min": null,
+      "ev_ratio_max": null,
+      "ev_scenarios": null,
+      "overall_odds_launch": 3.82
     },
     {
       "game_no": 624,
@@ -105,7 +117,26 @@
       "value_score": 40,
       "grade": "F",
       "rated": true,
-      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag)."
+      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag).",
+      "remaining_tickets_min": 2400,
+      "remaining_tickets_max": 3360,
+      "ev_ratio_min": 11.980357,
+      "ev_ratio_max": 16.7725,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 6.988542
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 2.795417
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.698854
+        }
+      ],
+      "overall_odds_launch": 4.21
     },
     {
       "game_no": 630,
@@ -150,7 +181,26 @@
       "value_score": 95,
       "grade": "A",
       "rated": true,
-      "reason": "Inventory is thinning; the expected-value estimate carries moderate uncertainty."
+      "reason": "Inventory is thinning; the expected-value estimate carries moderate uncertainty.",
+      "remaining_tickets_min": 107040,
+      "remaining_tickets_max": 108000,
+      "ev_ratio_min": 1.361463,
+      "ev_ratio_max": 1.373673,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.683771
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.273508
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.068377
+        }
+      ],
+      "overall_odds_launch": 2.84
     },
     {
       "game_no": 632,
@@ -187,7 +237,26 @@
       "value_score": null,
       "grade": null,
       "rated": false,
-      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
+      "remaining_tickets_min": 120780,
+      "remaining_tickets_max": 122100,
+      "ev_ratio_min": 0.879709,
+      "ev_ratio_max": 0.889324,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.442245
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.176898
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.044225
+        }
+      ],
+      "overall_odds_launch": 3.41
     },
     {
       "game_no": 638,
@@ -222,7 +291,26 @@
       "value_score": 40,
       "grade": "F",
       "rated": true,
-      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag)."
+      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag).",
+      "remaining_tickets_min": 2100,
+      "remaining_tickets_max": 2940,
+      "ev_ratio_min": 21.182993,
+      "ev_ratio_max": 29.65619,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 12.356746
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 4.942698
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 1.235675
+        }
+      ],
+      "overall_odds_launch": 4.27
     },
     {
       "game_no": 647,
@@ -255,7 +343,26 @@
       "value_score": 84,
       "grade": "A-",
       "rated": true,
-      "reason": "Inventory is thinning; the expected-value estimate carries moderate uncertainty."
+      "reason": "Inventory is thinning; the expected-value estimate carries moderate uncertainty.",
+      "remaining_tickets_min": 461700,
+      "remaining_tickets_max": 467100,
+      "ev_ratio_min": 1.244117,
+      "ev_ratio_max": 1.258668,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.625675
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.25027
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.062568
+        }
+      ],
+      "overall_odds_launch": 3.32
     },
     {
       "game_no": 648,
@@ -292,7 +399,13 @@
       "value_score": null,
       "grade": null,
       "rated": false,
-      "reason": "Print run unknown \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+      "reason": "Print run unknown \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only.",
+      "remaining_tickets_min": null,
+      "remaining_tickets_max": null,
+      "ev_ratio_min": null,
+      "ev_ratio_max": null,
+      "ev_scenarios": null,
+      "overall_odds_launch": null
     },
     {
       "game_no": 651,
@@ -325,7 +438,13 @@
       "value_score": null,
       "grade": null,
       "rated": false,
-      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
+      "remaining_tickets_min": null,
+      "remaining_tickets_max": null,
+      "ev_ratio_min": null,
+      "ev_ratio_max": null,
+      "ev_scenarios": null,
+      "overall_odds_launch": 3.36
     },
     {
       "game_no": 654,
@@ -358,7 +477,26 @@
       "value_score": null,
       "grade": null,
       "rated": false,
-      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
+      "remaining_tickets_min": 49440,
+      "remaining_tickets_max": 50400,
+      "ev_ratio_min": 1.051171,
+      "ev_ratio_max": 1.071582,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.530639
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.212256
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.053064
+        }
+      ],
+      "overall_odds_launch": 3.88
     },
     {
       "game_no": 655,
@@ -403,7 +541,26 @@
       "value_score": null,
       "grade": null,
       "rated": false,
-      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
+      "remaining_tickets_min": 227500,
+      "remaining_tickets_max": 230100,
+      "ev_ratio_min": 0.888456,
+      "ev_ratio_max": 0.89861,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.446752
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.178701
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.044675
+        }
+      ],
+      "overall_odds_launch": 2.65
     },
     {
       "game_no": 656,
@@ -442,7 +599,26 @@
       "value_score": 58,
       "grade": "C",
       "rated": true,
-      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
+      "remaining_tickets_min": 354420,
+      "remaining_tickets_max": 355740,
+      "ev_ratio_min": 0.83461,
+      "ev_ratio_max": 0.837718,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.418081
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.167232
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.041808
+        }
+      ],
+      "overall_odds_launch": 3.82
     },
     {
       "game_no": 660,
@@ -480,7 +656,26 @@
       "value_score": null,
       "grade": null,
       "rated": false,
-      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
+      "remaining_tickets_min": 58200,
+      "remaining_tickets_max": 59400,
+      "ev_ratio_min": 0.95814,
+      "ev_ratio_max": 0.977895,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.483959
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.193583
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.048396
+        }
+      ],
+      "overall_odds_launch": 3.47
     },
     {
       "game_no": 661,
@@ -523,7 +718,26 @@
       "value_score": 40,
       "grade": "F",
       "rated": true,
-      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag)."
+      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag).",
+      "remaining_tickets_min": 360,
+      "remaining_tickets_max": 1080,
+      "ev_ratio_min": 35.753241,
+      "ev_ratio_max": 107.259722,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 26.814931
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 10.725972
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 2.681493
+        }
+      ],
+      "overall_odds_launch": 2.81
     },
     {
       "game_no": 662,
@@ -556,7 +770,26 @@
       "value_score": 87,
       "grade": "A",
       "rated": true,
-      "reason": "Inventory is thinning; the expected-value estimate carries moderate uncertainty."
+      "reason": "Inventory is thinning; the expected-value estimate carries moderate uncertainty.",
+      "remaining_tickets_min": 126240,
+      "remaining_tickets_max": 127200,
+      "ev_ratio_min": 1.283039,
+      "ev_ratio_max": 1.292795,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.64395
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.25758
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.064395
+        }
+      ],
+      "overall_odds_launch": 4.19
     },
     {
       "game_no": 663,
@@ -587,7 +820,26 @@
       "value_score": null,
       "grade": null,
       "rated": false,
-      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
+      "remaining_tickets_min": 10200,
+      "remaining_tickets_max": 11400,
+      "ev_ratio_min": 2.189123,
+      "ev_ratio_max": 2.446667,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 1.155371
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.462148
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.115537
+        }
+      ],
+      "overall_odds_launch": 3.82
     },
     {
       "game_no": 664,
@@ -617,7 +869,13 @@
       "value_score": null,
       "grade": null,
       "rated": false,
-      "reason": "Print run unknown \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+      "reason": "Print run unknown \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only.",
+      "remaining_tickets_min": null,
+      "remaining_tickets_max": null,
+      "ev_ratio_min": null,
+      "ev_ratio_max": null,
+      "ev_scenarios": null,
+      "overall_odds_launch": null
     },
     {
       "game_no": 667,
@@ -664,7 +922,26 @@
       "value_score": null,
       "grade": null,
       "rated": false,
-      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
+      "remaining_tickets_min": 176160,
+      "remaining_tickets_max": 177120,
+      "ev_ratio_min": 0.840876,
+      "ev_ratio_max": 0.845459,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.421581
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.168632
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.042158
+        }
+      ],
+      "overall_odds_launch": 2.89
     },
     {
       "game_no": 668,
@@ -693,7 +970,13 @@
       "value_score": null,
       "grade": null,
       "rated": false,
-      "reason": "Print run unknown \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+      "reason": "Print run unknown \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only.",
+      "remaining_tickets_min": null,
+      "remaining_tickets_max": null,
+      "ev_ratio_min": null,
+      "ev_ratio_max": null,
+      "ev_scenarios": null,
+      "overall_odds_launch": null
     },
     {
       "game_no": 669,
@@ -722,7 +1005,13 @@
       "value_score": null,
       "grade": null,
       "rated": false,
-      "reason": "Print run unknown \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+      "reason": "Print run unknown \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only.",
+      "remaining_tickets_min": null,
+      "remaining_tickets_max": null,
+      "ev_ratio_min": null,
+      "ev_ratio_max": null,
+      "ev_scenarios": null,
+      "overall_odds_launch": null
     },
     {
       "game_no": 670,
@@ -761,7 +1050,26 @@
       "value_score": null,
       "grade": null,
       "rated": false,
-      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
+      "remaining_tickets_min": 12000,
+      "remaining_tickets_max": 12960,
+      "ev_ratio_min": 2.258719,
+      "ev_ratio_max": 2.439417,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 1.172797
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.469119
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.11728
+        }
+      ],
+      "overall_odds_launch": 3.9
     },
     {
       "game_no": 671,
@@ -792,7 +1100,26 @@
       "value_score": null,
       "grade": null,
       "rated": false,
-      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
+      "remaining_tickets_min": 204000,
+      "remaining_tickets_max": 204960,
+      "ev_ratio_min": 0.73648,
+      "ev_ratio_max": 0.739946,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.369105
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.147642
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.03691
+        }
+      ],
+      "overall_odds_launch": 3.87
     },
     {
       "game_no": 673,
@@ -821,7 +1148,26 @@
       "value_score": null,
       "grade": null,
       "rated": false,
-      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
+      "remaining_tickets_min": 71520,
+      "remaining_tickets_max": 72480,
+      "ev_ratio_min": 1.193288,
+      "ev_ratio_max": 1.209305,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.600622
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.240249
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.060062
+        }
+      ],
+      "overall_odds_launch": 4.16
     },
     {
       "game_no": 674,
@@ -870,7 +1216,26 @@
       "value_score": 69,
       "grade": "B",
       "rated": true,
-      "reason": "Inventory is thinning; the expected-value estimate carries moderate uncertainty."
+      "reason": "Inventory is thinning; the expected-value estimate carries moderate uncertainty.",
+      "remaining_tickets_min": 168600,
+      "remaining_tickets_max": 169800,
+      "ev_ratio_min": 1.091729,
+      "ev_ratio_max": 1.099499,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.5478
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.21912
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.05478
+        }
+      ],
+      "overall_odds_launch": 3.39
     },
     {
       "game_no": 675,
@@ -901,7 +1266,26 @@
       "value_score": 46,
       "grade": "D",
       "rated": true,
-      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
+      "remaining_tickets_min": 400260,
+      "remaining_tickets_max": 401100,
+      "ev_ratio_min": 0.730486,
+      "ev_ratio_max": 0.732019,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.365626
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.14625
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.036563
+        }
+      ],
+      "overall_odds_launch": 4.11
     },
     {
       "game_no": 676,
@@ -934,7 +1318,26 @@
       "value_score": null,
       "grade": null,
       "rated": false,
-      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
+      "remaining_tickets_min": 86580,
+      "remaining_tickets_max": 88140,
+      "ev_ratio_min": 1.04486,
+      "ev_ratio_max": 1.063687,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.527095
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.210838
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.05271
+        }
+      ],
+      "overall_odds_launch": 3.52
     },
     {
       "game_no": 677,
@@ -979,7 +1382,26 @@
       "value_score": 65,
       "grade": "B-",
       "rated": true,
-      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
+      "remaining_tickets_min": 355740,
+      "remaining_tickets_max": 357060,
+      "ev_ratio_min": 0.893521,
+      "ev_ratio_max": 0.896836,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.447588
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.179035
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.044759
+        }
+      ],
+      "overall_odds_launch": 3.41
     },
     {
       "game_no": 680,
@@ -1008,7 +1430,26 @@
       "value_score": null,
       "grade": null,
       "rated": false,
-      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
+      "remaining_tickets_min": 95520,
+      "remaining_tickets_max": 96480,
+      "ev_ratio_min": 1.179478,
+      "ev_ratio_max": 1.191332,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.592688
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.237075
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.059269
+        }
+      ],
+      "overall_odds_launch": 4.18
     },
     {
       "game_no": 681,
@@ -1037,7 +1478,13 @@
       "value_score": null,
       "grade": null,
       "rated": false,
-      "reason": "Print run unknown \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+      "reason": "Print run unknown \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only.",
+      "remaining_tickets_min": null,
+      "remaining_tickets_max": null,
+      "ev_ratio_min": null,
+      "ev_ratio_max": null,
+      "ev_scenarios": null,
+      "overall_odds_launch": null
     },
     {
       "game_no": 682,
@@ -1070,7 +1517,26 @@
       "value_score": 68,
       "grade": "B",
       "rated": true,
-      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
+      "remaining_tickets_min": 542220,
+      "remaining_tickets_max": 543060,
+      "ev_ratio_min": 0.920884,
+      "ev_ratio_max": 0.92231,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.460798
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.184319
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.04608
+        }
+      ],
+      "overall_odds_launch": 4.16
     },
     {
       "game_no": 683,
@@ -1101,7 +1567,26 @@
       "value_score": null,
       "grade": null,
       "rated": false,
-      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
+      "remaining_tickets_min": 16200,
+      "remaining_tickets_max": 17400,
+      "ev_ratio_min": 2.831494,
+      "ev_ratio_max": 3.041235,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 1.46631
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.586524
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.146631
+        }
+      ],
+      "overall_odds_launch": 3.78
     },
     {
       "game_no": 684,
@@ -1136,7 +1621,26 @@
       "value_score": null,
       "grade": null,
       "rated": false,
-      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
+      "remaining_tickets_min": 167400,
+      "remaining_tickets_max": 168600,
+      "ev_ratio_min": 0.748814,
+      "ev_ratio_max": 0.754182,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.375744
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.150298
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.037574
+        }
+      ],
+      "overall_odds_launch": 3.76
     },
     {
       "game_no": 685,
@@ -1173,7 +1677,26 @@
       "value_score": 85,
       "grade": "A",
       "rated": true,
-      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
+      "remaining_tickets_min": 241020,
+      "remaining_tickets_max": 242580,
+      "ev_ratio_min": 1.068386,
+      "ev_ratio_max": 1.075301,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.535916
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.214366
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.053592
+        }
+      ],
+      "overall_odds_launch": 3.87
     },
     {
       "game_no": 686,
@@ -1216,7 +1739,26 @@
       "value_score": 56,
       "grade": "C",
       "rated": true,
-      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
+      "remaining_tickets_min": 707760,
+      "remaining_tickets_max": 709200,
+      "ev_ratio_min": 0.820349,
+      "ev_ratio_max": 0.822018,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.410592
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.164237
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.041059
+        }
+      ],
+      "overall_odds_launch": 3.36
     },
     {
       "game_no": 687,
@@ -1249,7 +1791,26 @@
       "value_score": 73,
       "grade": "B",
       "rated": true,
-      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
+      "remaining_tickets_min": 372060,
+      "remaining_tickets_max": 373620,
+      "ev_ratio_min": 0.967462,
+      "ev_ratio_max": 0.971518,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.484743
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.193897
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.048474
+        }
+      ],
+      "overall_odds_launch": 4.31
     },
     {
       "game_no": 689,
@@ -1283,7 +1844,13 @@
       "value_score": null,
       "grade": null,
       "rated": false,
-      "reason": "Print run unknown \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+      "reason": "Print run unknown \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only.",
+      "remaining_tickets_min": null,
+      "remaining_tickets_max": null,
+      "ev_ratio_min": null,
+      "ev_ratio_max": null,
+      "ev_scenarios": null,
+      "overall_odds_launch": null
     },
     {
       "game_no": 690,
@@ -1314,7 +1881,26 @@
       "value_score": 40,
       "grade": "F",
       "rated": true,
-      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag)."
+      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag).",
+      "remaining_tickets_min": 8160,
+      "remaining_tickets_max": 9120,
+      "ev_ratio_min": 10.201535,
+      "ev_ratio_max": 11.401716,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 5.384144
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 2.153657
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.538414
+        }
+      ],
+      "overall_odds_launch": 4.47
     },
     {
       "game_no": 691,
@@ -1344,7 +1930,26 @@
       "value_score": null,
       "grade": null,
       "rated": false,
-      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
+      "remaining_tickets_min": 50400,
+      "remaining_tickets_max": 51360,
+      "ev_ratio_min": 1.635037,
+      "ev_ratio_max": 1.666181,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.825231
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.330092
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.082523
+        }
+      ],
+      "overall_odds_launch": 4.21
     },
     {
       "game_no": 692,
@@ -1385,7 +1990,26 @@
       "value_score": 62,
       "grade": "B-",
       "rated": true,
-      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
+      "remaining_tickets_min": 560340,
+      "remaining_tickets_max": 561660,
+      "ev_ratio_min": 0.870981,
+      "ev_ratio_max": 0.873032,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.436003
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.174401
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.0436
+        }
+      ],
+      "overall_odds_launch": 3.79
     },
     {
       "game_no": 693,
@@ -1435,7 +2059,26 @@
       "value_score": 40,
       "grade": "F",
       "rated": true,
-      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag)."
+      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag).",
+      "remaining_tickets_min": 313800,
+      "remaining_tickets_max": 315000,
+      "ev_ratio_min": 1.762546,
+      "ev_ratio_max": 1.769286,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.882955
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.353182
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.088296
+        }
+      ],
+      "overall_odds_launch": 3.36
     },
     {
       "game_no": 694,
@@ -1465,7 +2108,26 @@
       "value_score": 40,
       "grade": "F",
       "rated": true,
-      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag)."
+      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag).",
+      "remaining_tickets_min": 155040,
+      "remaining_tickets_max": 156000,
+      "ev_ratio_min": 1.612071,
+      "ev_ratio_max": 1.622052,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.808523
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.323409
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.080852
+        }
+      ],
+      "overall_odds_launch": 4.66
     },
     {
       "game_no": 695,
@@ -1499,7 +2161,26 @@
       "value_score": 40,
       "grade": "F",
       "rated": true,
-      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag)."
+      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag).",
+      "remaining_tickets_min": 111840,
+      "remaining_tickets_max": 112800,
+      "ev_ratio_min": 1.618983,
+      "ev_ratio_max": 1.63288,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.812951
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.32518
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.081295
+        }
+      ],
+      "overall_odds_launch": 3.4
     },
     {
       "game_no": 696,
@@ -1537,7 +2218,26 @@
       "value_score": 40,
       "grade": "F",
       "rated": true,
-      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag)."
+      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag).",
+      "remaining_tickets_min": 83400,
+      "remaining_tickets_max": 84600,
+      "ev_ratio_min": 1.737939,
+      "ev_ratio_max": 1.762946,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.875177
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.350071
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.087518
+        }
+      ],
+      "overall_odds_launch": 3.43
     },
     {
       "game_no": 697,
@@ -1574,7 +2274,13 @@
       "value_score": null,
       "grade": null,
       "rated": false,
-      "reason": "Print run unknown \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+      "reason": "Print run unknown \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only.",
+      "remaining_tickets_min": null,
+      "remaining_tickets_max": null,
+      "ev_ratio_min": null,
+      "ev_ratio_max": null,
+      "ev_scenarios": null,
+      "overall_odds_launch": null
     },
     {
       "game_no": 699,
@@ -1611,7 +2317,26 @@
       "value_score": 76,
       "grade": "B+",
       "rated": true,
-      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
+      "remaining_tickets_min": 295800,
+      "remaining_tickets_max": 297000,
+      "ev_ratio_min": 0.991035,
+      "ev_ratio_max": 0.995055,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.496521
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.198608
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.049652
+        }
+      ],
+      "overall_odds_launch": 3.37
     },
     {
       "game_no": 702,
@@ -1642,7 +2367,26 @@
       "value_score": 40,
       "grade": "F",
       "rated": true,
-      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag)."
+      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag).",
+      "remaining_tickets_min": 3360,
+      "remaining_tickets_max": 4320,
+      "ev_ratio_min": 7.693981,
+      "ev_ratio_max": 9.892262,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 4.327865
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 1.731146
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.432786
+        }
+      ],
+      "overall_odds_launch": 3.56
     },
     {
       "game_no": 703,
@@ -1676,7 +2420,26 @@
       "value_score": 40,
       "grade": "F",
       "rated": true,
-      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag)."
+      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag).",
+      "remaining_tickets_min": 69660,
+      "remaining_tickets_max": 70020,
+      "ev_ratio_min": 1.861025,
+      "ev_ratio_max": 1.870643,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.932911
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.373164
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.093291
+        }
+      ],
+      "overall_odds_launch": 3.63
     },
     {
       "game_no": 704,
@@ -1709,7 +2472,26 @@
       "value_score": null,
       "grade": null,
       "rated": false,
-      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
+      "remaining_tickets_min": 141000,
+      "remaining_tickets_max": 142200,
+      "ev_ratio_min": 0.990591,
+      "ev_ratio_max": 0.999021,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.497394
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.198958
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.049739
+        }
+      ],
+      "overall_odds_launch": 3.79
     },
     {
       "game_no": 705,
@@ -1742,7 +2524,26 @@
       "value_score": 73,
       "grade": "B",
       "rated": true,
-      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
+      "remaining_tickets_min": 420420,
+      "remaining_tickets_max": 421260,
+      "ev_ratio_min": 0.969804,
+      "ev_ratio_max": 0.971741,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.485386
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.194154
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.048539
+        }
+      ],
+      "overall_odds_launch": 4.17
     },
     {
       "game_no": 706,
@@ -1781,7 +2582,26 @@
       "value_score": 40,
       "grade": "F",
       "rated": true,
-      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag)."
+      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag).",
+      "remaining_tickets_min": 2400,
+      "remaining_tickets_max": 3360,
+      "ev_ratio_min": 27.890179,
+      "ev_ratio_max": 39.04625,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 16.269271
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 6.507708
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 1.626927
+        }
+      ],
+      "overall_odds_launch": 3.83
     },
     {
       "game_no": 707,
@@ -1820,7 +2640,26 @@
       "value_score": null,
       "grade": null,
       "rated": false,
-      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
+      "remaining_tickets_min": 58500,
+      "remaining_tickets_max": 60060,
+      "ev_ratio_min": 1.990093,
+      "ev_ratio_max": 2.043162,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 1.00814
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.403256
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.100814
+        }
+      ],
+      "overall_odds_launch": 3.52
     },
     {
       "game_no": 708,
@@ -1853,7 +2692,26 @@
       "value_score": 87,
       "grade": "A",
       "rated": true,
-      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
+      "remaining_tickets_min": 284340,
+      "remaining_tickets_max": 285180,
+      "ev_ratio_min": 1.086226,
+      "ev_ratio_max": 1.089435,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.543914
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.217566
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.054391
+        }
+      ],
+      "overall_odds_launch": 4.22
     },
     {
       "game_no": 709,
@@ -1894,7 +2752,26 @@
       "value_score": 75,
       "grade": "B+",
       "rated": true,
-      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
+      "remaining_tickets_min": 245280,
+      "remaining_tickets_max": 246240,
+      "ev_ratio_min": 0.983049,
+      "ev_ratio_max": 0.986897,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.492485
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.196994
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.049248
+        }
+      ],
+      "overall_odds_launch": 3.87
     },
     {
       "game_no": 710,
@@ -1924,7 +2801,13 @@
       "value_score": null,
       "grade": null,
       "rated": false,
-      "reason": "Print run unknown \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+      "reason": "Print run unknown \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only.",
+      "remaining_tickets_min": null,
+      "remaining_tickets_max": null,
+      "ev_ratio_min": null,
+      "ev_ratio_max": null,
+      "ev_scenarios": null,
+      "overall_odds_launch": null
     },
     {
       "game_no": 711,
@@ -1973,7 +2856,26 @@
       "value_score": 70,
       "grade": "B",
       "rated": true,
-      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
+      "remaining_tickets_min": 431400,
+      "remaining_tickets_max": 432600,
+      "ev_ratio_min": 0.943628,
+      "ev_ratio_max": 0.946253,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.47247
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.188988
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.047247
+        }
+      ],
+      "overall_odds_launch": 3.39
     },
     {
       "game_no": 716,
@@ -2008,7 +2910,26 @@
       "value_score": 57,
       "grade": "C",
       "rated": true,
-      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
+      "remaining_tickets_min": 1550700,
+      "remaining_tickets_max": 1552500,
+      "ev_ratio_min": 0.827943,
+      "ev_ratio_max": 0.828904,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.414212
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.165685
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.041421
+        }
+      ],
+      "overall_odds_launch": 3.15
     },
     {
       "game_no": 717,
@@ -2043,7 +2964,26 @@
       "value_score": 59,
       "grade": "C",
       "rated": true,
-      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
+      "remaining_tickets_min": 432480,
+      "remaining_tickets_max": 433440,
+      "ev_ratio_min": 0.838834,
+      "ev_ratio_max": 0.840696,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.419882
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.167953
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.041988
+        }
+      ],
+      "overall_odds_launch": 3.87
     },
     {
       "game_no": 718,
@@ -2096,7 +3036,26 @@
       "value_score": 62,
       "grade": "B-",
       "rated": true,
-      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
+      "remaining_tickets_min": 2242850,
+      "remaining_tickets_max": 2245950,
+      "ev_ratio_min": 0.868877,
+      "ev_ratio_max": 0.870078,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.434739
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.173895
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.043474
+        }
+      ],
+      "overall_odds_launch": 2.98
     },
     {
       "game_no": 720,
@@ -2135,7 +3094,26 @@
       "value_score": 54,
       "grade": "C",
       "rated": true,
-      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
+      "remaining_tickets_min": 1390740,
+      "remaining_tickets_max": 1392300,
+      "ev_ratio_min": 0.800467,
+      "ev_ratio_max": 0.801365,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.400458
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.160183
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.040046
+        }
+      ],
+      "overall_odds_launch": 3.52
     },
     {
       "game_no": 723,
@@ -2172,7 +3150,26 @@
       "value_score": 67,
       "grade": "B-",
       "rated": true,
-      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
+      "remaining_tickets_min": 435360,
+      "remaining_tickets_max": 436320,
+      "ev_ratio_min": 0.915,
+      "ev_ratio_max": 0.917018,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.458004
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.183202
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.0458
+        }
+      ],
+      "overall_odds_launch": 3.87
     },
     {
       "game_no": 725,
@@ -2213,7 +3210,26 @@
       "value_score": 61,
       "grade": "C",
       "rated": true,
-      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
+      "remaining_tickets_min": 610080,
+      "remaining_tickets_max": 611040,
+      "ev_ratio_min": 0.857026,
+      "ev_ratio_max": 0.858374,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.42885
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.17154
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.042885
+        }
+      ],
+      "overall_odds_launch": 3.91
     },
     {
       "game_no": 729,
@@ -2242,7 +3258,26 @@
       "value_score": 67,
       "grade": "B-",
       "rated": true,
-      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
+      "remaining_tickets_min": 690720,
+      "remaining_tickets_max": 691680,
+      "ev_ratio_min": 0.914064,
+      "ev_ratio_max": 0.915335,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.45735
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.18294
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.045735
+        }
+      ],
+      "overall_odds_launch": 4.66
     },
     {
       "game_no": 730,
@@ -2271,7 +3306,26 @@
       "value_score": 72,
       "grade": "B",
       "rated": true,
-      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
+      "remaining_tickets_min": 576480,
+      "remaining_tickets_max": 577440,
+      "ev_ratio_min": 0.959097,
+      "ev_ratio_max": 0.960694,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.479948
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.191979
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.047995
+        }
+      ],
+      "overall_odds_launch": 4.43
     },
     {
       "game_no": 735,
@@ -2302,7 +3356,26 @@
       "value_score": 60,
       "grade": "C",
       "rated": true,
-      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
+      "remaining_tickets_min": 670740,
+      "remaining_tickets_max": 671580,
+      "ev_ratio_min": 0.849176,
+      "ev_ratio_max": 0.850239,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.424854
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.169941
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.042485
+        }
+      ],
+      "overall_odds_launch": 3.51
     },
     {
       "game_no": 737,
@@ -2331,7 +3404,26 @@
       "value_score": 64,
       "grade": "B-",
       "rated": true,
-      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
+      "remaining_tickets_min": 743520,
+      "remaining_tickets_max": 744480,
+      "ev_ratio_min": 0.891411,
+      "ev_ratio_max": 0.892562,
+      "ev_scenarios": [
+        {
+          "assumed_claimed_share": 0.5,
+          "ev_ratio": 0.445994
+        },
+        {
+          "assumed_claimed_share": 0.8,
+          "ev_ratio": 0.178397
+        },
+        {
+          "assumed_claimed_share": 0.95,
+          "ev_ratio": 0.044599
+        }
+      ],
+      "overall_odds_launch": 3.58
     }
   ]
 }

@@ -70,7 +70,25 @@
           "enum": ["A", "A-", "B+", "B", "B-", "C", "D", "F", null]
         },
         "rated": { "type": "boolean" },
-        "reason": { "type": "string", "minLength": 1 }
+        "reason": { "type": "string", "minLength": 1 },
+        "remaining_tickets_min": { "type": ["integer", "null"] },
+        "remaining_tickets_max": { "type": ["integer", "null"] },
+        "ev_ratio_min": { "type": ["number", "null"] },
+        "ev_ratio_max": { "type": ["number", "null"] },
+        "ev_scenarios": {
+          "type": ["array", "null"],
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "object",
+            "required": ["assumed_claimed_share", "ev_ratio"],
+            "properties": {
+              "assumed_claimed_share": { "type": "number", "enum": [0.5, 0.8, 0.95] },
+              "ev_ratio": { "type": "number" }
+            }
+          }
+        },
+        "overall_odds_launch": { "type": ["number", "null"] }
       }
     },
     "top_prize": {

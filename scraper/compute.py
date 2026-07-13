@@ -18,11 +18,43 @@ documented, pinned deviation from M3's "never compute from an already-
 rounded value" rule, scoped to ``value_score`` only — ``ev_ratio`` itself
 is still never clamped or recomputed.
 
+W2 (docs/specs/w2_v15_honesty_spec.md) additively extends every game with
+six more fields, appended after ``reason`` in this pinned order:
+``remaining_tickets_min``, ``remaining_tickets_max``, ``ev_ratio_min``,
+``ev_ratio_max``, ``ev_scenarios``, ``overall_odds_launch``.
+
+- **Interval propagation** (documented deviation, M4a-style, scoped to these
+  four fields only): the published ``percent_unsold`` is 1 dp, so the true
+  percent lies in ``[p - 0.05, p + 0.05]`` (closed, clipped to
+  ``[0, 100]``). ``remaining_tickets_min``/``max`` are the int ticket counts
+  at those interval ends. ``ev_ratio_max``/``min`` are computed FROM those
+  published int ticket ends (not from a raw unrounded intermediate) so a
+  human can reproduce both ends from ``latest.json`` alone — fewer tickets
+  means higher EV, hence ``ev_ratio_max`` uses ``remaining_tickets_min`` and
+  vice versa. All four are ``null`` iff ``ev_ratio`` is ``null`` (pure math
+  propagation — they ARE computed for dead/OOR games with a non-null
+  ``ev_ratio``). Guard: if ``remaining_tickets_min == 0``, ``ev_ratio_max``
+  is ``null`` (unbounded above; never publish infinity or a fake cap).
+- **Sensitivity scenarios**: ``SCENARIO_CLAIMED_SHARES`` pins three
+  claim-lag what-if shares. For each game with non-null ``ev_ratio``,
+  ``ev_scenarios`` is computed via EXACT INTEGER-DECIMAL arithmetic (never
+  float) to kill the half-up-midpoint ambiguity that a naive
+  ``ev_ratio * (1 - share)`` float computation hits whenever the 6th dp of
+  ``ev_ratio`` is odd and share is 0.5. ``ev_scenarios`` is ``null`` (never
+  ``[]``) when ``ev_ratio`` is ``null``. These are illustrative scenarios,
+  never bounds, never a fitted correction — ``ev_ratio_adjusted`` stays
+  ``null`` everywhere; no code path here may write it.
+- **Launch odds anchor**: ``overall_odds_launch`` is ``games.json``'s
+  ``overall_odds`` for the game_no, carried verbatim (never computed),
+  ``null`` when absent.
+
 Public API: :func:`compute_latest`, :func:`diff_gate`, and the
 ``python -m scraper.compute`` CLI. docs/specs/m3_ev_spec.md is the binding
 spec for the M3 fields; docs/specs/m4a_scoring_spec.md is the binding spec
-for scoring. Their "field semantics" / "hand-check worksheet" sections are
-the rules of record reproduced in the docstrings/comments below.
+for scoring; docs/specs/w2_v15_honesty_spec.md is the binding spec for the
+interval/scenario/launch-odds fields. Their "field semantics" / "hand-check
+worksheet" sections are the rules of record reproduced in the
+docstrings/comments below.
 """
 from __future__ import annotations
 
@@ -76,6 +108,18 @@ GRADE_BANDS = (
     (42, "D"),
 )
 GRADE_DEFAULT = "F"
+
+# --------------------------------------------------------------------------
+# W2 v1.5 honesty constants (docs/specs/w2_v15_honesty_spec.md)
+# --------------------------------------------------------------------------
+
+# Pinned claim-lag "what-if" shares (planner's defaults) — illustrative
+# scenarios, never bounds, never a fitted correction.
+SCENARIO_CLAIMED_SHARES = (0.5, 0.8, 0.95)
+
+# Half of the published percent_unsold's 1-dp rounding step, used to build
+# the conservative interval [p - INTERVAL_HALF_STEP, p + INTERVAL_HALF_STEP].
+INTERVAL_HALF_STEP = 0.05
 
 # Reason copy bank (planner-authored, BINDING — exact strings; do not reword).
 REASONS = {
@@ -229,6 +273,68 @@ def _apply_scoring(games: list[dict]) -> None:
 
 
 # --------------------------------------------------------------------------
+# W2 v1.5 honesty helpers (never raise; pure functions on already-published
+# fields so results are hand-reproducible from latest.json alone)
+# --------------------------------------------------------------------------
+
+def _interval_fields(
+    ev_ratio: float | None,
+    percent_unsold: float,
+    print_run: int | None,
+    total_unclaimed: float,
+    price: float,
+) -> tuple[int | None, int | None, float | None, float | None]:
+    """Interval propagation (Resolution 2): publish BOTH pairs.
+
+    Null iff ``ev_ratio`` is null. ``ev_ratio_max`` is additionally null iff
+    ``remaining_tickets_min == 0`` (unbounded above; never a fake cap).
+    Deviation from M3's raw-intermediate rule (documented, scoped to these
+    four fields): the EV ends are computed FROM the published int ticket
+    ends, not from a raw unrounded intermediate, so a human can reproduce
+    both ends from latest.json alone.
+    """
+    if ev_ratio is None:
+        return None, None, None, None
+
+    p_lo = max(percent_unsold - INTERVAL_HALF_STEP, 0.0)
+    p_hi = min(percent_unsold + INTERVAL_HALF_STEP, 100.0)
+
+    remaining_tickets_min = round(p_lo * print_run / 100)
+    remaining_tickets_max = round(p_hi * print_run / 100)
+
+    if remaining_tickets_min == 0:
+        ev_ratio_max = None
+    else:
+        ev_ratio_max = round(total_unclaimed / remaining_tickets_min / price, 6)
+    ev_ratio_min = round(total_unclaimed / remaining_tickets_max / price, 6)
+
+    return remaining_tickets_min, remaining_tickets_max, ev_ratio_min, ev_ratio_max
+
+
+def _ev_scenarios(ev_ratio: float | None) -> list[dict] | None:
+    """Sensitivity scenarios (Resolutions 4 + 9): exact integer-decimal math.
+
+    ``null`` (never ``[]``) when ``ev_ratio`` is null. ``n`` is the exact int
+    of the published (6-dp) ``ev_ratio`` value; each scenario's ``ev_ratio``
+    is half-up rounded to 6 dp via integer arithmetic so s=0.5's exact
+    decimal midpoints (whenever the 6th dp of ev_ratio is odd) are
+    deterministic and hand-reproducible — never float-naive.
+    """
+    if ev_ratio is None:
+        return None
+
+    n = round(ev_ratio * 10**6)
+    scenarios = []
+    for share in SCENARIO_CLAIMED_SHARES:
+        share_pct = round(share * 100)
+        v_int = ((n * (100 - share_pct)) + 50) // 100
+        scenarios.append(
+            {"assumed_claimed_share": share, "ev_ratio": v_int / 1_000_000}
+        )
+    return scenarios
+
+
+# --------------------------------------------------------------------------
 # Public API
 # --------------------------------------------------------------------------
 
@@ -357,6 +463,30 @@ def compute_latest(snapshot: dict, games_meta: dict, as_of: str) -> dict:
     # dict insertion order already puts them there since "confidence" is the
     # last key set above and these are the first keys _apply_scoring adds.
     _apply_scoring(games)
+
+    # W2 v1.5 honesty fields: appended after "reason", in this pinned order
+    # (byte-stable diffs, M4a precedent) — dict insertion order already
+    # puts them there since "reason" is the last key _apply_scoring sets.
+    for game in games:
+        meta = meta_games.get(str(game["game_no"])) or {}
+        (
+            remaining_tickets_min,
+            remaining_tickets_max,
+            ev_ratio_min,
+            ev_ratio_max,
+        ) = _interval_fields(
+            game["ev_ratio"],
+            game["percent_unsold"],
+            game["print_run"],
+            game["total_unclaimed"],
+            game["price"],
+        )
+        game["remaining_tickets_min"] = remaining_tickets_min
+        game["remaining_tickets_max"] = remaining_tickets_max
+        game["ev_ratio_min"] = ev_ratio_min
+        game["ev_ratio_max"] = ev_ratio_max
+        game["ev_scenarios"] = _ev_scenarios(game["ev_ratio"])
+        game["overall_odds_launch"] = meta.get("overall_odds")
 
     return {
         "as_of": as_of,
