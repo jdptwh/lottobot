@@ -286,6 +286,16 @@ header.site-header::after {
   border-left: 3px solid var(--gold-500);
   padding-left: 10px;
 }
+.hero-qualifier {
+  font-size: 12px;
+  line-height: 1.4;
+  margin: 6px 0 0;
+  color: var(--gold-300);
+  font-style: italic;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .hero-empty {
   background: var(--cream-100);
   border: 1.5px dashed var(--line);
@@ -391,6 +401,34 @@ details.expander summary::-webkit-details-marker { display: none; }
   margin: 2px 4px 2px 0;
 }
 .pending-note {
+  font-size: 12px;
+  color: var(--ink-soft);
+  font-style: italic;
+  margin: 4px 0 0;
+}
+.scenario-block {
+  margin: 10px 0 0;
+}
+.scenario-heading {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 4px;
+}
+.scenario-list {
+  margin: 0 0 6px;
+  padding-left: 0;
+  list-style: none;
+}
+.scenario-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 3px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 12.5px;
+}
+.scenario-disclaimer {
   font-size: 12px;
   color: var(--ink-soft);
   font-style: italic;
@@ -552,7 +590,7 @@ footer.site-footer a { font-weight: 600; }
 
     <details class="explainer" id="explainer">
       <summary><span class="chev">▶</span> How the score works</summary>
-      <div class="explainer-body">The score (0–100) compares each game's naive expected value per dollar against every other rateable Maine scratch game today, discounted when the inventory data behind it is thin. Grades are fixed bands on that score. Scores are relative and re-anchor every day — a 95 today is not a 95 tomorrow, and no score predicts a win. Every scratch game loses money on average; the best pick is only the least bad.</div>
+      <div class="explainer-body">The score (0–100) compares each game's naive expected value per dollar against every other rateable Maine scratch game today, discounted when the inventory data behind it is thin. That expected value is an upper bound on unclaimed prize value per estimated unsold ticket — some unclaimed prizes sit on tickets already sold but not yet claimed, so the true expected value is lower. Grades are fixed bands on that score. Scores are relative and re-anchor every day — a 95 today is not a 95 tomorrow, and no score predicts a win. Every scratch game loses money on average; the best pick is only the least bad.</div>
     </details>
 
     <div class="price-filter">
@@ -576,10 +614,11 @@ footer.site-footer a { font-weight: 600; }
 
     <section class="claim-lag-section" aria-labelledby="claim-lag-heading">
       <div class="claim-lag-header">
-        <h2 id="claim-lag-heading">Excluded: claim-lag games</h2>
+        <h2 id="claim-lag-heading">Excluded from best pick</h2>
         <span class="claim-lag-count tabular" id="claim-lag-count"></span>
       </div>
       <p class="claim-lag-caveat">Caution: &quot;unclaimed&quot; prizes are often on already-sold tickets awaiting redemption, so naive EV overstates value — most severely on nearly-sold-out games. Treat an unusually high EV as a warning sign, not a tip.</p>
+      <p class="claim-lag-caveat">Nearly sold-out games are also excluded: with so few tickets left, the estimate is too unstable to rank.</p>
       <details class="claim-lag-list-toggle" id="claim-lag-toggle">
         <summary><span class="chev">▶</span> <span id="claim-lag-toggle-label">Show the claim-lag games</span></summary>
         <div id="claim-lag-slot"></div>
@@ -627,13 +666,22 @@ footer.site-footer a { font-weight: 600; }
 
   /* ---------------- eligibility predicate (rule of record) ----------------
      eligible(g) := g.rated === true && !g.flags.includes("ev_out_of_range")
+                    && !g.flags.includes("low_inventory")
+     (docs/specs/w2_v15_honesty_spec.md M4b amendment 1 — highly depleted
+     games are ineligible for "best pick" alongside claim-lag games.)
      Hero and shortlist draw ONLY from games passing isEligible. Never select
      on value_score alone. */
   function isEligible(g) {
-    return g.rated === true && (g.flags || []).indexOf("ev_out_of_range") === -1;
+    return g.rated === true &&
+      (g.flags || []).indexOf("ev_out_of_range") === -1 &&
+      (g.flags || []).indexOf("low_inventory") === -1;
   }
-  function isClaimLag(g) {
-    return g.rated === true && (g.flags || []).indexOf("ev_out_of_range") !== -1;
+  /* isExcluded(g) := rated && !eligible(g) — the "Excluded from best pick"
+     section partition (M4b amendment 2): claim-lag + depleted games, scored
+     and honestly displayed, never ranked. Partition invariant: eligible ∪
+     excluded ∪ not-rated = all games. */
+  function isExcluded(g) {
+    return g.rated === true && !isEligible(g);
   }
 
   /* ---------------- formatting helpers ---------------- */
@@ -655,6 +703,11 @@ footer.site-footer a { font-weight: 600; }
   function oddsLabel(n) {
     if (n === null || n === undefined) return "—";
     return "1 in " + Math.round(n).toLocaleString("en-US");
+  }
+  function evRange2(min, max) {
+    var lo = min === null || min === undefined ? "—" : min.toFixed(2);
+    var hi = max === null || max === undefined ? "—" : max.toFixed(2);
+    return lo + " – " + hi;
   }
   function scoreRing(score, grade) {
     var pct = score === null || score === undefined ? 0 : score;
@@ -683,6 +736,34 @@ footer.site-footer a { font-weight: 600; }
     }).join("") + "</ul>";
   }
 
+  /* ---------------- version-skew guard (rule of record) ----------------
+     normalizeGame(g): the bot owns data/latest.json and the site deploys up
+     to ~24h before the bot writes the six W2 fields. Every game object is
+     passed through here ONCE, right after fetch, so every other function in
+     this file can assume remaining_tickets_min/max, ev_ratio_min/max,
+     ev_scenarios, and overall_odds_launch are always present keys — real
+     value or null, never `undefined`. This is what makes the page render
+     the exact pre-W2 view (no crash, no "undefined" text) against legacy
+     data/latest.json. Reviewer: read this function end-to-end. */
+  function normalizeGame(g) {
+    var out = {};
+    for (var k in g) {
+      if (Object.prototype.hasOwnProperty.call(g, k)) out[k] = g[k];
+    }
+    var newFieldDefaults = {
+      remaining_tickets_min: null,
+      remaining_tickets_max: null,
+      ev_ratio_min: null,
+      ev_ratio_max: null,
+      ev_scenarios: null,
+      overall_odds_launch: null
+    };
+    for (var key in newFieldDefaults) {
+      if (out[key] === undefined) out[key] = newFieldDefaults[key];
+    }
+    return out;
+  }
+
   /* ---------------- scoped data ---------------- */
   function scopedGames() {
     if (!LATEST) return [];
@@ -690,7 +771,7 @@ footer.site-footer a { font-weight: 600; }
     return LATEST.games.filter(function (g) { return g.price === activePrice; });
   }
   function scopedEligible() { return scopedGames().filter(isEligible); }
-  function scopedClaimLag() { return scopedGames().filter(isClaimLag); }
+  function scopedExcluded() { return scopedGames().filter(isExcluded); }
   function scopedNotRated() { return scopedGames().filter(function (g) { return g.rated === false; }); }
   function sortRank(list) {
     return list.slice().sort(function (a, b) {
@@ -749,10 +830,24 @@ footer.site-footer a { font-weight: 600; }
       '<p class="hero-game-name">' + esc(g.name) + "</p>" +
       '<p class="hero-meta tabular">#' + g.game_no + " · " + priceLabel(g.price) + " ticket</p>" +
       '<p class="hero-reason">' + esc(g.reason) + "</p>" +
+      '<p class="hero-qualifier">Built on an upper-bound EV estimate — the true expected value is lower.</p>' +
       "</div></div>";
   }
 
   /* ---------------- shortlist rows ---------------- */
+  function scenarioBlock(scenarios) {
+    if (!scenarios || !scenarios.length) return "";
+    var pctFor = { 0.5: 50, 0.8: 80, 0.95: 95 };
+    var rows = scenarios.map(function (s) {
+      var pct = pctFor[s.assumed_claimed_share] || Math.round(s.assumed_claimed_share * 100);
+      return "<li><span>If " + pct + "% of unclaimed value is on already-sold tickets</span><span class=\"tabular\">" + s.ev_ratio.toFixed(2) + "</span></li>";
+    }).join("");
+    return '<div class="scenario-block">' +
+      '<p class="scenario-heading">What if some of it is already claimed-in-waiting?</p>' +
+      '<ul class="scenario-list tabular">' + rows + "</ul>" +
+      '<p class="scenario-disclaimer">Illustrative scenarios, not bounds — no measurement yet says which assumption is right.</p>' +
+      "</div>";
+  }
   function detailSheet(g, opts) {
     opts = opts || {};
     var relScoreRow = "";
@@ -764,14 +859,17 @@ footer.site-footer a { font-weight: 600; }
       '<dl class="detail-grid tabular">' +
       "<dt>Percent unsold</dt><dd>" + pct1(g.percent_unsold) + "</dd>" +
       "<dt>Total unclaimed</dt><dd>" + money(g.total_unclaimed) + "</dd>" +
-      "<dt>EV per ticket</dt><dd>" + (g.ev_per_ticket == null ? "—" : money(g.ev_per_ticket)) + "</dd>" +
-      "<dt>EV ratio</dt><dd>" + evr2(g.ev_ratio) + "</dd>" +
+      "<dt>EV per ticket (upper-bound est.)</dt><dd>" + (g.ev_per_ticket == null ? "—" : money(g.ev_per_ticket)) + "</dd>" +
+      "<dt>EV ratio (upper-bound est.)</dt><dd>" + evr2(g.ev_ratio) + "</dd>" +
       "<dt>EV ratio, adjusted</dt><dd>— pending (v2)</dd>" +
+      "<dt>EV ratio range</dt><dd>" + evRange2(g.ev_ratio_min, g.ev_ratio_max) + "<br><span style=\"font-weight:400;font-size:11px;color:var(--ink-soft);\">from the state's 0.1-point inventory rounding</span></dd>" +
+      "<dt>Overall odds at launch (any prize)</dt><dd>" + (g.overall_odds_launch == null ? "—" : "1 in " + g.overall_odds_launch.toFixed(2)) + "</dd>" +
       "<dt>Top-prize odds now</dt><dd>" + oddsLabel(g.top_prize_odds_now) + "</dd>" +
       "<dt>Print run</dt><dd>" + (g.print_run == null ? "—" : g.print_run.toLocaleString("en-US")) + "</dd>" +
       relScoreRow +
       "</dl>" +
-      '<p class="pending-note">Launch-odds comparison pending (v2).</p>' +
+      scenarioBlock(g.ev_scenarios) +
+      (opts.showRelativeScore ? "" : '<p class="pending-note">Full launch (book) EV needs the complete prize table — pending (M6).</p>') +
       "<div>" + flagChips(g.flags) + "</div>" +
       "</div>";
   }
@@ -818,9 +916,9 @@ footer.site-footer a { font-weight: 600; }
     }
   }
 
-  /* ---------------- claim-lag ---------------- */
+  /* ---------------- excluded from best pick (claim-lag + depleted) ---------------- */
   function renderClaimLag() {
-    var list = sortRank(scopedClaimLag());
+    var list = sortRank(scopedExcluded());
     document.getElementById("claim-lag-count").textContent = list.length + " game" + (list.length === 1 ? "" : "s") + " excluded";
     document.getElementById("claim-lag-toggle-label").textContent = "Show the " + list.length + " claim-lag game" + (list.length === 1 ? "" : "s");
     var slot = document.getElementById("claim-lag-slot");
@@ -913,6 +1011,7 @@ footer.site-footer a { font-weight: 600; }
   }
 
   function onDataLoaded(data) {
+    data.games = (data.games || []).map(normalizeGame);
     LATEST = data;
     renderErrorPanel(false);
     renderChips();

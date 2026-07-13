@@ -60,6 +60,13 @@ REQUIRED_SUBSTRINGS = [
     "mainelottery.com",
     "warning sign, not a tip",
     "no score predicts a win",
+    # W2 v1.5 honesty pass (docs/specs/w2_v15_honesty_spec.md) copy-bank anchors:
+    "upper-bound est.",
+    "true expected value is lower",
+    "Excluded from best pick",
+    "not bounds",
+    "at launch",
+    "pending (M6)",
 ]
 
 
@@ -167,6 +174,46 @@ class TestContract:
         for g in eligible:
             assert "ev_out_of_range" not in g["flags"]
 
+    # ------------------------------------------------------------------
+    # W2 v1.5 honesty pass (docs/specs/w2_v15_honesty_spec.md) — CONDITIONAL
+    # invariants only. Live data/latest.json does not carry the six new
+    # fields until the next daily bot run writes v1.5 data (version skew is
+    # by design, m5a rule 3): every check below is gated on the field's
+    # presence and skips cleanly on pre-W2 data, firing fully once the bot
+    # writes the new fields. No counts, no game_no pins against live data.
+    # ------------------------------------------------------------------
+
+    def test_conditional_nullity_coupling(self, data):
+        for g in data["games"]:
+            if "ev_ratio_min" in g:
+                ev_is_null = g["ev_ratio"] is None
+                assert (g["remaining_tickets_min"] is None) == ev_is_null, g["game_no"]
+                assert (g["remaining_tickets_max"] is None) == ev_is_null, g["game_no"]
+                assert (g["ev_ratio_min"] is None) == ev_is_null, g["game_no"]
+                assert (g["ev_scenarios"] is None) == ev_is_null, g["game_no"]
+                if g["remaining_tickets_min"] == 0:
+                    assert g["ev_ratio_max"] is None, g["game_no"]
+
+    def test_conditional_ordering_invariants(self, data):
+        for g in data["games"]:
+            if "ev_ratio_min" in g and g["ev_ratio"] is not None:
+                assert g["remaining_tickets_min"] <= g["remaining_tickets"] <= g["remaining_tickets_max"], g["game_no"]
+                assert g["ev_ratio_min"] <= g["ev_ratio"] <= g["ev_ratio_max"], g["game_no"]
+                scenarios = g["ev_scenarios"]
+                assert len(scenarios) == 3, g["game_no"]
+                shares = [s["assumed_claimed_share"] for s in scenarios]
+                assert shares == [0.5, 0.8, 0.95], g["game_no"]
+                evs = [s["ev_ratio"] for s in scenarios]
+                assert evs[0] > evs[1] > evs[2], g["game_no"]
+                assert all(e < g["ev_ratio"] for e in evs), g["game_no"]
+
+    def test_conditional_overall_odds_launch_type(self, data):
+        for g in data["games"]:
+            if "overall_odds_launch" in g:
+                assert g["overall_odds_launch"] is None or isinstance(
+                    g["overall_odds_launch"], (int, float)
+                ), g["game_no"]
+
 
 # ============================================================================
 # 1b. Fixture-pinned regression exacts (frozen fixture-derived artifact)
@@ -197,6 +244,54 @@ class TestFrozenArtifactRegression:
         eligible.sort(key=lambda g: (-g["value_score"], g["game_no"]))
         assert eligible[0]["game_no"] == 630
         assert eligible[0]["value_score"] == 95
+
+    # ------------------------------------------------------------------
+    # W2 hand-check worksheet A-C (docs/specs/w2_v15_honesty_spec.md),
+    # asserted exactly against the re-frozen artifact — AC-4.
+    # ------------------------------------------------------------------
+
+    @staticmethod
+    def _game(frozen_data, game_no):
+        return next(g for g in frozen_data["games"] if g["game_no"] == game_no)
+
+    def test_worksheet_a_720_crossword(self, frozen_data):
+        g = self._game(frozen_data, 720)
+        assert g["remaining_tickets_min"] == 1390740
+        assert g["remaining_tickets_max"] == 1392300
+        assert g["ev_ratio_min"] == 0.800467
+        assert g["ev_ratio_max"] == 0.801365
+        assert g["ev_scenarios"] == [
+            {"assumed_claimed_share": 0.5, "ev_ratio": 0.400458},
+            {"assumed_claimed_share": 0.8, "ev_ratio": 0.160183},
+            {"assumed_claimed_share": 0.95, "ev_ratio": 0.040046},
+        ]
+        assert g["overall_odds_launch"] == 3.52
+
+    def test_worksheet_b_630_royal_cash_midpoint(self, frozen_data):
+        g = self._game(frozen_data, 630)
+        assert g["remaining_tickets_min"] == 107040
+        assert g["remaining_tickets_max"] == 108000
+        assert g["ev_ratio_min"] == 1.361463
+        assert g["ev_ratio_max"] == 1.373673
+        assert g["ev_scenarios"] == [
+            {"assumed_claimed_share": 0.5, "ev_ratio": 0.683771},
+            {"assumed_claimed_share": 0.8, "ev_ratio": 0.273508},
+            {"assumed_claimed_share": 0.95, "ev_ratio": 0.068377},
+        ]
+        assert g["overall_odds_launch"] == 2.84
+
+    def test_worksheet_c_702_holiday_500s_depleted(self, frozen_data):
+        g = self._game(frozen_data, 702)
+        assert g["remaining_tickets_min"] == 3360
+        assert g["remaining_tickets_max"] == 4320
+        assert g["ev_ratio_min"] == 7.693981
+        assert g["ev_ratio_max"] == 9.892262
+        assert g["ev_scenarios"] == [
+            {"assumed_claimed_share": 0.5, "ev_ratio": 4.327865},
+            {"assumed_claimed_share": 0.8, "ev_ratio": 1.731146},
+            {"assumed_claimed_share": 0.95, "ev_ratio": 0.432786},
+        ]
+        assert g["overall_odds_launch"] == 3.56
 
 
 # ============================================================================
@@ -278,6 +373,14 @@ class TestSiteOnlyAnchors:
 
     def test_mockup_only_switcher_marker_absent(self, site_text):
         assert "MOCKUP ONLY" not in site_text
+
+    def test_normalizeGame_present(self, site_text):
+        """Version-skew guard (docs/specs/w2_v15_honesty_spec.md, AC-8):
+        build-only anchor — the mockup uses static sample data and has no
+        fetch/normalize step, so this lints the site build only."""
+        assert re.search(r"function\s+normalizeGame\s*\([^)]*\)\s*\{", site_text), (
+            "no named normalizeGame function found"
+        )
 
 
 class TestMockupOnlyAnchors:
