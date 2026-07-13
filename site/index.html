@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Maine Scratch EV — today's best pick</title>
+<style>
+/*
+  Visual language carried from the approved mockup (docs/mockups/best_pick_mockup.html,
+  commit 99a4ee5): warm parchment/cream surface, deep pine green structure, a single
+  muted gold accent reserved for grade/score emphasis, conic-gradient score rings,
+  numbered-rank shortlist rhythm (not a uniform card grid), tabular-nums on every figure.
+  See the mockup's DESIGN NOTES comment for the full reference-study record; this file
+  is the build target, not a place to relitigate the design.
+*/
+
+:root {
+  --pine-950: #0c2b21;
+  --pine-900: #123a2c;
+  --pine-700: #1f5c45;
+  --pine-500: #2f7d5e;
+  --cream-50: #fbf7ee;
+  --cream-100: #f3ecda;
+  --cream-200: #e9decb;
+  --paper: #fffdf7;
+  --gold-600: #a9721f;
+  --gold-500: #c98a2c;
+  --gold-300: #e3b466;
+  --amber-warn-bg: #f4e6cf;
+  --amber-warn-rule: #b5762a;
+  --ink: #1c2621;
+  --ink-soft: #4a564e;
+  --line: #d9cfb8;
+  --focus: #1f5c45;
+  --radius-lg: 18px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--cream-50);
+  color: var(--ink);
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+  padding-bottom: 48px;
+}
+
+.tabular { font-variant-numeric: tabular-nums; }
+
+a { color: var(--pine-700); }
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--pine-900);
+  color: var(--cream-50);
+  padding: 10px 16px;
+  z-index: 100;
+}
+.skip-link:focus { left: 8px; top: 8px; }
+
+/* ---------- header ---------- */
+header.site-header {
+  background: var(--pine-950);
+  color: var(--cream-50);
+  padding: 28px 20px 22px;
+  position: relative;
+}
+header.site-header::after {
+  content: "";
+  display: block;
+  height: 6px;
+  margin-top: 20px;
+  background-image: radial-gradient(circle, var(--gold-500) 2px, transparent 2.4px);
+  background-size: 14px 6px;
+  background-position: 0 center;
+  opacity: 0.7;
+}
+.wordmark {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.wordmark small {
+  font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gold-300);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+.framing {
+  margin: 12px 0 0;
+  max-width: 62ch;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--cream-100);
+}
+.as-of-line {
+  margin-top: 14px;
+  font-size: 12.5px;
+  color: var(--gold-300);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+}
+
+/* ---------- staleness banner ---------- */
+.staleness-banner {
+  background: #7a2b12;
+  color: #ffe6d6;
+  padding: 12px 20px;
+  font-size: 13.5px;
+  border-bottom: 1px solid #5a1e0c;
+}
+.staleness-banner strong { font-weight: 700; }
+
+/* ---------- error panel ---------- */
+.error-panel {
+  margin: 24px 16px;
+  padding: 28px 20px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-left: 6px solid #8c2f14;
+  border-radius: var(--radius-md);
+  max-width: 560px;
+}
+.error-panel h2 { margin: 0 0 8px; font-family: Georgia, serif; }
+.error-panel p { margin: 0 0 12px; color: var(--ink-soft); line-height: 1.5; }
+
+/* ---------- explainer disclosure ---------- */
+.explainer {
+  margin: 16px 16px 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--cream-100);
+}
+.explainer summary {
+  cursor: pointer;
+  padding: 12px 16px;
+  font-weight: 600;
+  font-size: 14px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+}
+.explainer summary::-webkit-details-marker { display: none; }
+.explainer summary .chev { transition: transform 0.15s ease; font-size: 11px; }
+.explainer[open] summary .chev { transform: rotate(90deg); }
+.explainer .explainer-body {
+  padding: 0 16px 16px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+/* ---------- price filter ---------- */
+.price-filter {
+  margin: 18px 16px 0;
+}
+.price-filter .pf-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  margin: 0 0 8px;
+  font-weight: 700;
+}
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chip {
+  border: 1.5px solid var(--pine-700);
+  background: var(--paper);
+  color: var(--pine-900);
+  border-radius: 999px;
+  padding: 9px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 44px;
+  min-width: 44px;
+}
+.chip[aria-pressed="true"] {
+  background: var(--pine-900);
+  color: var(--cream-50);
+  border-color: var(--pine-900);
+}
+
+/* ---------- hero ---------- */
+.hero-section { margin: 22px 16px 0; }
+.hero-scope-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gold-600);
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+.hero-card {
+  background: linear-gradient(155deg, var(--pine-900), var(--pine-700));
+  color: var(--cream-50);
+  border-radius: var(--radius-lg);
+  padding: 22px 20px;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  box-shadow: 0 10px 28px -12px rgba(12, 43, 33, 0.55);
+}
+.score-ring {
+  --pct: 0;
+  flex: 0 0 auto;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  background: conic-gradient(var(--gold-500) calc(var(--pct) * 1%), rgba(255,255,255,0.16) 0);
+  display: grid;
+  place-items: center;
+}
+.hero-card .score-ring { width: 108px; height: 108px; }
+.score-ring-inner {
+  width: 78%;
+  height: 78%;
+  border-radius: 50%;
+  background: var(--pine-950);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+.score-ring-inner .grade {
+  font-family: Georgia, serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--gold-300);
+}
+.score-ring-inner .score-num {
+  font-size: 12.5px;
+  margin-top: 3px;
+  color: var(--cream-100);
+}
+.hero-body { min-width: 0; }
+.hero-game-name {
+  font-family: Georgia, serif;
+  font-size: 21px;
+  margin: 0 0 2px;
+  line-height: 1.2;
+}
+.hero-meta {
+  font-size: 13px;
+  color: var(--cream-100);
+  margin: 0 0 10px;
+}
+.hero-reason {
+  font-size: 14.5px;
+  line-height: 1.5;
+  margin: 0;
+  color: var(--cream-50);
+  border-left: 3px solid var(--gold-500);
+  padding-left: 10px;
+}
+.hero-empty {
+  background: var(--cream-100);
+  border: 1.5px dashed var(--line);
+  border-radius: var(--radius-lg);
+  padding: 26px 20px;
+  text-align: left;
+}
+.hero-empty h2 { margin: 0 0 6px; font-family: Georgia, serif; font-size: 19px; }
+.hero-empty p { margin: 0; color: var(--ink-soft); font-size: 14px; line-height: 1.5; }
+
+/* ---------- shortlist ---------- */
+.shortlist-section { margin: 26px 16px 0; }
+.section-title {
+  font-family: Georgia, serif;
+  font-size: 17px;
+  margin: 0 0 10px;
+  color: var(--pine-950);
+}
+.rank-row {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.rank-rail {
+  flex: 0 0 40px;
+  background: var(--cream-200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Georgia, serif;
+  font-weight: 700;
+  color: var(--pine-700);
+  font-size: 15px;
+}
+.rank-row .score-ring { width: 54px; height: 54px; margin: 12px 0 12px 12px; }
+.rank-row .score-ring-inner .grade { font-size: 14px; }
+.rank-row .score-ring-inner .score-num { font-size: 9.5px; }
+.rank-main { padding: 12px 12px 12px 4px; flex: 1; min-width: 0; }
+.rank-name-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: baseline;
+}
+.rank-name { font-weight: 700; font-size: 14.5px; margin: 0; }
+.rank-price { font-size: 13px; color: var(--ink-soft); white-space: nowrap; }
+.rank-reason {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+.rank-row > details.expander {
+  width: 100%;
+}
+details.expander summary {
+  list-style: none;
+  cursor: pointer;
+  min-height: 44px;
+}
+details.expander summary::-webkit-details-marker { display: none; }
+.rank-row .expand-toggle {
+  display: block;
+  font-size: 12px;
+  color: var(--pine-700);
+  font-weight: 600;
+  margin-top: 6px;
+}
+.detail-sheet {
+  background: var(--cream-100);
+  border-top: 1px dashed var(--line);
+  padding: 12px 16px 14px;
+  font-size: 13px;
+}
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 14px;
+  margin: 8px 0;
+}
+.detail-grid dt { color: var(--ink-soft); font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.04em; }
+.detail-grid dd { margin: 0 0 6px; font-weight: 600; }
+.tiers-list { margin: 4px 0 8px; padding-left: 0; list-style: none; }
+.tiers-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+}
+.flag-chip {
+  display: inline-block;
+  background: var(--cream-200);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px 9px;
+  font-size: 11.5px;
+  margin: 2px 4px 2px 0;
+}
+.pending-note {
+  font-size: 12px;
+  color: var(--ink-soft);
+  font-style: italic;
+  margin: 4px 0 0;
+}
+
+.show-all-disclosure {
+  margin-top: 6px;
+}
+.show-all-disclosure summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--pine-700);
+  padding: 10px 4px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.show-all-disclosure summary::-webkit-details-marker { display: none; }
+
+/* ---------- claim-lag ---------- */
+.claim-lag-section {
+  margin: 30px 16px 0;
+  padding-top: 16px;
+  border-top: 3px solid var(--amber-warn-rule);
+}
+.claim-lag-header {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.claim-lag-header h2 {
+  font-family: Georgia, serif;
+  font-size: 16px;
+  margin: 0;
+  color: #7a4212;
+}
+.claim-lag-count {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+}
+.claim-lag-caveat {
+  margin: 6px 0 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #5c3210;
+  background: var(--amber-warn-bg);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+}
+.claim-lag-list-toggle summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #7a4212;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+.claim-lag-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 9px 4px;
+  border-bottom: 1px solid var(--amber-warn-bg);
+  opacity: 0.88;
+}
+.claim-lag-badge {
+  flex: 0 0 auto;
+  font-family: Georgia, serif;
+  font-weight: 700;
+  font-size: 12.5px;
+  background: #5c3210;
+  color: #ffe6c2;
+  border-radius: 6px;
+  padding: 3px 7px;
+}
+.claim-lag-name { font-size: 13.5px; font-weight: 600; flex: 1; min-width: 0; }
+.claim-lag-price { font-size: 12.5px; color: var(--ink-soft); }
+.claim-lag-reason { font-size: 12px; color: var(--ink-soft); width: 100%; margin-top: 2px; }
+
+/* ---------- not-rated ---------- */
+.not-rated-section {
+  margin: 30px 16px 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+.not-rated-section > .section-title { color: var(--ink-soft); font-size: 15px; }
+.bucket {
+  margin-bottom: 8px;
+}
+.bucket summary {
+  cursor: pointer;
+  padding: 10px 4px;
+  min-height: 44px;
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.bucket summary::-webkit-details-marker { display: none; }
+.bucket summary .bucket-reason { font-weight: 600; color: var(--ink); }
+.bucket-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 4px 6px 14px;
+  font-size: 12.5px;
+  border-bottom: 1px dotted var(--line);
+  color: var(--ink-soft);
+}
+.bucket-row .relative-score-note {
+  display: block;
+  font-size: 11px;
+  color: var(--gold-600);
+}
+
+/* ---------- footer ---------- */
+footer.site-footer {
+  margin: 40px 16px 0;
+  padding: 18px 4px 4px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+footer.site-footer p { margin: 0 0 8px; }
+footer.site-footer a { font-weight: 600; }
+
+@media (min-width: 640px) {
+  .hero-section, .shortlist-section, .claim-lag-section, .not-rated-section,
+  .price-filter, .explainer, footer.site-footer {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 640px;
+    width: calc(100% - 32px);
+  }
+  header.site-header { padding-left: max(20px, calc(50% - 320px)); padding-right: max(20px, calc(50% - 320px)); }
+  .staleness-banner { padding-left: max(20px, calc(50% - 320px)); padding-right: max(20px, calc(50% - 320px)); }
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <p class="wordmark">Maine Scratch EV <small>Least bad today</small></p>
+  <p class="framing">Ranks every active Maine scratch game by the expected value of a ticket bought today — it cannot predict a win, and every scratch game loses money on average.</p>
+  <p class="as-of-line tabular" id="as-of-line"></p>
+</header>
+
+<div id="staleness-slot"></div>
+
+<main id="main">
+  <div id="error-slot"></div>
+  <div id="content-slot">
+
+    <details class="explainer" id="explainer">
+      <summary><span class="chev">▶</span> How the score works</summary>
+      <div class="explainer-body">The score (0–100) compares each game's naive expected value per dollar against every other rateable Maine scratch game today, discounted when the inventory data behind it is thin. Grades are fixed bands on that score. Scores are relative and re-anchor every day — a 95 today is not a 95 tomorrow, and no score predicts a win. Every scratch game loses money on average; the best pick is only the least bad.</div>
+    </details>
+
+    <div class="price-filter">
+      <p class="pf-label" id="price-filter-label">Filter by price</p>
+      <div class="chip-row" id="price-chips" role="group" aria-labelledby="price-filter-label"></div>
+    </div>
+
+    <section class="hero-section" aria-labelledby="hero-scope-label">
+      <p class="hero-scope-label" id="hero-scope-label"></p>
+      <div id="hero-slot"></div>
+    </section>
+
+    <section class="shortlist-section">
+      <h2 class="section-title">Scored shortlist</h2>
+      <div id="shortlist-slot"></div>
+      <details class="show-all-disclosure" id="show-all">
+        <summary><span class="chev">▶</span> Show all rated games</summary>
+        <div id="show-all-slot"></div>
+      </details>
+    </section>
+
+    <section class="claim-lag-section" aria-labelledby="claim-lag-heading">
+      <div class="claim-lag-header">
+        <h2 id="claim-lag-heading">Excluded: claim-lag games</h2>
+        <span class="claim-lag-count tabular" id="claim-lag-count"></span>
+      </div>
+      <p class="claim-lag-caveat">Caution: &quot;unclaimed&quot; prizes are often on already-sold tickets awaiting redemption, so naive EV overstates value — most severely on nearly-sold-out games. Treat an unusually high EV as a warning sign, not a tip.</p>
+      <details class="claim-lag-list-toggle" id="claim-lag-toggle">
+        <summary><span class="chev">▶</span> <span id="claim-lag-toggle-label">Show the claim-lag games</span></summary>
+        <div id="claim-lag-slot"></div>
+      </details>
+    </section>
+
+    <section class="not-rated-section" aria-labelledby="not-rated-heading">
+      <h2 class="section-title" id="not-rated-heading">Not rated</h2>
+      <div id="not-rated-slot"></div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>Score, grade, and reason are computed once daily from the state's published unclaimed-prize and percent-unsold figures; claim-lag games are shown separately below the shortlist, never ranked among the picks.</p>
+  <p>Data: <a href="https://www.mainelottery.com/players_info/unclaimed_prizes.html" target="_blank" rel="noopener">Maine State Lottery</a></p>
+  <p>The Maine State Lottery's Official Outstanding Prize List prevails over anything shown here.</p>
+  <p>This tool cannot predict winners. All scratch games are negative-expected-value under normal conditions. If gambling is a problem for you or someone you know, call <a href="tel:1-800-426-2537">1-800-GAMBLER</a>.</p>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  /* =====================================================================
+     Data contract (maine-scratch-ev-spec.md §4 + docs/specs/m4a_scoring_spec.md):
+     fetched once at runtime from ../data/latest.json. This file RENDERS
+     pipeline output; it never re-derives scores, grades, reasons, or
+     eligibility beyond the pinned predicate below.
+     ===================================================================== */
+
+  var STALE_MS = 48 * 3600 * 1000;
+
+  var KNOWN_FLAGS = {
+    anomaly_candidate: "Flagged as a statistical outlier",
+    ev_out_of_range: "Claim-lag suspected",
+    low_inventory: "Very few tickets left",
+    sold_out: "Effectively sold out",
+    no_print_run: "Print run unknown"
+  };
+
+  var activePrice = "All";
+  var LATEST = null; // set once the fetch resolves
+
+  /* ---------------- eligibility predicate (rule of record) ----------------
+     eligible(g) := g.rated === true && !g.flags.includes("ev_out_of_range")
+     Hero and shortlist draw ONLY from games passing isEligible. Never select
+     on value_score alone. */
+  function isEligible(g) {
+    return g.rated === true && (g.flags || []).indexOf("ev_out_of_range") === -1;
+  }
+  function isClaimLag(g) {
+    return g.rated === true && (g.flags || []).indexOf("ev_out_of_range") !== -1;
+  }
+
+  /* ---------------- formatting helpers ---------------- */
+  function money(n) {
+    if (n === null || n === undefined) return "—";
+    return "$" + Math.round(n).toLocaleString("en-US");
+  }
+  function pct1(n) {
+    if (n === null || n === undefined) return "—";
+    return n.toFixed(1) + "%";
+  }
+  function evr2(n) {
+    if (n === null || n === undefined) return "—";
+    return n.toFixed(2);
+  }
+  function priceLabel(p) {
+    return "$" + (p % 1 === 0 ? p : p.toFixed(2));
+  }
+  function oddsLabel(n) {
+    if (n === null || n === undefined) return "—";
+    return "1 in " + Math.round(n).toLocaleString("en-US");
+  }
+  function scoreRing(score, grade) {
+    var pct = score === null || score === undefined ? 0 : score;
+    var gradeLabel = grade === null || grade === undefined ? "—" : grade;
+    return '<div class="score-ring tabular" style="--pct:' + pct + '"><div class="score-ring-inner">' +
+      '<span class="grade">' + esc(gradeLabel) + "</span>" +
+      '<span class="score-num">' + (score === null || score === undefined ? "—" : score) + "/100</span>" +
+      "</div></div>";
+  }
+  function flagChips(flags) {
+    if (!flags || !flags.length) return '<span class="flag-chip">No flags</span>';
+    return flags.map(function (f) {
+      var label = KNOWN_FLAGS[f] || f; // unknown flags render as a generic chip, never throw
+      return '<span class="flag-chip">' + esc(label) + "</span>";
+    }).join("");
+  }
+  function esc(s) {
+    var d = document.createElement("div");
+    d.textContent = String(s);
+    return d.innerHTML;
+  }
+  function tiersHtml(tiers) {
+    if (!tiers || !tiers.length) return '<p class="pending-note">No tier data.</p>';
+    return '<ul class="tiers-list">' + tiers.map(function (t) {
+      return "<li><span>" + money(t.level) + " prize</span><span>" + t.remaining + " remaining</span></li>";
+    }).join("") + "</ul>";
+  }
+
+  /* ---------------- scoped data ---------------- */
+  function scopedGames() {
+    if (!LATEST) return [];
+    if (activePrice === "All") return LATEST.games;
+    return LATEST.games.filter(function (g) { return g.price === activePrice; });
+  }
+  function scopedEligible() { return scopedGames().filter(isEligible); }
+  function scopedClaimLag() { return scopedGames().filter(isClaimLag); }
+  function scopedNotRated() { return scopedGames().filter(function (g) { return g.rated === false; }); }
+  function sortRank(list) {
+    return list.slice().sort(function (a, b) {
+      if (b.value_score !== a.value_score) return b.value_score - a.value_score;
+      return a.game_no - b.game_no;
+    });
+  }
+
+  /* ---------------- price chips ---------------- */
+  function distinctPrices() {
+    if (!LATEST) return [];
+    var seen = {};
+    var out = [];
+    LATEST.games.forEach(function (g) {
+      if (!seen[g.price]) { seen[g.price] = true; out.push(g.price); }
+    });
+    out.sort(function (a, b) { return a - b; });
+    return out;
+  }
+  function renderChips() {
+    var chipRow = document.getElementById("price-chips");
+    var prices = distinctPrices();
+    var html = ['<button class="chip" type="button" data-price="All" aria-pressed="' + (activePrice === "All") + '">All</button>'];
+    prices.forEach(function (p) {
+      html.push('<button class="chip" type="button" data-price="' + p + '" aria-pressed="' + (activePrice === p) + '">' + priceLabel(p) + "</button>");
+    });
+    chipRow.innerHTML = html.join("");
+    Array.prototype.forEach.call(chipRow.querySelectorAll(".chip"), function (btn) {
+      btn.addEventListener("click", function () {
+        var v = btn.getAttribute("data-price");
+        activePrice = v === "All" ? "All" : Number(v);
+        renderChips();
+        renderAll();
+      });
+    });
+  }
+
+  /* ---------------- hero ---------------- */
+  function renderHero() {
+    var scopeLabel = activePrice === "All" ? "Today's best pick" : "Best " + priceLabel(activePrice) + " pick today";
+    document.getElementById("hero-scope-label").textContent = scopeLabel;
+    var slot = document.getElementById("hero-slot");
+    var eligible = sortRank(scopedEligible());
+    if (eligible.length === 0) {
+      var scopeName = activePrice === "All" ? "any price" : priceLabel(activePrice);
+      slot.innerHTML = '<div class="hero-empty">' +
+        "<h2>No rateable games at " + esc(scopeName) + " today</h2>" +
+        "<p>Every game in this price scope is either a claim-lag caution or not rated. See the shortlist, claim-lag, and not-rated sections below for the full picture.</p>" +
+        "</div>";
+      return;
+    }
+    var g = eligible[0];
+    slot.innerHTML = '<div class="hero-card">' +
+      scoreRing(g.value_score, g.grade) +
+      '<div class="hero-body">' +
+      '<p class="hero-game-name">' + esc(g.name) + "</p>" +
+      '<p class="hero-meta tabular">#' + g.game_no + " · " + priceLabel(g.price) + " ticket</p>" +
+      '<p class="hero-reason">' + esc(g.reason) + "</p>" +
+      "</div></div>";
+  }
+
+  /* ---------------- shortlist rows ---------------- */
+  function detailSheet(g, opts) {
+    opts = opts || {};
+    var relScoreRow = "";
+    if (opts.showRelativeScore && g.relative_score !== null && g.relative_score !== undefined) {
+      relScoreRow = '<dt>Relative signal</dt><dd>' + Math.round(g.relative_score).toLocaleString("en-US") + " (relative unclaimed-money signal, not an EV or score)</dd>";
+    }
+    return '<div class="detail-sheet">' +
+      tiersHtml(g.top_prizes) +
+      '<dl class="detail-grid tabular">' +
+      "<dt>Percent unsold</dt><dd>" + pct1(g.percent_unsold) + "</dd>" +
+      "<dt>Total unclaimed</dt><dd>" + money(g.total_unclaimed) + "</dd>" +
+      "<dt>EV per ticket</dt><dd>" + (g.ev_per_ticket == null ? "—" : money(g.ev_per_ticket)) + "</dd>" +
+      "<dt>EV ratio</dt><dd>" + evr2(g.ev_ratio) + "</dd>" +
+      "<dt>EV ratio, adjusted</dt><dd>— pending (v2)</dd>" +
+      "<dt>Top-prize odds now</dt><dd>" + oddsLabel(g.top_prize_odds_now) + "</dd>" +
+      "<dt>Print run</dt><dd>" + (g.print_run == null ? "—" : g.print_run.toLocaleString("en-US")) + "</dd>" +
+      relScoreRow +
+      "</dl>" +
+      '<p class="pending-note">Launch-odds comparison pending (v2).</p>' +
+      "<div>" + flagChips(g.flags) + "</div>" +
+      "</div>";
+  }
+
+  function renderShortlistRow(g, rank) {
+    return '<div class="rank-row">' +
+      '<div class="rank-rail tabular">' + rank + "</div>" +
+      scoreRing(g.value_score, g.grade) +
+      '<div class="rank-main">' +
+      '<details class="expander">' +
+      "<summary>" +
+      '<div class="rank-name-row">' +
+      '<p class="rank-name">' + esc(g.name) + ' <span class="tabular" style="font-weight:400;color:var(--ink-soft)">#' + g.game_no + "</span></p>" +
+      '<span class="rank-price tabular">' + priceLabel(g.price) + "</span>" +
+      "</div>" +
+      '<p class="rank-reason">' + esc(g.reason) + "</p>" +
+      '<span class="expand-toggle">Tap for full detail ▾</span>' +
+      "</summary>" +
+      detailSheet(g) +
+      "</details>" +
+      "</div></div>";
+  }
+
+  function renderShortlist() {
+    var eligible = sortRank(scopedEligible());
+    var rest = eligible.slice(1); // minus hero
+    var visible = rest.slice(0, 9); // ranks 2-10
+    var overflow = rest.slice(9);
+    var slot = document.getElementById("shortlist-slot");
+    if (!visible.length) {
+      slot.innerHTML = '<p style="color:var(--ink-soft);font-size:13px;">No further rated games in this price scope.</p>';
+    } else {
+      slot.innerHTML = visible.map(function (g, i) {
+        return renderShortlistRow(g, i + 2);
+      }).join("");
+    }
+    var showAllSlot = document.getElementById("show-all-slot");
+    if (!overflow.length) {
+      showAllSlot.innerHTML = '<p style="color:var(--ink-soft);font-size:13px;padding:8px 4px;">No additional rated games in this price scope.</p>';
+    } else {
+      showAllSlot.innerHTML = overflow.map(function (g, i) {
+        return renderShortlistRow(g, i + 11);
+      }).join("");
+    }
+  }
+
+  /* ---------------- claim-lag ---------------- */
+  function renderClaimLag() {
+    var list = sortRank(scopedClaimLag());
+    document.getElementById("claim-lag-count").textContent = list.length + " game" + (list.length === 1 ? "" : "s") + " excluded";
+    document.getElementById("claim-lag-toggle-label").textContent = "Show the " + list.length + " claim-lag game" + (list.length === 1 ? "" : "s");
+    var slot = document.getElementById("claim-lag-slot");
+    if (!list.length) {
+      slot.innerHTML = '<p style="color:var(--ink-soft);font-size:13px;">No claim-lag games in this price scope.</p>';
+      return;
+    }
+    slot.innerHTML = list.map(function (g) {
+      return '<div class="claim-lag-row">' +
+        '<span class="claim-lag-badge tabular">' + esc(g.grade) + " · " + g.value_score + "</span>" +
+        '<span class="claim-lag-name">' + esc(g.name) + ' <span class="tabular" style="font-weight:400;">#' + g.game_no + "</span></span>" +
+        '<span class="claim-lag-price tabular">' + priceLabel(g.price) + "</span>" +
+        '<span class="claim-lag-reason">' + esc(g.reason) + "</span>" +
+        "</div>";
+    }).join("");
+  }
+
+  /* ---------------- not-rated (bucketed by exact data-derived reason) ---------------- */
+  function bucketNotRated(games) {
+    var order = [];
+    var map = {};
+    games.forEach(function (g) {
+      if (!map[g.reason]) { map[g.reason] = []; order.push(g.reason); }
+      map[g.reason].push(g);
+    });
+    // Deterministic bucket ordering: largest bucket first, tie-break alphabetically
+    // on the reason string. No hardcoded bucket identities.
+    order.sort(function (a, b) {
+      var d = map[b].length - map[a].length;
+      if (d !== 0) return d;
+      return a < b ? -1 : (a > b ? 1 : 0);
+    });
+    return order.map(function (reason) { return { reason: reason, games: map[reason] }; });
+  }
+
+  function renderBucketRow(g) {
+    var extra = "";
+    // relative_score appears ONLY inside no-print-run rows' detail, labeled — never as an EV/score.
+    if ((g.flags || []).indexOf("no_print_run") !== -1 && g.relative_score !== null && g.relative_score !== undefined) {
+      extra = '<span class="relative-score-note tabular">Relative signal: ' + Math.round(g.relative_score).toLocaleString("en-US") + " (not an EV or score)</span>";
+    }
+    return '<div class="bucket-row"><span>' + esc(g.name) + ' <span class="tabular">#' + g.game_no + "</span></span><span class=\"tabular\">" + priceLabel(g.price) + "</span></div>" + extra;
+  }
+
+  function renderNotRated() {
+    var buckets = bucketNotRated(scopedNotRated());
+    var slot = document.getElementById("not-rated-slot");
+    if (!buckets.length) {
+      slot.innerHTML = '<p style="color:var(--ink-soft);font-size:13px;">No not-rated games in this price scope.</p>';
+      return;
+    }
+    slot.innerHTML = buckets.map(function (b) {
+      var body = b.games.map(renderBucketRow).join("");
+      return '<details class="bucket"><summary><span class="chev">▶</span> <span class="bucket-reason">' + esc(b.reason) + "</span> <span class=\"tabular\">(" + b.games.length + ")</span></summary>" + body + "</details>";
+    }).join("");
+  }
+
+  /* ---------------- staleness / error ---------------- */
+  function renderStalenessBanner() {
+    var slot = document.getElementById("staleness-slot");
+    if (!LATEST) { slot.innerHTML = ""; return; }
+    var stale = (Date.now() - Date.parse(LATEST.as_of + "T00:00:00Z")) > STALE_MS;
+    if (!stale) { slot.innerHTML = ""; return; }
+    slot.innerHTML = '<div class="staleness-banner">' +
+      "<strong>Data may be stale.</strong> The last good update was <strong>" + esc(LATEST.as_of) + "</strong> — the Lottery may have published newer figures we haven't picked up yet." +
+      "</div>";
+  }
+
+  function renderErrorPanel(show) {
+    var errSlot = document.getElementById("error-slot");
+    var contentSlot = document.getElementById("content-slot");
+    if (!show) { errSlot.innerHTML = ""; contentSlot.style.display = ""; return; }
+    contentSlot.style.display = "none";
+    document.getElementById("staleness-slot").innerHTML = "";
+    errSlot.innerHTML = '<div class="error-panel">' +
+      "<h2>Couldn't load today's data</h2>" +
+      "<p>We weren't able to fetch today's rankings. Try reloading in a few minutes, or check the Lottery's own list directly.</p>" +
+      '<p><a href="https://www.mainelottery.com/players_info/unclaimed_prizes.html" target="_blank" rel="noopener">View the Official Outstanding Prize List at mainelottery.com →</a></p>' +
+      "</div>";
+  }
+
+  /* ---------------- orchestration ---------------- */
+  function renderAll() {
+    document.getElementById("as-of-line").textContent = "As of " + LATEST.as_of + " · state snapshot: " + LATEST.source_timestamp;
+    renderStalenessBanner();
+    renderHero();
+    renderShortlist();
+    renderClaimLag();
+    renderNotRated();
+  }
+
+  function onDataLoaded(data) {
+    LATEST = data;
+    renderErrorPanel(false);
+    renderChips();
+    renderAll();
+  }
+
+  function onLoadFailed() {
+    renderErrorPanel(true);
+  }
+
+  fetch("../data/latest.json")
+    .then(function (res) {
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      return res.json();
+    })
+    .then(onDataLoaded)
+    .catch(onLoadFailed);
+})();
+</script>
+</body>
+</html>
