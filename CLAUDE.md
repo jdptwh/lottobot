@@ -40,13 +40,26 @@ enabled, this repo behaves as a plain routed-agent project.
   at runtime. STREAK OBSERVATION: 7 consecutive green SCHEDULED runs = M6-
   eligible "shipped" (manual dispatches neither count nor reset; red scheduled
   run resets). First scheduled run: 2026-07-13 10:30 UTC.
-- In progress: streak observation (check the Actions tab / daily-run-failure
-  issues).
-- Next up: M6 — claim-lag model v2 (needs ~30 accumulated history snapshots,
-  so earliest ~mid-August 2026). Backlog: bump actions/checkout+setup-python
-  versions (Node-20 deprecation warning, cosmetic; planner-gated YAML change);
-  source-staleness signal (m5 Resolution 6).
-- Blocked on: calendar (streak) — no agent work pending.
+- 2026-07-13 marathon: PANEL armed + first live run ($1.24, FAIL against the
+  project spec's own sec-3-v2 model — per-tier claim-lag unidentifiable;
+  record: docs/specs/m6_data_strategy_panel.md). W1 Wayback recon GO. W2 v1.5
+  honesty pass SHIPPED+ACCEPTED (upper-bound labeling, EV intervals,
+  scenarios-not-bounds, launch-odds anchor, low_inventory exclusion; live on
+  the public site). M6 v2 program specced (m6_v2_program_spec.md, M6a-M6d
+  evidence-gated). M6a COMPLETE+ACCEPTED: research panel data/panel/panel.jsonl
+  (13,652 records, 482 game lifecycles 2015-2026), noncash-prize arbitration
+  (m6a_noncash_addendum.md — production parser invariant, opt-in tolerant
+  mode), semantics note (tier-coverage ambiguity = stated Phase-1 assumption),
+  worksheet docs/reports/m6a_panel_worksheet.md. First SCHEDULED run green
+  (streak day 1 of 7).
+- In progress: M6b detectability study (synthetic-recovery test surface first,
+  then pooled distributed-lag over the panel; ends in HARD OWNER STOP on the
+  report).
+- Next up: on M6b GO + owner ruling — M6c sub-spec (planner) then offline fit.
+  Backlog: Node-20 action-version bump; source-staleness signal; excluded-
+  toggle wording when a depleted game first appears; Lottery data request
+  (owner declined for now — would resolve the tier-coverage ambiguity).
+- Blocked on: M6b report (in build), then the owner's hard-stop ruling.
 
 ## Conventions
 - Stack / language: Python 3.11 target (3.12 local OK); scraper deps `requests` +
