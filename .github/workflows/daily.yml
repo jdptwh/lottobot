@@ -1,0 +1,44 @@
+name: daily
+on:
+  schedule:
+    - cron: "30 10 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+  issues: write
+concurrency:
+  group: daily-pipeline
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install runtime deps
+        run: pip install -r requirements.txt
+      - name: Run daily pipeline (all gates enforced; no write on failure)
+        run: python -m scraper.run_daily --live
+      - name: Commit and push snapshot
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/latest.json data/history/
+          git diff --cached --quiet || git commit -m "daily: snapshot $(date -u +%F)"
+          git push
+      - name: Open failure issue (deduplicated per day)
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create daily-run-failure --description "Automated daily pipeline failure" --color B60205 || true
+          TODAY=$(date -u +%F)
+          if [ -z "$(gh issue list --state open --label daily-run-failure --search "in:title $TODAY" --json number --jq '.[].number')" ]; then
+            gh issue create --title "Daily run failed: $TODAY" --label daily-run-failure --body "Automated daily pipeline failed on $TODAY (UTC).
+
+          Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+          No data was committed; the site keeps serving the last-good data/latest.json (the 48h staleness banner covers prolonged outage). Check the run log for which gate failed (parser / schema / diff / fetch)."
+          fi
