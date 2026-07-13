@@ -28,11 +28,15 @@ enabled, this repo behaves as a plain routed-agent project.
   Full routed loop enforced since 2026-07-12: drafter→planner→owner-approves→
   implementer→reviewer→owner-accepts; lead orchestrates only, never absorbs
   roles (owner-corrected, see memory). M3 at 48d333e, M2 446399d, M1 eaefaa4.
-- In progress: M4 acceptance touchpoint (owner phone check of site/ + hand-check
-  of m4a worksheet A–G; M3 worksheet also still open).
-- Next up: M5 — daily GitHub Action + Pages deploy (docs/pages_deploy.md has
-  the enable step); 7 consecutive green runs = shipped.
-- Blocked on: owner acceptance of M4.
+- M4 ACCEPTED by owner 2026-07-12 (phone check green). Repo pushed public to
+  github.com/jdptwh/lottobot (owner-approved; secrets sweep clean; owner ran
+  the push himself — agent git-push stays denied by settings.json). Pages LIVE:
+  https://jdptwh.github.io/lottobot/site/ (master / root). Worksheet
+  hand-checks (m4a A–G, m3 3-game) remain available to the owner any time.
+- In progress: M5 plan loop (drafter → planner → owner approval).
+- Next up: M5 build — .github/workflows/daily.yml; 7 consecutive green
+  scheduled runs = shipped (calendar DoD, tracked post-deploy).
+- Blocked on: owner approval of the M5 spec (touchpoint 1).
 
 ## Conventions
 - Stack / language: Python 3.11 target (3.12 local OK); scraper deps `requests` +
