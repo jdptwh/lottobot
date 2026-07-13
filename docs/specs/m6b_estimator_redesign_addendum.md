@@ -1,0 +1,36 @@
+## ADDENDUM: M6b Phase-1 estimator redesign (escalation arbitration, Rule 5)
+
+**Author of record:** PLANNER · 2026-07-13 · Supplements `docs/specs/m6_v2_program_spec.md` Phase 1. Frozen failing state at arbitration: `analysis/phase1_detectability.py`, `analysis/synthetic.py`, `tests/analysis/test_phase1_synthetic.py` (first implementer exhausted its loop budget across 5 iterations: null-hallucination → over-correction → anti-conservative permutation → sign inversion → dead lower-tier recovery).
+
+### 1. Diagnosis — why the injected lower-tier kernel is invisible
+
+**D1 (root cause, geometric): adjacent-only pairing makes the target bin unreachable.** `build_pairs` pairs only consecutive windows (`zip(windows, windows[1:])`, phase1_detectability.py:241) and defines lag as midpoint-to-midpoint. Adjacent windows share a boundary, so lag = (B.end − A.start)/2 — half the enclosing span. The generator's probes (synthetic.py:114–116) pin the bump→echo span to `lag + 2σ` = 126 days; when one intermediate observation splits bump from echo, the pair's measured lag is 126/2 = **63 days — bin (45,90)**, while the test asserts bin (90,150). The signal, when captured at all, is deposited in a bin the test doesn't check. A true lag L is only ever recovered at bin L if the enclosing span is 2L — a property of the pairing rule, not the data.
+
+**D2 (explains the negative slopes of iterations 4–5):** random gaps run 30–180 days while the true lag is 110, so bump and echo frequently land in the **same** window. That window then has above-mean s AND above-mean d; its adjacent pairs contribute (low s, high d) and (high s, low d) — systematically **negative** covariance after demeaning. The injected signal is converted into anti-signal (frozen slope −1.149; iteration-4 negative top tier).
+
+**D3 (dead code / exploding tails):** `MIN_DOLLAR_FLOOR` (phase1_detectability.py:72) is **defined and never applied**. Near-exhausted pools give `dollar_rate = noise/(dt·max(u0,1))` — heavy-tailed garbage in the lower-tier bins. Compounding: the generator's `min(1.0, secular+bump)` clamp (synthetic.py:88–101) silently absorbs the claim echo whenever secular > 0.7 at echo time — a fraction of lifecycles carry **no echo at all**.
+
+**D4 (normalization/weight anti-alignment):** the response is normalized by window-start pool `U_start` (exponentially shrinking) while the pooling weight IS `U_start` — the weighting maximally suppresses exactly the windows where the fractional echo is largest. Also `demean_within_lifecycle` uses unweighted means against a weighted regression (inconsistent transform).
+
+**SNR check (amplitude is NOT the limiting factor):** echo moves 0.30·u_init dollars; per-observation noise sd is 0.002·u_init → per-window rate SNR ≈ 100:1 where the echo survives the clamp. The failure is alignment geometry (D1/D2) plus tail pollution and clamping (D3/D4), not detectability in principle. The frozen top-tier "pass" is incidental, not evidence the design is sound.
+
+### 2. Redesign of record (transcribe; do not iterate)
+
+1. **Pairing rule — all ordered disjoint window pairs.** Within a lifecycle, pair EVERY (A, B) with `B.start ≥ A.end` (B strictly later, non-overlapping). Lag L = B.mid − A.mid; assign to the existing `LAG_BINS`. Sign convention: **s is always the EARLIER window's sales rate; d is always the LATER window's claim flow; L is positive by construction.** Restated: a positive kernel value means above-lifecycle-average selling in window A predicts above-lifecycle-average claiming L days later — the injected mechanism must produce a **positive** statistic in the bin containing the true lag.
+2. **Normalization — per-lifecycle scale, not per-window.** Lower tier: `d_B = (U_start − U_end)/(dt_B · U_max_g)` where `U_max_g` is that lifecycle's maximum observed `total_unclaimed`. Top tier: `decrement/(dt_B · r_max_g)`, `r_max_g` = max observed remaining count. `s_A = (pu_mid_start − pu_mid_end)/dt_A` (unchanged, already scale-free). Delete `MIN_DOLLAR_FLOOR`; the lifecycle-constant denominator removes the exploding-tail path. Guard only: skip windows with `U_start ≤ 0`.
+3. **Demeaning:** within-lifecycle, unweighted, at the window level (subtract each lifecycle's own mean s and mean d over its windows), then build pairs from demeaned windows.
+4. **Statistic — rank-based detection, OLS as effect size only.** Per bin: significance is decided by the **Spearman rank correlation** of the pooled demeaned (s, d) pairs (unweighted ranks). The dollar-weighted slope (weight = `U_max_g`, capped at the 90th-percentile weight) is still computed and reported as the kernel magnitude — preserving the spec's "dollar-weighted kernel" — but it never decides significance.
+5. **Permutation — within-lifecycle circular shift at the WINDOW level.** Per rep: for each lifecycle with ≥2 windows, circularly shift its time-ordered window response sequence (d values) by a random nonzero offset; rebuild all pairs; recompute every bin's rank statistic. Preserves autocorrelation and marginals while breaking s↔d correspondence; between-lifecycle label permutation is invalid here (heterogeneous grids/lengths). Family-wise rule: per rep take max |T| across all eligible bins (`n_pairs ≥ MIN_PAIRS_FOR_FIT`); `p_bin` = fraction of rep maxima ≥ |T_bin|; FW α = 0.05; ≥1000 reps, fixed seed.
+6. **Synthetic generator requirements.**
+   - **True null:** the claim series is an independent process — its own secular decay AND its own bump at an independently drawn time; zero functional dependence on sales.
+   - **Injection integrity:** constrain `bump_t0` so `secular_c(t0 + lag + 3σ) + amplitude ≤ 0.95` — the `min(1.0, ·)` clamp must never truncate the echo. Assert this in the generator.
+   - **Grid:** four deterministic probes per lifecycle in both scenarios: `t0−2σ, t0+2σ, t0+lag−2σ, t0+lag+2σ` — guaranteeing a bump window and a disjoint echo window with midpoint lag = exactly `lag_days` (110 → bin (90,150), now reachable under rule 1).
+   - **Amplitude:** keep 0.30; the generator docstring documents the implied per-pair SNR (~100:1) and the approximate minimum-detectable amplitude at N≈250 lifecycles for p<0.01 — the documented MDE is a Phase-1 report input.
+
+### 3. Test-suite shape
+
+All four tests (lower/top × recovery/null) parametrized over **≥3 seeds** (e.g. 4242, 1001, 77) with identical thresholds — no seed-specific tolerance anywhere. Null: zero FW-significant bins at α=0.05. Recovery: target bin (90,150) has positive rank statistic AND **p < 0.01** (stricter than α, proving headroom, per the generator's MDE sizing). Keep the existing purity tests unchanged.
+
+### 4. Tier, budget, exhaustion path
+
+Fresh IMPLEMENTER dispatch against this addendum; **MAX_IMPL_ATTEMPTS = 2**, MAX_REVIEW_CYCLES = 2. If that budget exhausts, M6b closes as **NO-GO-methodological**: the Phase-1 report goes to the owner stating that lag detection at this panel resolution exceeds the stdlib binned-pair toolset, and the M6c sub-spec decision inherits the question of whether a dev-only numpy/scipy state-space likelihood (pre-authorized dev-only by Resolution 2) is worth attempting. That is an honest, spec-valid outcome — no further attempts on this design are authorized.

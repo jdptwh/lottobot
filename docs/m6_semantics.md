@@ -137,21 +137,42 @@ Prize List shall prevail**."
   mechanism, source system, or whether "Percent Unsold" and "Total Unclaimed"
   are computed by the same process or independently.
 
+**`total_unclaimed` tier coverage — ESTABLISHED (2026-07-13, owner
+clarification + arithmetic verification).** Originally recorded below as
+"could not establish" (the intro line's "list of **top** unclaimed prizes"
+wording was ambiguous evidence on its face — it could have described either
+the row-level `Total Unclaimed` figure or only the `Top Prize Level(s)`
+sub-rows). This is now resolved: **`total_unclaimed` provably spans ALL
+prize tiers, not just the listed top tiers.** Method: sum the listed
+`Top Prize(s) Unclaimed` sub-rows for a game (`level x count`, added across
+every tier row shown for that game) and compare against the same row's
+published `Total Unclaimed` dollar figure, on live data. On every game
+checked, the published total exceeds the listed-top-tier sum by a large,
+consistent multiple — far beyond anything explainable by rounding or a
+top-tiers-only reading:
+- **702 (HOLIDAY $500S):** listed top-tier sum $18,000 vs. published total
+  $165,860 (**9.2x**).
+- **718 ($70 MILLION SUPREME):** listed top-tier sum $9,675,000 vs. published
+  total $58,198,950 (**6.0x**).
+- **720 (CROSSWORD):** listed top-tier sum $625,500 vs. published total
+  $5,529,385 (**8.8x**).
+
+The intro's "top unclaimed prizes" phrase refers to the **prize-level
+COLUMNS** (`Top Prize Level(s)` / `Top Prize(s) Unclaimed`, which
+deliberately list only the top tier(s) remaining per game), not to the
+`Total Unclaimed` dollar figure, which is a whole-game sum across all prize
+tiers. The "Official Outstanding Prize List" named in the disclaimer remains
+a distinct document per the site's own discrepancy-resolution clause (quoted
+above) and this program still has no direct access to it — but it is **no
+longer needed to answer this particular question**, since the arithmetic on
+the published page data is conclusive on its own.
+
 **Finding: could not establish** (recorded explicitly as unresolved, per
 program spec rule 6, to become stated model assumptions in Phase 1/2):
 - **Whether `percent_unsold` is by ticket count or by dollar value.** Neither
   the intro line nor the disclaimer states the denominator or numerator basis
   for the percentage. The column is simply labeled "Percent Unsold" with no
   further definition anywhere on the page.
-- **Whether `total_unclaimed` spans ALL prize tiers or only the listed top
-  tiers.** The intro line's own wording — "list of **top** unclaimed prizes"
-  — is itself ambiguous evidence: it could describe only the `Top Prize
-  Level(s)` sub-rows (which are explicitly tier-by-tier), while
-  `Total Unclaimed` sits in the same row as the per-game `Percent Unsold`
-  cell and could plausibly be a broader, whole-game unclaimed-dollar figure.
-  The page never resolves this either way. **This ambiguity is flagged
-  honestly rather than resolved by assumption here** — Phase 1/2 must treat
-  `total_unclaimed`'s tier coverage as an open question, not a fact.
 - **Rounding conventions.** `Percent Unsold` is published to one decimal
   place (e.g. `13.8`, `0.0`) and `Total Unclaimed` to whole cents (e.g.
   `$3,061,780.00`), but the page states no rounding rule (round-half-up vs.
