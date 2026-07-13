@@ -37,7 +37,11 @@
       "flags": [
         "no_print_run"
       ],
-      "confidence": "low"
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Print run unknown \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
     },
     {
       "game_no": 617,
@@ -62,7 +66,11 @@
       "flags": [
         "sold_out"
       ],
-      "confidence": "low"
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
     },
     {
       "game_no": 624,
@@ -93,7 +101,11 @@
         "ev_out_of_range",
         "low_inventory"
       ],
-      "confidence": "low"
+      "confidence": "low",
+      "value_score": 40,
+      "grade": "F",
+      "rated": true,
+      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag)."
     },
     {
       "game_no": 630,
@@ -134,7 +146,11 @@
       "flags": [
         "anomaly_candidate"
       ],
-      "confidence": "medium"
+      "confidence": "medium",
+      "value_score": 95,
+      "grade": "A",
+      "rated": true,
+      "reason": "Inventory is thinning; the expected-value estimate carries moderate uncertainty."
     },
     {
       "game_no": 632,
@@ -167,7 +183,11 @@
       "flags": [
         "anomaly_candidate"
       ],
-      "confidence": "medium"
+      "confidence": "medium",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
     },
     {
       "game_no": 638,
@@ -198,7 +218,11 @@
         "ev_out_of_range",
         "low_inventory"
       ],
-      "confidence": "low"
+      "confidence": "low",
+      "value_score": 40,
+      "grade": "F",
+      "rated": true,
+      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag)."
     },
     {
       "game_no": 647,
@@ -227,7 +251,11 @@
       "flags": [
         "anomaly_candidate"
       ],
-      "confidence": "medium"
+      "confidence": "medium",
+      "value_score": 84,
+      "grade": "A-",
+      "rated": true,
+      "reason": "Inventory is thinning; the expected-value estimate carries moderate uncertainty."
     },
     {
       "game_no": 648,
@@ -260,7 +288,11 @@
       "flags": [
         "no_print_run"
       ],
-      "confidence": "low"
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Print run unknown \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
     },
     {
       "game_no": 651,
@@ -289,7 +321,11 @@
       "flags": [
         "sold_out"
       ],
-      "confidence": "low"
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
     },
     {
       "game_no": 654,
@@ -318,7 +354,11 @@
       "flags": [
         "anomaly_candidate"
       ],
-      "confidence": "medium"
+      "confidence": "medium",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
     },
     {
       "game_no": 655,
@@ -359,7 +399,11 @@
       "flags": [
         "anomaly_candidate"
       ],
-      "confidence": "medium"
+      "confidence": "medium",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
     },
     {
       "game_no": 656,
@@ -394,7 +438,11 @@
       "top_prize_odds_now": 355080.0,
       "dead_game": false,
       "flags": [],
-      "confidence": "high"
+      "confidence": "high",
+      "value_score": 58,
+      "grade": "C",
+      "rated": true,
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
     },
     {
       "game_no": 660,
@@ -428,7 +476,11 @@
         "anomaly_candidate",
         "low_inventory"
       ],
-      "confidence": "low"
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
     },
     {
       "game_no": 661,
@@ -467,7 +519,11 @@
         "ev_out_of_range",
         "low_inventory"
       ],
-      "confidence": "low"
+      "confidence": "low",
+      "value_score": 40,
+      "grade": "F",
+      "rated": true,
+      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag)."
     },
     {
       "game_no": 662,
@@ -496,7 +552,11 @@
       "flags": [
         "anomaly_candidate"
       ],
-      "confidence": "medium"
+      "confidence": "medium",
+      "value_score": 87,
+      "grade": "A",
+      "rated": true,
+      "reason": "Inventory is thinning; the expected-value estimate carries moderate uncertainty."
     },
     {
       "game_no": 663,
@@ -523,7 +583,11 @@
         "ev_out_of_range",
         "low_inventory"
       ],
-      "confidence": "low"
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
     },
     {
       "game_no": 664,
@@ -549,7 +613,11 @@
         "low_inventory",
         "no_print_run"
       ],
-      "confidence": "low"
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Print run unknown \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
     },
     {
       "game_no": 667,
@@ -592,7 +660,11 @@
       "top_prize_odds_now": null,
       "dead_game": true,
       "flags": [],
-      "confidence": "high"
+      "confidence": "high",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
     },
     {
       "game_no": 668,
@@ -617,7 +689,11 @@
       "flags": [
         "no_print_run"
       ],
-      "confidence": "low"
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Print run unknown \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
     },
     {
       "game_no": 669,
@@ -642,7 +718,11 @@
       "flags": [
         "no_print_run"
       ],
-      "confidence": "low"
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Print run unknown \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
     },
     {
       "game_no": 670,
@@ -677,7 +757,11 @@
         "ev_out_of_range",
         "low_inventory"
       ],
-      "confidence": "low"
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
     },
     {
       "game_no": 671,
@@ -704,7 +788,11 @@
       "top_prize_odds_now": null,
       "dead_game": true,
       "flags": [],
-      "confidence": "high"
+      "confidence": "high",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
     },
     {
       "game_no": 673,
@@ -729,7 +817,11 @@
       "flags": [
         "anomaly_candidate"
       ],
-      "confidence": "medium"
+      "confidence": "medium",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
     },
     {
       "game_no": 674,
@@ -774,7 +866,11 @@
       "flags": [
         "anomaly_candidate"
       ],
-      "confidence": "medium"
+      "confidence": "medium",
+      "value_score": 69,
+      "grade": "B",
+      "rated": true,
+      "reason": "Inventory is thinning; the expected-value estimate carries moderate uncertainty."
     },
     {
       "game_no": 675,
@@ -801,7 +897,11 @@
       "top_prize_odds_now": 200340.0,
       "dead_game": false,
       "flags": [],
-      "confidence": "high"
+      "confidence": "high",
+      "value_score": 46,
+      "grade": "D",
+      "rated": true,
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
     },
     {
       "game_no": 676,
@@ -830,7 +930,11 @@
       "flags": [
         "anomaly_candidate"
       ],
-      "confidence": "medium"
+      "confidence": "medium",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
     },
     {
       "game_no": 677,
@@ -871,7 +975,11 @@
       "flags": [
         "anomaly_candidate"
       ],
-      "confidence": "high"
+      "confidence": "high",
+      "value_score": 65,
+      "grade": "B-",
+      "rated": true,
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
     },
     {
       "game_no": 680,
@@ -896,7 +1004,11 @@
       "flags": [
         "anomaly_candidate"
       ],
-      "confidence": "medium"
+      "confidence": "medium",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
     },
     {
       "game_no": 681,
@@ -921,7 +1033,11 @@
       "flags": [
         "no_print_run"
       ],
-      "confidence": "low"
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Print run unknown \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
     },
     {
       "game_no": 682,
@@ -950,7 +1066,11 @@
       "flags": [
         "anomaly_candidate"
       ],
-      "confidence": "high"
+      "confidence": "high",
+      "value_score": 68,
+      "grade": "B",
+      "rated": true,
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
     },
     {
       "game_no": 683,
@@ -977,7 +1097,11 @@
         "ev_out_of_range",
         "low_inventory"
       ],
-      "confidence": "low"
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
     },
     {
       "game_no": 684,
@@ -1008,7 +1132,11 @@
       "top_prize_odds_now": null,
       "dead_game": true,
       "flags": [],
-      "confidence": "medium"
+      "confidence": "medium",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
     },
     {
       "game_no": 685,
@@ -1041,7 +1169,11 @@
       "flags": [
         "anomaly_candidate"
       ],
-      "confidence": "high"
+      "confidence": "high",
+      "value_score": 85,
+      "grade": "A",
+      "rated": true,
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
     },
     {
       "game_no": 686,
@@ -1080,7 +1212,11 @@
       "top_prize_odds_now": 708480.0,
       "dead_game": false,
       "flags": [],
-      "confidence": "high"
+      "confidence": "high",
+      "value_score": 56,
+      "grade": "C",
+      "rated": true,
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
     },
     {
       "game_no": 687,
@@ -1109,7 +1245,11 @@
       "flags": [
         "anomaly_candidate"
       ],
-      "confidence": "high"
+      "confidence": "high",
+      "value_score": 73,
+      "grade": "B",
+      "rated": true,
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
     },
     {
       "game_no": 689,
@@ -1139,7 +1279,11 @@
         "low_inventory",
         "no_print_run"
       ],
-      "confidence": "low"
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Print run unknown \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
     },
     {
       "game_no": 690,
@@ -1166,7 +1310,11 @@
         "ev_out_of_range",
         "low_inventory"
       ],
-      "confidence": "low"
+      "confidence": "low",
+      "value_score": 40,
+      "grade": "F",
+      "rated": true,
+      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag)."
     },
     {
       "game_no": 691,
@@ -1192,7 +1340,11 @@
         "anomaly_candidate",
         "ev_out_of_range"
       ],
-      "confidence": "low"
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
     },
     {
       "game_no": 692,
@@ -1229,7 +1381,11 @@
       "flags": [
         "anomaly_candidate"
       ],
-      "confidence": "high"
+      "confidence": "high",
+      "value_score": 62,
+      "grade": "B-",
+      "rated": true,
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
     },
     {
       "game_no": 693,
@@ -1275,7 +1431,11 @@
         "anomaly_candidate",
         "ev_out_of_range"
       ],
-      "confidence": "low"
+      "confidence": "low",
+      "value_score": 40,
+      "grade": "F",
+      "rated": true,
+      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag)."
     },
     {
       "game_no": 694,
@@ -1301,7 +1461,11 @@
         "anomaly_candidate",
         "ev_out_of_range"
       ],
-      "confidence": "low"
+      "confidence": "low",
+      "value_score": 40,
+      "grade": "F",
+      "rated": true,
+      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag)."
     },
     {
       "game_no": 695,
@@ -1331,7 +1495,11 @@
         "anomaly_candidate",
         "ev_out_of_range"
       ],
-      "confidence": "low"
+      "confidence": "low",
+      "value_score": 40,
+      "grade": "F",
+      "rated": true,
+      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag)."
     },
     {
       "game_no": 696,
@@ -1365,7 +1533,11 @@
         "anomaly_candidate",
         "ev_out_of_range"
       ],
-      "confidence": "low"
+      "confidence": "low",
+      "value_score": 40,
+      "grade": "F",
+      "rated": true,
+      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag)."
     },
     {
       "game_no": 697,
@@ -1398,7 +1570,11 @@
       "flags": [
         "no_print_run"
       ],
-      "confidence": "low"
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Print run unknown \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
     },
     {
       "game_no": 699,
@@ -1431,7 +1607,11 @@
       "flags": [
         "anomaly_candidate"
       ],
-      "confidence": "high"
+      "confidence": "high",
+      "value_score": 76,
+      "grade": "B+",
+      "rated": true,
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
     },
     {
       "game_no": 702,
@@ -1458,7 +1638,11 @@
         "ev_out_of_range",
         "low_inventory"
       ],
-      "confidence": "low"
+      "confidence": "low",
+      "value_score": 40,
+      "grade": "F",
+      "rated": true,
+      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag)."
     },
     {
       "game_no": 703,
@@ -1488,7 +1672,11 @@
         "anomaly_candidate",
         "ev_out_of_range"
       ],
-      "confidence": "low"
+      "confidence": "low",
+      "value_score": 40,
+      "grade": "F",
+      "rated": true,
+      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag)."
     },
     {
       "game_no": 704,
@@ -1517,7 +1705,11 @@
       "flags": [
         "anomaly_candidate"
       ],
-      "confidence": "medium"
+      "confidence": "medium",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
     },
     {
       "game_no": 705,
@@ -1546,7 +1738,11 @@
       "flags": [
         "anomaly_candidate"
       ],
-      "confidence": "high"
+      "confidence": "high",
+      "value_score": 73,
+      "grade": "B",
+      "rated": true,
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
     },
     {
       "game_no": 706,
@@ -1581,7 +1777,11 @@
         "ev_out_of_range",
         "low_inventory"
       ],
-      "confidence": "low"
+      "confidence": "low",
+      "value_score": 40,
+      "grade": "F",
+      "rated": true,
+      "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag)."
     },
     {
       "game_no": 707,
@@ -1616,7 +1816,11 @@
         "ev_out_of_range",
         "low_inventory"
       ],
-      "confidence": "low"
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won."
     },
     {
       "game_no": 708,
@@ -1645,7 +1849,11 @@
       "flags": [
         "anomaly_candidate"
       ],
-      "confidence": "high"
+      "confidence": "high",
+      "value_score": 87,
+      "grade": "A",
+      "rated": true,
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
     },
     {
       "game_no": 709,
@@ -1682,7 +1890,11 @@
       "flags": [
         "anomaly_candidate"
       ],
-      "confidence": "high"
+      "confidence": "high",
+      "value_score": 75,
+      "grade": "B+",
+      "rated": true,
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
     },
     {
       "game_no": 710,
@@ -1708,7 +1920,11 @@
         "low_inventory",
         "no_print_run"
       ],
-      "confidence": "low"
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Print run unknown \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
     },
     {
       "game_no": 711,
@@ -1753,7 +1969,11 @@
       "flags": [
         "anomaly_candidate"
       ],
-      "confidence": "high"
+      "confidence": "high",
+      "value_score": 70,
+      "grade": "B",
+      "rated": true,
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
     },
     {
       "game_no": 716,
@@ -1784,7 +2004,11 @@
       "top_prize_odds_now": 387900.0,
       "dead_game": false,
       "flags": [],
-      "confidence": "high"
+      "confidence": "high",
+      "value_score": 57,
+      "grade": "C",
+      "rated": true,
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
     },
     {
       "game_no": 717,
@@ -1815,7 +2039,11 @@
       "top_prize_odds_now": 432960.0,
       "dead_game": false,
       "flags": [],
-      "confidence": "high"
+      "confidence": "high",
+      "value_score": 59,
+      "grade": "C",
+      "rated": true,
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
     },
     {
       "game_no": 718,
@@ -1864,7 +2092,11 @@
       "flags": [
         "anomaly_candidate"
       ],
-      "confidence": "high"
+      "confidence": "high",
+      "value_score": 62,
+      "grade": "B-",
+      "rated": true,
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
     },
     {
       "game_no": 720,
@@ -1899,7 +2131,11 @@
       "top_prize_odds_now": 278304.0,
       "dead_game": false,
       "flags": [],
-      "confidence": "high"
+      "confidence": "high",
+      "value_score": 54,
+      "grade": "C",
+      "rated": true,
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
     },
     {
       "game_no": 723,
@@ -1932,7 +2168,11 @@
       "flags": [
         "anomaly_candidate"
       ],
-      "confidence": "high"
+      "confidence": "high",
+      "value_score": 67,
+      "grade": "B-",
+      "rated": true,
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
     },
     {
       "game_no": 725,
@@ -1969,7 +2209,11 @@
       "flags": [
         "anomaly_candidate"
       ],
-      "confidence": "high"
+      "confidence": "high",
+      "value_score": 61,
+      "grade": "C",
+      "rated": true,
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
     },
     {
       "game_no": 729,
@@ -1994,7 +2238,11 @@
       "flags": [
         "anomaly_candidate"
       ],
-      "confidence": "high"
+      "confidence": "high",
+      "value_score": 67,
+      "grade": "B-",
+      "rated": true,
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
     },
     {
       "game_no": 730,
@@ -2019,7 +2267,11 @@
       "flags": [
         "anomaly_candidate"
       ],
-      "confidence": "high"
+      "confidence": "high",
+      "value_score": 72,
+      "grade": "B",
+      "rated": true,
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
     },
     {
       "game_no": 735,
@@ -2046,7 +2298,11 @@
       "top_prize_odds_now": 223720.0,
       "dead_game": false,
       "flags": [],
-      "confidence": "high"
+      "confidence": "high",
+      "value_score": 60,
+      "grade": "C",
+      "rated": true,
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
     },
     {
       "game_no": 737,
@@ -2071,7 +2327,11 @@
       "flags": [
         "anomaly_candidate"
       ],
-      "confidence": "high"
+      "confidence": "high",
+      "value_score": 64,
+      "grade": "B-",
+      "rated": true,
+      "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable."
     }
   ]
 }

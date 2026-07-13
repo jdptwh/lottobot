@@ -1,4 +1,4 @@
-"""Maine Lottery naive EV computation (M3, satellite S2).
+"""Maine Lottery naive EV computation (M3, satellite S2) + M4a scoring.
 
 Joins the M1 unclaimed-prizes snapshot (``scraper.scrape.parse`` output) with
 the M2 per-game metadata (``data/games.json``: ``print_run`` and
@@ -8,10 +8,21 @@ maine-scratch-ev-spec.md §3, producing the first REAL ``data/latest.json``
 offline and deterministic; this module never fetches.
 ``ev_ratio_adjusted`` stays ``null`` until M6 (the claim-lag model).
 
+M4a (docs/specs/m4a_scoring_spec.md) additively extends every game with
+``value_score`` / ``grade`` / ``rated`` / ``reason``. The daily-relative
+score is deliberately computed from the PUBLISHED 6-dp ``ev_ratio`` — not
+the raw, unrounded intermediate that M3 used internally — so a human (and
+the M4b UI) can reproduce every score from ``latest.json`` alone. Worst-case
+drift vs. the raw intermediate is ~1e-4 of a point; immaterial. This is a
+documented, pinned deviation from M3's "never compute from an already-
+rounded value" rule, scoped to ``value_score`` only — ``ev_ratio`` itself
+is still never clamped or recomputed.
+
 Public API: :func:`compute_latest`, :func:`diff_gate`, and the
 ``python -m scraper.compute`` CLI. docs/specs/m3_ev_spec.md is the binding
-spec for this file; its "field semantics" and "hand-check worksheet"
-sections are the rules of record reproduced in the docstrings/comments below.
+spec for the M3 fields; docs/specs/m4a_scoring_spec.md is the binding spec
+for scoring. Their "field semantics" / "hand-check worksheet" sections are
+the rules of record reproduced in the docstrings/comments below.
 """
 from __future__ import annotations
 
@@ -32,6 +43,72 @@ EV_RATIO_ANOMALY = 0.85
 EV_RATIO_RANGE = (0.0, 1.5)
 DIFF_MOVE = 0.2
 DIFF_SHARE = 0.30
+
+# --------------------------------------------------------------------------
+# M4a scoring constants (docs/specs/m4a_scoring_spec.md)
+# --------------------------------------------------------------------------
+
+# Value index weighting, keyed off the existing M3 `confidence` field
+# (never recomputed here).
+SCORE_WEIGHT = {"high": 1.0, "medium": 0.85, "low": 0.45}
+
+# The clamp on ev_ratio applies ONLY inside the value index below; it never
+# touches the published `ev_ratio` field (M3's never-clamp rule is unchanged).
+SCORE_EV_RATIO_CLAMP = (0.0, 1.5)
+
+# Daily-relative curve: value_score = round(40 + 55 * (idx - idx_min) / span).
+SCORE_CURVE_FLOOR = 40
+SCORE_CURVE_SPAN = 55
+
+# Degenerate curve (idx_max == idx_min, e.g. exactly one rateable game):
+# every rateable game gets this score (the curve's rounded midpoint) rather
+# than a promotional 95 — see spec §"Degenerate curve" for the §8 rationale.
+DEGENERATE_SCORE = 68
+
+# Grade bands on the rounded int score, checked high-to-low.
+GRADE_BANDS = (
+    (85, "A"),
+    (80, "A-"),
+    (75, "B+"),
+    (68, "B"),
+    (62, "B-"),
+    (52, "C"),
+    (42, "D"),
+)
+GRADE_DEFAULT = "F"
+
+# Reason copy bank (planner-authored, BINDING — exact strings; do not reword).
+REASONS = {
+    "dead": (
+        "Top prize already claimed — the biggest advertised win can no "
+        "longer be won."
+    ),
+    "sold_out": (
+        "Reported 0% unsold — effectively sold out; there is nothing left "
+        "to buy."
+    ),
+    "no_print_run": (
+        "Print run unknown — expected value can't be computed; ranked by "
+        "the relative unclaimed-money signal only."
+    ),
+    "no_data": "Not enough data to compute an expected value for this game.",
+    "claim_lag": (
+        "Looks better than it is: most unclaimed prize money is likely on "
+        "tickets already sold but not yet claimed (claim lag)."
+    ),
+    "high": (
+        "Based on solid inventory data; the expected-value estimate is "
+        "comparatively reliable."
+    ),
+    "medium": (
+        "Inventory is thinning; the expected-value estimate carries "
+        "moderate uncertainty."
+    ),
+    "low": (
+        "Very little inventory data behind this estimate — treat this "
+        "score with caution."
+    ),
+}
 
 
 # --------------------------------------------------------------------------
@@ -60,6 +137,95 @@ def _r_top(top_prizes: list[dict]) -> int | None:
     if not live:
         return None
     return max(live, key=lambda tp: tp["level"])["remaining"]
+
+
+def _grade_for_score(score: int) -> str:
+    """Pure function: rounded int score -> letter grade via GRADE_BANDS."""
+    for floor, letter in GRADE_BANDS:
+        if score >= floor:
+            return letter
+    return GRADE_DEFAULT
+
+
+def _is_rateable(game: dict) -> bool:
+    """Rateable iff not dead, not sold out, print_run known, ev_ratio known."""
+    return (
+        game["dead_game"] is False
+        and "sold_out" not in game["flags"]
+        and game["print_run"] is not None
+        and game["ev_ratio"] is not None
+    )
+
+
+def _non_rateable_reason(game: dict) -> str:
+    """First-match bucket precedence: dead -> sold_out -> no_print_run -> no_data."""
+    if game["dead_game"] is True:
+        return REASONS["dead"]
+    if "sold_out" in game["flags"]:
+        return REASONS["sold_out"]
+    if game["print_run"] is None:
+        return REASONS["no_print_run"]
+    return REASONS["no_data"]
+
+
+def _rateable_reason(game: dict) -> str:
+    """Rated reason: claim-lag (ev_out_of_range) beats the confidence bucket."""
+    if "ev_out_of_range" in game["flags"]:
+        return REASONS["claim_lag"]
+    return REASONS[game["confidence"]]
+
+
+def _value_index(game: dict) -> float:
+    """Rateable-only index: clamped ev_ratio (published, 6-dp) * confidence weight.
+
+    The clamp exists ONLY inside this index — it never touches the published
+    ``ev_ratio`` field (M3's never-clamp rule is unchanged).
+    """
+    lo, hi = SCORE_EV_RATIO_CLAMP
+    clamped = min(max(game["ev_ratio"], lo), hi)
+    return clamped * SCORE_WEIGHT[game["confidence"]]
+
+
+def _apply_scoring(games: list[dict]) -> None:
+    """Mutates each game dict in place, appending value_score/grade/rated/reason.
+
+    Daily-relative over the rateable subset. Degenerate curve (idx_max ==
+    idx_min, including the single-rateable-game case) gives every rateable
+    game DEGENERATE_SCORE regardless of its position in the (empty) spread.
+    """
+    rateable_game_nos = {g["game_no"] for g in games if _is_rateable(g)}
+    indices = {
+        g["game_no"]: _value_index(g)
+        for g in games
+        if g["game_no"] in rateable_game_nos
+    }
+
+    if indices:
+        idx_min = min(indices.values())
+        idx_max = max(indices.values())
+        degenerate = idx_max == idx_min
+
+    for game in games:
+        if game["game_no"] not in rateable_game_nos:
+            game["value_score"] = None
+            game["grade"] = None
+            game["rated"] = False
+            game["reason"] = _non_rateable_reason(game)
+            continue
+
+        if degenerate:
+            score = DEGENERATE_SCORE
+        else:
+            idx = indices[game["game_no"]]
+            raw_score = SCORE_CURVE_FLOOR + SCORE_CURVE_SPAN * (
+                (idx - idx_min) / (idx_max - idx_min)
+            )
+            score = round(raw_score)
+
+        game["value_score"] = score
+        game["grade"] = _grade_for_score(score)
+        game["rated"] = True
+        game["reason"] = _rateable_reason(game)
 
 
 # --------------------------------------------------------------------------
@@ -185,6 +351,12 @@ def compute_latest(snapshot: dict, games_meta: dict, as_of: str) -> dict:
         )
 
     games.sort(key=lambda g: g["game_no"])
+
+    # value_score/grade/rated/reason (M4a) are inserted in place, in this
+    # order, immediately after "confidence" (byte-stable diffs, per spec) —
+    # dict insertion order already puts them there since "confidence" is the
+    # last key set above and these are the first keys _apply_scoring adds.
+    _apply_scoring(games)
 
     return {
         "as_of": as_of,

@@ -63,7 +63,14 @@
         "confidence": {
           "type": "string",
           "enum": ["high", "medium", "low"]
-        }
+        },
+        "value_score": { "type": ["integer", "null"] },
+        "grade": {
+          "type": ["string", "null"],
+          "enum": ["A", "A-", "B+", "B", "B-", "C", "D", "F", null]
+        },
+        "rated": { "type": "boolean" },
+        "reason": { "type": "string", "minLength": 1 }
       }
     },
     "top_prize": {
