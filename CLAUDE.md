@@ -19,20 +19,20 @@ capability is DORMANT by default (`PANEL_ENABLED=0`, `ASSET_ENABLED=0`) — unti
 enabled, this repo behaves as a plain routed-agent project.
 
 ## Current state (correct as needed)
-- Last completed: M3 green — scraper/compute.py + real data/latest.json (65
-  games): §3 v1 naive EV, additive schema fields relative_score +
-  top_prize_odds_now, math gate (38 in-range / 16 honestly flagged
-  ev_out_of_range+anomaly, none clamped), sold-out zero guard (617 & 651),
-  null-print-run relative-score fallback (9 games, no ev_ratio masquerade),
-  diff gate wired-but-dormant. Reviewer PASS cycle 1 (independent recompute of
-  all 65, 0 mismatches). M2 at 446399d, M1 at eaefaa4. Dashboard port 8207.
-- In progress: —
-- Next up: M4 — static site (site/index.html) reading data/latest.json; Rule 11
-  applies (mockup approved BEFORE build). Anomaly banner must carry the §5/§8
-  claim-lag caveat (naive EV overstates value on low-percent-unsold games like
-  702/706).
-- Blocked on: (1) human verification of the 3-game hand-check worksheet in
-  docs/specs/m3_ev_spec.md (M3 DoD, touchpoint 2); (2) go-ahead to M4.
+- Last completed: M4 built awaiting owner acceptance — M4a scoring pipeline
+  (e4a8b7a: value_score/grade/rated/reason, daily-relative curve, binding copy
+  bank, reviewer PASS cycle 1) + M4b best-pick site (6321ed4: hero + scored
+  shortlist per owner-approved mockup 99a4ee5, flag-keyed claim-lag exclusion,
+  polish audit 10/10, reviewer FAIL→fix→PASS cycle 2). Owner REJECTED the
+  original table-concept M4 (superseded; recorded in m4b_site_spec.md).
+  Full routed loop enforced since 2026-07-12: drafter→planner→owner-approves→
+  implementer→reviewer→owner-accepts; lead orchestrates only, never absorbs
+  roles (owner-corrected, see memory). M3 at 48d333e, M2 446399d, M1 eaefaa4.
+- In progress: M4 acceptance touchpoint (owner phone check of site/ + hand-check
+  of m4a worksheet A–G; M3 worksheet also still open).
+- Next up: M5 — daily GitHub Action + Pages deploy (docs/pages_deploy.md has
+  the enable step); 7 consecutive green runs = shipped.
+- Blocked on: owner acceptance of M4.
 
 ## Conventions
 - Stack / language: Python 3.11 target (3.12 local OK); scraper deps `requests` +
