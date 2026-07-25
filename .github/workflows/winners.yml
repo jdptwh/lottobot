@@ -1,0 +1,49 @@
+name: winners-refresh
+# MANUAL-ONLY winner-report refresh (docs/specs/winners_location_spec.md).
+# Owner-triggered via workflow_dispatch only — deliberately never automatic:
+# winner-fetch cadence is an owner decision, and this workflow never touches
+# the daily pipeline (test-enforced: tests/workflow/test_winners_workflow.py).
+# One polite request per dispatch (project UA, §8 politeness).
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: winners-refresh
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install deps (runtime + dev — numpy is dev-only, analysis never ships)
+        run: pip install -r requirements.txt -r requirements-dev.txt
+      - name: Offline gate first (parser/merge + trends tests; no network)
+        run: python -m pytest -q tests/scraper/test_winners.py tests/analysis/test_location_trends.py
+      - name: Fetch + merge winner reports (ONE polite request)
+        run: python -m scraper.winners fetch --as-of "$(date -u +%F)"
+      - name: Validate every record against the schema (no commit on failure)
+        run: |
+          python - <<'EOF'
+          import json, jsonschema
+          schema = json.load(open("data/schema/winner_record.schema.json"))
+          records = [json.loads(l) for l in open("data/winners/winners.jsonl", encoding="utf-8") if l.strip()]
+          assert records, "empty winners dataset after merge"
+          for record in records:
+              jsonschema.validate(record, schema)
+          raw = open("data/winners/winners.jsonl", "rb").read()
+          assert b"\r" not in raw, "CRLF in winners.jsonl"
+          print(f"schema-valid: {len(records)} records")
+          EOF
+      - name: Regenerate location trends artifact
+        run: python -m analysis.location_trends --winners data/winners/winners.jsonl --as-of "$(date -u +%F)" --out data/insights/location_trends.json
+      - name: Commit and push (only if something changed)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/winners/winners.jsonl data/insights/location_trends.json
+          git diff --cached --quiet || git commit -m "winners: refresh $(date -u +%F)"
+          git push

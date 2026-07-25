@@ -358,9 +358,25 @@ def mockup_text():
 
 
 class TestSiteOnlyAnchors:
-    def test_exactly_one_fetch_targeting_data_latest_json(self, site_text):
-        assert site_text.count("fetch(") == 1
-        assert re.search(r"fetch\(\s*[\"']\.\./data/latest\.json[\"']", site_text)
+    # v2 amendment (docs/specs/ui_v2_insights_spec.md): the site's data
+    # contract grew from one committed pipeline artifact to three — the
+    # anchor's intent is unchanged: the site fetches ONLY committed
+    # repo-relative pipeline artifacts, exactly once each, and nothing
+    # external.
+    ALLOWED_FETCHES = (
+        r"fetch\(\s*[\"']\.\./data/latest\.json[\"']",
+        r"fetch\(\s*[\"']\.\./data/insights/complexity_burn\.json[\"']",
+        r"fetch\(\s*[\"']\.\./data/insights/location_trends\.json[\"']",
+    )
+
+    def test_exactly_one_fetch_per_committed_artifact(self, site_text):
+        assert site_text.count("fetch(") == len(self.ALLOWED_FETCHES)
+        for pattern in self.ALLOWED_FETCHES:
+            assert len(re.findall(pattern, site_text)) == 1, pattern
+
+    def test_no_external_fetch_targets(self, site_text):
+        for m in re.finditer(r"fetch\(\s*[\"']([^\"']+)[\"']", site_text):
+            assert m.group(1).startswith("../data/"), m.group(1)
 
     def test_isEligible_defined_and_flag_keyed(self, site_text):
         match = re.search(r"function\s+isEligible\s*\([^)]*\)\s*\{", site_text)
@@ -373,6 +389,29 @@ class TestSiteOnlyAnchors:
 
     def test_mockup_only_switcher_marker_absent(self, site_text):
         assert "MOCKUP ONLY" not in site_text
+
+    # v2 console (docs/specs/ui_v2_insights_spec.md): the research views and
+    # their binding honesty copy exist in the build.
+    V2_REQUIRED = [
+        "Game insights",
+        "Winner map",
+        "uniformly random",
+        "carry zero information",
+        "Descriptive",
+        "empirical-Bayes shrinkage",
+        "burn gap",
+    ]
+
+    def test_v2_views_and_honesty_copy_present(self, site_text):
+        for fragment in self.V2_REQUIRED:
+            assert fragment in site_text, f"missing v2 fragment: {fragment}"
+
+    def test_v2_mockup_of_record_exists_and_is_marked(self):
+        mock = (REPO_ROOT / "docs" / "mockups" / "insights_v2_mockup.html")
+        assert mock.exists()
+        text = mock.read_text(encoding="utf-8")
+        assert "MOCKUP ONLY" in text
+        assert "DESIGN NOTES" in text
 
     def test_normalizeGame_present(self, site_text):
         """Version-skew guard (docs/specs/w2_v15_honesty_spec.md, AC-8):

@@ -17,3 +17,4 @@ gen*.json
 # project artifact — data/panel/wayback_observations.jsonl and panel.jsonl ARE
 # committed artifacts and stay tracked).
 data/panel/raw_cache/
+data/winners/raw_cache/

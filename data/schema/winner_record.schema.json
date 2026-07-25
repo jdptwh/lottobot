@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "winner_record.schema.json",
+  "title": "Maine Lottery winner record (data/winners/winners.jsonl, one object per line)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "winner_key", "names", "town", "prize", "game", "game_type",
+    "retailer", "retailer_town", "first_seen", "source", "capture_url",
+    "capture_ts", "content_hash", "parser_version"
+  ],
+  "properties": {
+    "winner_key": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{16}$",
+      "description": "sha256 prefix of the normalized (names, town, game, prize, retailer) tuple — the dedup identity across captures (the page publishes no dates)."
+    },
+    "names": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1},
+      "description": "Winner name(s); more than one for split claims."
+    },
+    "town": {
+      "type": ["string", "null"],
+      "description": "Winner's stated hometown; null when the page omits it."
+    },
+    "prize": {
+      "type": ["number", "null"],
+      "exclusiveMinimum": 0,
+      "description": "Prize dollars; null when the entry states no amount."
+    },
+    "game": {
+      "type": ["string", "null"],
+      "description": "Game name as printed; null when the entry names none."
+    },
+    "game_type": {
+      "enum": ["instant", "draw", "fastplay", "unknown"],
+      "description": "Conservative classification: 'draw' only for the site's own draw-game names; 'instant' only when the entry says so."
+    },
+    "retailer": {"type": ["string", "null"]},
+    "retailer_town": {
+      "type": ["string", "null"],
+      "description": "Town where the winning ticket was SOLD — the location-trend signal of record (winner residence is secondary)."
+    },
+    "first_seen": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "Earliest capture date on which this entry was observable. NOT a win/claim date — the page publishes none."
+    },
+    "source": {"enum": ["live", "wayback", "seed"]},
+    "capture_url": {"type": "string"},
+    "capture_ts": {"type": "string"},
+    "content_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "sha256 of the raw capture bytes this record was parsed from."
+    },
+    "parser_version": {"type": "string"}
+  }
+}

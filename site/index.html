@@ -560,9 +560,239 @@ footer.site-footer {
 footer.site-footer p { margin: 0 0 8px; }
 footer.site-footer a { font-weight: 600; }
 
+/* ---------- v2 console: segmented view nav ---------- */
+.view-nav {
+  background: var(--pine-950);
+  padding: 0 16px 14px;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  box-shadow: 0 2px 10px rgba(12, 43, 33, 0.25);
+}
+.segmented {
+  display: flex;
+  gap: 0;
+  max-width: 640px;
+  margin: 0 auto;
+  background: var(--pine-900);
+  border: 1px solid var(--pine-700);
+  border-radius: 999px;
+  padding: 3px;
+}
+.seg-btn {
+  flex: 1;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--cream-100);
+  font: 600 13px/1.2 -apple-system, "Segoe UI", Roboto, sans-serif;
+  padding: 9px 4px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.seg-btn[aria-selected="true"] {
+  background: var(--cream-50);
+  color: var(--pine-950);
+  box-shadow: 0 1px 4px rgba(12, 43, 33, 0.35);
+}
+
+/* ---------- insight/winner views ---------- */
+.insight-intro { margin: 22px 16px 0; }
+.insight-framing {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 62ch;
+  margin: 8px 0 0;
+}
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+  margin: 16px 0 0;
+}
+.stat-tile {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+}
+.stat-tile .stat-value {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--pine-950);
+  font-variant-numeric: tabular-nums;
+  margin: 0;
+}
+.stat-tile .stat-label {
+  margin: 3px 0 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.chart-section { margin: 26px 16px 0; }
+.chart-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  color: var(--pine-950);
+  margin: 0 0 4px;
+}
+.chart-sub {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin: 0 0 10px;
+  max-width: 62ch;
+}
+.chart-note { font-size: 12px; color: var(--ink-soft); margin: 8px 0 0; }
+.chart-box {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 10px 8px 6px;
+  position: relative;
+}
+.chart-box svg { display: block; width: 100%; height: auto; }
+.chart-empty {
+  padding: 26px 16px;
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+.legend-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin: 0 0 8px;
+  font-size: 12px;
+  color: var(--ink);
+}
+.legend-swatch {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 5px;
+  vertical-align: -1px;
+}
+.viz-tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: var(--pine-950);
+  color: var(--cream-50);
+  font-size: 12px;
+  line-height: 1.45;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 3px 10px rgba(12, 43, 33, 0.35);
+  max-width: 240px;
+  z-index: 50;
+  display: none;
+}
+.viz-tooltip .tt-title { font-weight: 700; }
+.viz-tooltip .tt-line { font-variant-numeric: tabular-nums; }
+
+/* town bars */
+.town-row {
+  display: grid;
+  grid-template-columns: 120px 1fr 64px;
+  gap: 8px;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--cream-200);
+  font-size: 13px;
+}
+.town-name { font-weight: 600; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.town-track { position: relative; height: 16px; }
+.town-bar {
+  position: absolute;
+  left: 0; top: 3px; bottom: 3px;
+  background: var(--pine-500);
+  border-radius: 0 4px 4px 0;
+  min-width: 2px;
+}
+.town-whisker {
+  position: absolute;
+  top: 50%;
+  height: 2px;
+  margin-top: -1px;
+  background: var(--gold-600);
+}
+.town-whisker::before, .town-whisker::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  width: 2px;
+  height: 8px;
+  background: var(--gold-600);
+}
+.town-whisker::before { left: 0; }
+.town-whisker::after { right: 0; }
+.town-n { text-align: right; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.small-n-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--amber-warn-rule);
+  background: var(--amber-warn-bg);
+  border-radius: 4px;
+  padding: 1px 5px;
+  margin-left: 6px;
+  vertical-align: 1px;
+}
+
+/* data tables */
+.table-scroll { overflow-x: auto; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-md); }
+.data-table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+.data-table th {
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+  padding: 10px 10px 6px;
+  border-bottom: 2px solid var(--line);
+  white-space: nowrap;
+}
+.data-table td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--cream-200);
+  vertical-align: top;
+}
+.data-table td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.data-table tr:last-child td { border-bottom: 0; }
+.mech-chip {
+  display: inline-block;
+  font-size: 10.5px;
+  background: var(--cream-100);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 1px 7px;
+  margin: 1px 2px 1px 0;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+.coverage-note {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+.coverage-note ul { margin: 6px 0 0; padding-left: 18px; }
+.coverage-note li { margin: 4px 0; }
+
 @media (min-width: 640px) {
   .hero-section, .shortlist-section, .claim-lag-section, .not-rated-section,
-  .price-filter, .explainer, footer.site-footer {
+  .price-filter, .explainer, footer.site-footer,
+  .insight-intro, .chart-section {
     margin-left: auto;
     margin-right: auto;
     max-width: 640px;
@@ -582,11 +812,19 @@ footer.site-footer a { font-weight: 600; }
   <p class="as-of-line tabular" id="as-of-line"></p>
 </header>
 
+<nav class="view-nav" aria-label="Site sections">
+  <div class="segmented" role="tablist" aria-label="Views">
+    <button class="seg-btn" type="button" role="tab" id="tab-best" aria-selected="true" data-view="best">Best pick today</button>
+    <button class="seg-btn" type="button" role="tab" id="tab-insights" aria-selected="false" data-view="insights">Game insights</button>
+    <button class="seg-btn" type="button" role="tab" id="tab-winners" aria-selected="false" data-view="winners">Winner map</button>
+  </div>
+</nav>
+
 <div id="staleness-slot"></div>
 
 <main id="main">
   <div id="error-slot"></div>
-  <div id="content-slot">
+  <div id="content-slot" class="view-panel" role="tabpanel" aria-labelledby="tab-best">
 
     <details class="explainer" id="explainer">
       <summary><span class="chev">▶</span> How the score works</summary>
@@ -631,11 +869,78 @@ footer.site-footer a { font-weight: 600; }
     </section>
 
   </div>
+
+  <div id="insights-view" class="view-panel" role="tabpanel" aria-labelledby="tab-insights" hidden>
+    <section class="insight-intro" aria-labelledby="insights-heading">
+      <h2 class="section-title" id="insights-heading">Ticket complexity &times; burn rate</h2>
+      <p class="insight-framing">A research view over 11 years of archived lifecycles: does a game's <strong>complexity</strong> (price, prize structure, play mechanics) travel with how its prize money <strong>burns down</strong> as tickets sell &mdash; and with how much is still outstanding when the game leaves the board? Descriptive patterns only &mdash; nothing here predicts a win, and no pattern below says where a winning ticket is.</p>
+      <div class="stat-row" id="insight-stats"></div>
+    </section>
+
+    <section class="chart-section" aria-labelledby="scatter-heading">
+      <h3 class="chart-title" id="scatter-heading">Complexity vs. burn gap &mdash; every usable lifecycle</h3>
+      <p class="chart-sub">Each dot is one game lifecycle. <strong>Burn gap</strong> &gt; 0: unclaimed money lingered above the instant-claim line while tickets sold (slow burn / claim lag). Burn gap &lt; 0: prize money exited faster than sales (fast burn).</p>
+      <div class="legend-row" id="scatter-legend"></div>
+      <div class="chart-box" id="scatter-slot"></div>
+    </section>
+
+    <section class="chart-section" aria-labelledby="corr-heading">
+      <h3 class="chart-title" id="corr-heading">What travels with what</h3>
+      <p class="chart-sub">Spearman rank correlation with a seeded bootstrap 95% interval. Descriptive associations in archived data &mdash; not significance tests, not causes, not predictions.</p>
+      <div class="chart-box" id="corr-slot"></div>
+      <p class="chart-note" id="corr-note"></p>
+    </section>
+
+    <section class="chart-section" aria-labelledby="burnex-heading">
+      <h3 class="chart-title" id="burnex-heading">How to read a burn curve</h3>
+      <p class="chart-sub">Unclaimed prize money (share of its start) against inventory sold. The gray diagonal is the instant-claim benchmark; the burn gap is the average height above or below it.</p>
+      <div class="chart-box" id="burnex-slot"></div>
+    </section>
+
+    <section class="chart-section" aria-labelledby="cxtable-heading">
+      <h3 class="chart-title" id="cxtable-heading">Complexity index &mdash; current-era games</h3>
+      <p class="chart-sub">Structural components for every game, plus play-mechanic components parsed from the state's own game pages where available. The index is a fixed transform of component z-scores (0&ndash;100), not a quality score.</p>
+      <div class="table-scroll"><table class="data-table" id="cxtable"></table></div>
+    </section>
+    <div id="insights-empty-slot"></div>
+  </div>
+
+  <div id="winners-view" class="view-panel" role="tabpanel" aria-labelledby="tab-winners" hidden>
+    <section class="insight-intro" aria-labelledby="winners-heading">
+      <h2 class="section-title" id="winners-heading">Where published winners bought</h2>
+      <p class="insight-framing">Maine names its claimed winners &mdash; and where the ticket was sold. This view aligns those public reports into town and retailer trends. <strong>Read it as history, never as advice:</strong> past winner locations carry zero information about where future winning tickets will be sold. Every unsold ticket is uniformly random, wherever it sits.</p>
+      <div class="stat-row" id="winner-stats"></div>
+    </section>
+
+    <section class="chart-section" aria-labelledby="map-heading">
+      <h3 class="chart-title" id="map-heading">Winner purchase towns</h3>
+      <p class="chart-sub">Dot size: published winners whose ticket was sold in that town. Dot depth: per-10k-resident rate after empirical-Bayes shrinkage (small samples are pulled toward the statewide mean). Town positions are approximate.</p>
+      <div class="chart-box" id="map-slot"></div>
+    </section>
+
+    <section class="chart-section" aria-labelledby="towns-heading">
+      <h3 class="chart-title" id="towns-heading">Town trends, shrunk toward the mean</h3>
+      <p class="chart-sub">One winner in a tiny town proves nothing, so raw per-capita rates are pulled hard toward the statewide mean before display &mdash; a 500-person town's 20&times;-Portland raw rate collapses to near parity, and its wide whisker says how little that ranking means. Whiskers span the 90% posterior interval; rows with fewer than 3 winners are flagged. Rows are ordered by winner count, not rate.</p>
+      <div id="townbars-slot"></div>
+    </section>
+
+    <section class="chart-section" aria-labelledby="retailers-heading">
+      <h3 class="chart-title" id="retailers-heading">Selling retailers on the board</h3>
+      <div class="table-scroll"><table class="data-table" id="retailer-table"></table></div>
+    </section>
+
+    <section class="chart-section" aria-labelledby="wcoverage-heading">
+      <h3 class="chart-title" id="wcoverage-heading">What this data is</h3>
+      <div class="coverage-note" id="winner-coverage"></div>
+    </section>
+    <div id="winners-empty-slot"></div>
+  </div>
 </main>
 
 <footer class="site-footer">
   <p>Score, grade, and reason are computed once daily from the state's published unclaimed-prize and percent-unsold figures; claim-lag games are shown separately below the shortlist, never ranked among the picks.</p>
-  <p>Data: <a href="https://www.mainelottery.com/players_info/unclaimed_prizes.html" target="_blank" rel="noopener">Maine State Lottery</a></p>
+  <p>Data: <a href="https://www.mainelottery.com/players_info/unclaimed_prizes.html" target="_blank" rel="noopener">Maine State Lottery</a> &middot; winner reports from the Lottery's <a href="https://www.mainelottery.com/players_info/winners_showcase.html" target="_blank" rel="noopener">Winner Information</a> page</p>
+  <p>Winner locations describe published past claims only &mdash; they carry no information about future tickets; every unsold ticket is uniformly random.</p>
   <p>The Maine State Lottery's Official Outstanding Prize List prevails over anything shown here.</p>
   <p>This tool cannot predict winners. All scratch games are negative-expected-value under normal conditions. If gambling is a problem for you or someone you know, call <a href="tel:1-800-426-2537">1-800-GAMBLER</a>.</p>
 </footer>
@@ -1020,6 +1325,512 @@ footer.site-footer a { font-weight: 600; }
 
   function onLoadFailed() {
     renderErrorPanel(true);
+  }
+
+  /* =====================================================================
+     v2 console: view switching + research views (Game insights, Winner map)
+     Data contracts: ../data/insights/complexity_burn.json (analysis/
+     complexity.py) and ../data/insights/location_trends.json (analysis/
+     location_trends.py). These views RENDER committed research artifacts;
+     they never re-derive statistics. Charts are hand-rolled inline SVG —
+     no external assets (Rule 11 offline-clean).
+     Chart palette (validated via the dataviz six-checks on the cream
+     surface #fbf7ee): categorical price groups #2f8560 / #c98a2c / #ab4d79
+     (fixed order, entity-bound); diverging poles #2f8560 / #b3542a with
+     neutral #9aa39d; sequential = pine light→dark. The gold slot's 2.74:1
+     contrast WARN is relieved per the skill: every series is direct-labeled
+     or legend-labeled and every chart has a table/tooltip view.
+     ===================================================================== */
+
+  var INSIGHTS = null, WINNERS = null;
+  var insightsRequested = false, winnersRequested = false;
+
+  var PRICE_GROUPS = [
+    { key: "low",  label: "$1–$2 games",  test: function (p) { return p <= 2; },  color: "#2f8560" },
+    { key: "mid",  label: "$3–$5 games",  test: function (p) { return p <= 5; },  color: "#c98a2c" },
+    { key: "high", label: "$10–$30 games", test: function (p) { return p > 5; },  color: "#ab4d79" }
+  ];
+  function priceGroup(p) {
+    for (var i = 0; i < PRICE_GROUPS.length; i++) {
+      if (PRICE_GROUPS[i].test(p)) return PRICE_GROUPS[i];
+    }
+    return PRICE_GROUPS[PRICE_GROUPS.length - 1];
+  }
+  var DIVERGE_POS = "#2f8560", DIVERGE_NEG = "#b3542a", NEUTRAL = "#9aa39d";
+  var SEQ_RAMP = ["#dcebe2", "#a8cdbb", "#6ba98c", "#2f8560", "#1f5c45", "#0c2b21"];
+
+  function seqColor(t) { /* t in [0,1] -> pine ramp step */
+    if (t == null || isNaN(t)) return SEQ_RAMP[1];
+    var idx = Math.min(SEQ_RAMP.length - 1, Math.max(0, Math.floor(t * SEQ_RAMP.length)));
+    return SEQ_RAMP[idx];
+  }
+
+  /* ---------------- view switching ---------------- */
+  var VIEWS = {
+    best: document.getElementById("content-slot"),
+    insights: document.getElementById("insights-view"),
+    winners: document.getElementById("winners-view")
+  };
+  function showView(name) {
+    Object.keys(VIEWS).forEach(function (key) {
+      var on = key === name;
+      VIEWS[key].hidden = !on;
+      var tab = document.getElementById("tab-" + key);
+      tab.setAttribute("aria-selected", on ? "true" : "false");
+    });
+    /* the best-pick error panel is view-1 furniture only */
+    document.getElementById("error-slot").style.display = name === "best" ? "" : "none";
+    if (name === "insights") loadInsights();
+    if (name === "winners") loadWinners();
+  }
+  Array.prototype.forEach.call(document.querySelectorAll(".seg-btn"), function (btn) {
+    btn.addEventListener("click", function () { showView(btn.getAttribute("data-view")); });
+  });
+
+  /* ---------------- tiny SVG + tooltip helpers ---------------- */
+  var SVG_NS = "http://www.w3.org/2000/svg";
+  function svgEl(tag, attrs) {
+    var el = document.createElementNS(SVG_NS, tag);
+    Object.keys(attrs || {}).forEach(function (k) { el.setAttribute(k, attrs[k]); });
+    return el;
+  }
+  function svgText(x, y, str, attrs) {
+    var el = svgEl("text", attrs || {});
+    el.setAttribute("x", x); el.setAttribute("y", y);
+    el.textContent = str;
+    return el;
+  }
+  function attachTooltip(box) {
+    var tip = document.createElement("div");
+    tip.className = "viz-tooltip";
+    box.appendChild(tip);
+    return {
+      show: function (clientX, clientY, html) {
+        tip.innerHTML = html;
+        tip.style.display = "block";
+        var rect = box.getBoundingClientRect();
+        var x = clientX - rect.left + 12, y = clientY - rect.top + 12;
+        if (x + tip.offsetWidth > rect.width - 8) x = x - tip.offsetWidth - 24;
+        if (y + tip.offsetHeight > rect.height - 8) y = y - tip.offsetHeight - 24;
+        tip.style.left = Math.max(4, x) + "px";
+        tip.style.top = Math.max(4, y) + "px";
+      },
+      hide: function () { tip.style.display = "none"; }
+    };
+  }
+  function statTile(value, label) {
+    return '<div class="stat-tile"><p class="stat-value">' + value + '</p><p class="stat-label">' + label + "</p></div>";
+  }
+  function fmtRho(c) {
+    if (c.spearman == null) return "—";
+    return (c.spearman > 0 ? "+" : "") + c.spearman.toFixed(2);
+  }
+
+  /* ---------------- Game insights view ---------------- */
+  function loadInsights() {
+    if (insightsRequested) return;
+    insightsRequested = true;
+    fetch("../data/insights/complexity_burn.json")
+      .then(function (res) { if (!res.ok) throw new Error("HTTP " + res.status); return res.json(); })
+      .then(function (data) { INSIGHTS = data; renderInsights(); })
+      .catch(function () {
+        document.getElementById("insights-empty-slot").innerHTML =
+          '<div class="chart-empty">The complexity &times; burn research artifact hasn’t been published yet. It is generated offline by <code>python -m analysis.complexity</code> and committed to <code>data/insights/</code>.</div>';
+      });
+  }
+
+  function renderInsights() {
+    var d = INSIGHTS;
+    document.getElementById("insight-stats").innerHTML =
+      statTile(d.inputs.n_lifecycles, "game lifecycles 2015–now") +
+      statTile(d.cohorts.usable_arcs, "usable burn arcs") +
+      statTile(d.cohorts.near_complete, "near-complete endings") +
+      statTile(d.cohorts.with_mechanics, "games with parsed mechanics");
+    renderScatter();
+    renderCorrBars();
+    renderBurnExplainer();
+    renderCxTable();
+  }
+
+  function renderScatter() {
+    var rows = INSIGHTS.games.filter(function (g) {
+      return g.burn !== null && g.complexity_index !== null;
+    });
+    var legend = document.getElementById("scatter-legend");
+    legend.innerHTML = PRICE_GROUPS.map(function (grp) {
+      return '<span><span class="legend-swatch" style="background:' + grp.color + '"></span>' + grp.label + "</span>";
+    }).join("");
+
+    var W = 640, H = 400, m = { t: 14, r: 16, b: 42, l: 52 };
+    var iw = W - m.l - m.r, ih = H - m.t - m.b;
+    var ys = rows.map(function (r) { return r.burn.burn_gap; });
+    var yMin = Math.min.apply(null, ys), yMax = Math.max.apply(null, ys);
+    var pad = (yMax - yMin) * 0.06 || 0.1;
+    yMin -= pad; yMax += pad;
+    function X(v) { return m.l + (v / 100) * iw; }
+    function Y(v) { return m.t + (1 - (v - yMin) / (yMax - yMin)) * ih; }
+
+    var svg = svgEl("svg", { viewBox: "0 0 " + W + " " + H, role: "img",
+      "aria-label": "Scatter plot of complexity index against burn gap for " + rows.length + " game lifecycles" });
+
+    /* recessive grid + axes */
+    var yt = yMin, step = (yMax - yMin) / 5;
+    for (var i = 0; i <= 5; i++) {
+      var vy = yMin + step * i, py = Y(vy);
+      svg.appendChild(svgEl("line", { x1: m.l, y1: py, x2: W - m.r, y2: py, stroke: "#e9decb", "stroke-width": 1 }));
+      svg.appendChild(svgText(m.l - 8, py + 4, vy.toFixed(2), { "text-anchor": "end", "font-size": 11, fill: "#4a564e" }));
+    }
+    [0, 25, 50, 75, 100].forEach(function (vx) {
+      svg.appendChild(svgText(X(vx), H - m.b + 18, String(vx), { "text-anchor": "middle", "font-size": 11, fill: "#4a564e" }));
+    });
+    /* zero line — the instant-claim benchmark */
+    if (yMin < 0 && yMax > 0) {
+      svg.appendChild(svgEl("line", { x1: m.l, y1: Y(0), x2: W - m.r, y2: Y(0), stroke: "#9aa39d", "stroke-width": 1.5, "stroke-dasharray": "5 4" }));
+      svg.appendChild(svgText(W - m.r - 2, Y(0) - 6, "instant-claim benchmark", { "text-anchor": "end", "font-size": 10.5, fill: "#4a564e" }));
+    }
+    svg.appendChild(svgText(m.l + iw / 2, H - 6, "Complexity index (0–100)", { "text-anchor": "middle", "font-size": 12, fill: "#1c2621", "font-weight": 600 }));
+    var yl = svgText(0, 0, "Burn gap", { "text-anchor": "middle", "font-size": 12, fill: "#1c2621", "font-weight": 600 });
+    yl.setAttribute("transform", "translate(14 " + (m.t + ih / 2) + ") rotate(-90)");
+    svg.appendChild(yl);
+
+    rows.forEach(function (r) {
+      svg.appendChild(svgEl("circle", {
+        cx: X(r.complexity_index), cy: Y(r.burn.burn_gap), r: 4.5,
+        fill: priceGroup(r.price).color, stroke: "#fffdf7", "stroke-width": 1.4, opacity: 0.92
+      }));
+    });
+
+    var box = document.getElementById("scatter-slot");
+    box.innerHTML = "";
+    box.appendChild(svg);
+    var tip = attachTooltip(box);
+    svg.addEventListener("mousemove", function (ev) {
+      var rect = svg.getBoundingClientRect();
+      var sx = (ev.clientX - rect.left) * (W / rect.width);
+      var sy = (ev.clientY - rect.top) * (H / rect.height);
+      var best = null, bd = 14 * 14;
+      rows.forEach(function (r) {
+        var dx = X(r.complexity_index) - sx, dy = Y(r.burn.burn_gap) - sy;
+        var dist = dx * dx + dy * dy;
+        if (dist < bd) { bd = dist; best = r; }
+      });
+      if (!best) { tip.hide(); return; }
+      tip.show(ev.clientX, ev.clientY,
+        '<div class="tt-title">' + esc(best.name) + " · " + priceLabel(best.price) + "</div>" +
+        '<div class="tt-line">Complexity ' + best.complexity_index.toFixed(0) +
+        " · burn gap " + best.burn.burn_gap.toFixed(2) + "</div>" +
+        '<div class="tt-line">Outstanding at last sighting: ' + Math.round(best.burn.u_last * 100) + "% of starting unclaimed $</div>" +
+        '<div class="tt-line">' + best.first_obs.slice(0, 4) + "–" + best.last_obs.slice(0, 4) + " · " + esc(best.burn.lifecycle_status) + "</div>");
+    });
+    svg.addEventListener("mouseleave", tip.hide);
+  }
+
+  function renderCorrBars() {
+    var WANT = {
+      complexity_vs_burn_gap: "Complexity ↔ burn gap (all arcs)",
+      complexity_vs_terminal_unclaimed: "Complexity ↔ money left at the end",
+      complexity_vs_top_survival: "Complexity ↔ top prizes left at the end",
+      complexity_vs_tier_attrition: "Complexity ↔ top tiers claimed out",
+      price_vs_burn_gap: "Price alone ↔ burn gap",
+      burn_gap_vs_top_survival: "Burn gap ↔ top prizes left"
+    };
+    var rows = INSIGHTS.correlations.filter(function (c) { return WANT[c.id] && c.spearman !== null; });
+    var W = 640, rowH = 34, m = { t: 26, r: 46, b: 10, l: 240 };
+    var H = m.t + rows.length * rowH + m.b;
+    var iw = W - m.l - m.r;
+    function X(v) { return m.l + ((v + 1) / 2) * iw; }
+
+    var svg = svgEl("svg", { viewBox: "0 0 " + W + " " + H, role: "img",
+      "aria-label": "Spearman correlations with bootstrap intervals" });
+    [-1, -0.5, 0, 0.5, 1].forEach(function (v) {
+      svg.appendChild(svgEl("line", { x1: X(v), y1: m.t - 8, x2: X(v), y2: H - m.b, stroke: v === 0 ? "#9aa39d" : "#e9decb", "stroke-width": v === 0 ? 1.5 : 1 }));
+      svg.appendChild(svgText(X(v), m.t - 12, (v > 0 ? "+" : "") + v, { "text-anchor": "middle", "font-size": 10.5, fill: "#4a564e" }));
+    });
+    rows.forEach(function (c, i) {
+      var cy = m.t + i * rowH + rowH / 2;
+      var color = c.spearman > 0.05 ? DIVERGE_POS : (c.spearman < -0.05 ? DIVERGE_NEG : NEUTRAL);
+      svg.appendChild(svgText(m.l - 10, cy + 4, WANT[c.id], { "text-anchor": "end", "font-size": 12, fill: "#1c2621" }));
+      /* CI whisker */
+      svg.appendChild(svgEl("line", { x1: X(c.ci95[0]), y1: cy, x2: X(c.ci95[1]), y2: cy, stroke: color, "stroke-width": 2, opacity: 0.45 }));
+      /* bar from zero */
+      svg.appendChild(svgEl("rect", {
+        x: Math.min(X(0), X(c.spearman)), y: cy - 5,
+        width: Math.max(Math.abs(X(c.spearman) - X(0)), 1.5), height: 10,
+        rx: 4, fill: color, stroke: "#fffdf7", "stroke-width": 1
+      }));
+      svg.appendChild(svgText(X(c.spearman) + (c.spearman >= 0 ? 8 : -8), cy + 4,
+        fmtRho(c) + " · n=" + c.n,
+        { "text-anchor": c.spearman >= 0 ? "start" : "end", "font-size": 11, fill: "#4a564e" }));
+    });
+    var box = document.getElementById("corr-slot");
+    box.innerHTML = "";
+    box.appendChild(svg);
+
+    /* the honest headline: within-price-band strata */
+    var strata = INSIGHTS.correlations.filter(function (c) {
+      return c.id.indexOf("complexity_vs_terminal_unclaimed_$") === 0 && c.spearman !== null;
+    });
+    var note = "Price is the dominant gradient: pooled correlations largely track price point. Within single price bands the association mostly fades" +
+      (strata.length ? " (" + strata.map(function (c) {
+        return "$" + c.id.split("_$")[1].replace("-", "–$") + ": " + fmtRho(c);
+      }).join(" · ") + ")" : "") + " — read the pooled numbers as “bigger, more complex tickets burn cleaner,” not as a complexity dial you can trade on.";
+    document.getElementById("corr-note").textContent = note;
+  }
+
+  function renderBurnExplainer() {
+    var W = 640, H = 300, m = { t: 16, r: 18, b: 40, l: 52 };
+    var iw = W - m.l - m.r, ih = H - m.t - m.b;
+    function X(s) { return m.l + s * iw; }
+    function Y(u) { return m.t + (1 - u) * ih; }
+    var svg = svgEl("svg", { viewBox: "0 0 " + W + " " + H, role: "img",
+      "aria-label": "Explainer: burn curves above and below the instant-claim diagonal" });
+    for (var i = 0; i <= 4; i++) {
+      var v = i / 4;
+      svg.appendChild(svgEl("line", { x1: X(0), y1: Y(v), x2: X(1), y2: Y(v), stroke: "#e9decb", "stroke-width": 1 }));
+      svg.appendChild(svgText(m.l - 8, Y(v) + 4, Math.round(v * 100) + "%", { "text-anchor": "end", "font-size": 10.5, fill: "#4a564e" }));
+      svg.appendChild(svgText(X(v), H - m.b + 16, Math.round(v * 100) + "%", { "text-anchor": "middle", "font-size": 10.5, fill: "#4a564e" }));
+    }
+    svg.appendChild(svgText(m.l + iw / 2, H - 6, "Share of starting inventory sold", { "text-anchor": "middle", "font-size": 12, fill: "#1c2621", "font-weight": 600 }));
+    var yl = svgText(0, 0, "Unclaimed $ (share of start)", { "text-anchor": "middle", "font-size": 12, fill: "#1c2621", "font-weight": 600 });
+    yl.setAttribute("transform", "translate(14 " + (m.t + ih / 2) + ") rotate(-90)");
+    svg.appendChild(yl);
+    /* diagonal benchmark */
+    svg.appendChild(svgEl("line", { x1: X(0), y1: Y(1), x2: X(1), y2: Y(0), stroke: "#9aa39d", "stroke-width": 2, "stroke-dasharray": "6 4" }));
+    svg.appendChild(svgText(X(0.47), Y(0.47) - 8, "instant-claim benchmark", { "text-anchor": "middle", "font-size": 10.5, fill: "#4a564e", transform: "rotate(-24 " + X(0.47) + " " + (Y(0.47) - 8) + ")" }));
+    function path(fn, color, label, lx, ly) {
+      var pts = [];
+      for (var s = 0; s <= 1.0001; s += 0.04) pts.push(X(s).toFixed(1) + "," + Y(fn(Math.min(s, 1))).toFixed(1));
+      svg.appendChild(svgEl("polyline", { points: pts.join(" "), fill: "none", stroke: color, "stroke-width": 2.5, "stroke-linecap": "round" }));
+      svg.appendChild(svgText(lx, ly, label, { "font-size": 11.5, fill: color, "font-weight": 700 }));
+    }
+    /* slow burner: money lingers above the line (positive gap) */
+    path(function (s) { return 1 - 0.55 * s * s; }, DIVERGE_POS, "slow burn · money lingers (gap > 0)", X(0.28), Y(0.97));
+    /* fast burner: money exits early (negative gap) */
+    path(function (s) { return Math.pow(1 - s, 2.4); }, DIVERGE_NEG, "fast burn · big wins claimed early (gap < 0)", X(0.30), Y(0.16));
+    var box = document.getElementById("burnex-slot");
+    box.innerHTML = "";
+    box.appendChild(svg);
+  }
+
+  function renderCxTable() {
+    var rows = INSIGHTS.games.filter(function (g) { return g.mechanics !== null; })
+      .sort(function (a, b) { return (b.complexity_index || 0) - (a.complexity_index || 0); });
+    var html = ["<thead><tr><th>Game</th><th>Price</th><th>Complexity</th><th>Mechanics</th><th>Burn gap</th></tr></thead><tbody>"];
+    rows.forEach(function (g) {
+      var mech = g.mechanics;
+      var chips = [];
+      if (mech.match_rules) chips.push(mech.match_rules + " match rule" + (mech.match_rules === 1 ? "" : "s"));
+      if (mech.reveal_rules) chips.push(mech.reveal_rules + " bonus reveal" + (mech.reveal_rules === 1 ? "" : "s"));
+      if (mech.max_multiplier > 1) chips.push(mech.max_multiplier + "× max multiplier");
+      if (mech.two_sided) chips.push("two-sided play");
+      html.push("<tr><td>" + esc(g.name) + ' <span class="tabular" style="color:var(--ink-soft)">#' + g.game_no + "</span></td>" +
+        '<td class="num">' + priceLabel(g.price) + "</td>" +
+        '<td class="num">' + (g.complexity_index == null ? "—" : g.complexity_index.toFixed(0)) + "</td>" +
+        "<td>" + (chips.length ? chips.map(function (c) { return '<span class="mech-chip">' + c + "</span>"; }).join("") : "—") + "</td>" +
+        '<td class="num">' + (g.burn ? g.burn.burn_gap.toFixed(2) : "—") + "</td></tr>");
+    });
+    html.push("</tbody>");
+    document.getElementById("cxtable").innerHTML = html.join("");
+  }
+
+  /* ---------------- Winner map view ---------------- */
+  /* Approximate town centroids (lat, lon) for the embedded exposure table's
+     towns — schematic positions for a schematic map, not survey data. */
+  var TOWN_COORDS = {
+    "portland": [43.66, -70.26], "lewiston": [44.10, -70.21], "bangor": [44.80, -68.77],
+    "south portland": [43.64, -70.24], "auburn": [44.10, -70.23], "biddeford": [43.49, -70.45],
+    "scarborough": [43.58, -70.32], "sanford": [43.44, -70.77], "brunswick": [43.91, -69.96],
+    "saco": [43.50, -70.44], "westbrook": [43.68, -70.37], "augusta": [44.31, -69.78],
+    "windham": [43.80, -70.42], "gorham": [43.68, -70.44], "york": [43.16, -70.65],
+    "falmouth": [43.73, -70.24], "waterville": [44.55, -69.63], "kennebunk": [43.39, -70.54],
+    "orono": [44.88, -68.67], "standish": [43.73, -70.55], "wells": [43.32, -70.58],
+    "topsham": [43.93, -69.98], "kittery": [43.09, -70.74], "brewer": [44.80, -68.76],
+    "cape elizabeth": [43.57, -70.20], "old orchard beach": [43.52, -70.38], "yarmouth": [43.80, -70.19],
+    "bath": [43.91, -69.82], "freeport": [43.86, -70.10], "belfast": [44.43, -69.01],
+    "ellsworth": [44.54, -68.42], "old town": [44.93, -68.65], "gray": [43.88, -70.33],
+    "buxton": [43.64, -70.62], "cumberland": [43.80, -70.26], "lisbon": [44.03, -70.10],
+    "skowhegan": [44.77, -69.72], "caribou": [46.86, -68.01], "presque isle": [46.68, -68.02],
+    "hampden": [44.74, -68.84], "rockland": [44.10, -69.11], "gardiner": [44.23, -69.77],
+    "farmington": [44.67, -70.15], "berwick": [43.27, -70.86], "south berwick": [43.23, -70.81],
+    "north berwick": [43.30, -70.73], "eliot": [43.15, -70.80], "winslow": [44.55, -69.62],
+    "waterboro": [43.60, -70.72], "harpswell": [43.80, -69.98], "raymond": [43.90, -70.47],
+    "poland": [44.06, -70.39], "camden": [44.21, -69.06], "turner": [44.26, -70.26],
+    "oakland": [44.54, -69.72], "sabattus": [44.12, -70.11], "winthrop": [44.31, -69.97],
+    "fairfield": [44.59, -69.60], "houlton": [46.13, -67.84], "millinocket": [45.66, -68.71],
+    "rumford": [44.55, -70.55], "mexico": [44.56, -70.54], "paris": [44.26, -70.50],
+    "norway": [44.21, -70.54], "jay": [44.50, -70.22], "livermore falls": [44.47, -70.19],
+    "livermore": [44.38, -70.25], "madawaska": [47.35, -68.32], "fort kent": [47.26, -68.59],
+    "van buren": [47.16, -67.94], "calais": [45.19, -67.28], "machias": [44.72, -67.46],
+    "dover-foxcroft": [45.18, -69.23], "dexter": [45.02, -69.29], "pittsfield": [44.78, -69.38],
+    "newport": [44.84, -69.27], "hartland": [44.88, -69.45], "clinton": [44.64, -69.50],
+    "glenburn": [44.91, -68.85], "hermon": [44.81, -68.91], "holden": [44.75, -68.68],
+    "orrington": [44.73, -68.83], "bucksport": [44.57, -68.79], "thomaston": [44.08, -69.18],
+    "warren": [44.12, -69.24], "waldoboro": [44.10, -69.38], "damariscotta": [44.03, -69.52],
+    "wiscasset": [44.00, -69.67], "boothbay harbor": [43.85, -69.63], "jefferson": [44.21, -69.45],
+    "phippsburg": [43.82, -69.81], "friendship": [43.98, -69.33], "dixfield": [44.53, -70.46],
+    "carthage": [44.62, -70.44], "andover": [44.63, -70.75], "roxbury": [44.66, -70.60],
+    "shapleigh": [43.54, -70.85], "canaan": [44.76, -69.56], "corinth": [44.98, -68.99],
+    "exeter": [44.97, -69.14], "monmouth": [44.24, -70.04], "richmond": [44.09, -69.80],
+    "bowdoinham": [44.01, -69.90], "bridgton": [44.05, -70.71], "naples": [43.97, -70.61],
+    "casco": [43.96, -70.53], "fryeburg": [44.02, -70.98], "bethel": [44.40, -70.79],
+    "greenville": [45.46, -69.59], "lincoln": [45.36, -68.50], "milo": [45.25, -68.99],
+    "east millinocket": [45.62, -68.57], "medway": [45.61, -68.53], "patten": [46.00, -68.45],
+    "ashland": [46.63, -68.40], "fort fairfield": [46.77, -67.83], "limestone": [46.91, -67.83],
+    "mars hill": [46.52, -67.86], "washburn": [46.79, -68.15], "eagle lake": [47.04, -68.60]
+  };
+  /* Simplified Maine silhouette (lat, lon) — schematic, clockwise. */
+  var MAINE_OUTLINE = [
+    [43.08, -70.73], [43.55, -70.97], [44.50, -71.00], [45.30, -71.08],
+    [45.95, -70.30], [46.45, -70.05], [47.10, -69.22], [47.46, -69.22],
+    [47.36, -68.35], [47.07, -67.79], [45.94, -67.75], [45.60, -67.42],
+    [45.16, -67.16], [44.90, -66.99], [44.65, -67.20], [44.40, -68.20],
+    [44.30, -68.80], [43.95, -69.20], [43.80, -69.60], [43.72, -70.00],
+    [43.55, -70.35], [43.35, -70.50]
+  ];
+
+  function loadWinners() {
+    if (winnersRequested) return;
+    winnersRequested = true;
+    fetch("../data/insights/location_trends.json")
+      .then(function (res) { if (!res.ok) throw new Error("HTTP " + res.status); return res.json(); })
+      .then(function (data) { WINNERS = data; renderWinners(); })
+      .catch(function () {
+        document.getElementById("winners-empty-slot").innerHTML =
+          '<div class="chart-empty">The winner-location artifact hasn’t been published yet. It is generated offline by <code>python -m analysis.location_trends</code> from <code>data/winners/winners.jsonl</code>.</div>';
+      });
+  }
+
+  function renderWinners() {
+    var d = WINNERS;
+    var nTowns = d.purchase_towns.length;
+    document.getElementById("winner-stats").innerHTML =
+      statTile(d.inputs.n_records, "published winners aligned") +
+      statTile(d.inputs.n_instant, "from scratch games") +
+      statTile(nTowns, "purchase towns") +
+      statTile(d.retailers.length, "selling retailers");
+    renderMap();
+    renderTownBars();
+    renderRetailerTable();
+    document.getElementById("winner-coverage").innerHTML =
+      "<strong>Coverage &amp; honesty notes</strong><ul>" +
+      d.caveats.map(function (c) { return "<li>" + esc(c) + "</li>"; }).join("") +
+      "</ul>";
+  }
+
+  function renderMap() {
+    var d = WINNERS;
+    /* Equirectangular-ish projection: at ~45°N a degree of latitude spans
+       ~1.4x a degree of longitude, so the viewBox is taller than wide —
+       otherwise Maine renders squashed. */
+    var LAT = [42.95, 47.55], LON = [-71.25, -66.75];
+    var W = 400, H = 560;
+    function PX(lon) { return ((lon - LON[0]) / (LON[1] - LON[0])) * W; }
+    function PY(lat) { return (1 - (lat - LAT[0]) / (LAT[1] - LAT[0])) * H; }
+    var svg = svgEl("svg", { viewBox: "0 0 " + W + " " + H, role: "img",
+      "aria-label": "Schematic Maine map of winner purchase towns",
+      style: "max-width:420px;margin:0 auto" });
+    var pts = MAINE_OUTLINE.map(function (p) { return PX(p[1]).toFixed(1) + "," + PY(p[0]).toFixed(1); });
+    svg.appendChild(svgEl("polygon", { points: pts.join(" "), fill: "#eef3ec", stroke: "#1f5c45", "stroke-width": 1.6, "stroke-linejoin": "round", opacity: 0.9 }));
+    svg.appendChild(svgText(PX(-69.1), PY(46.3), "MAINE", { "text-anchor": "middle", "font-size": 22, fill: "#1f5c45", opacity: 0.35, "letter-spacing": "0.35em", "font-weight": 700 }));
+
+    var towns = d.purchase_towns.filter(function (t) { return TOWN_COORDS[t.town.toLowerCase()]; });
+    var unplotted = d.purchase_towns.length - towns.length;
+    var rates = towns.map(function (t) { return t.shrunk_rate_per_10k; }).filter(function (v) { return v != null; });
+    var rMax = rates.length ? Math.max.apply(null, rates) : 1;
+    var maxN = towns.length ? Math.max.apply(null, towns.map(function (t) { return t.n; })) : 1;
+
+    towns.forEach(function (t) {
+      var c = TOWN_COORDS[t.town.toLowerCase()];
+      var radius = 5 + 9 * Math.sqrt(t.n / maxN);
+      var fill = t.shrunk_rate_per_10k != null ? seqColor(t.shrunk_rate_per_10k / (rMax * 1.0001)) : "#c9d7cd";
+      svg.appendChild(svgEl("circle", {
+        cx: PX(c[1]), cy: PY(c[0]), r: radius, fill: fill,
+        stroke: "#fffdf7", "stroke-width": 1.6, opacity: 0.92, "data-town": t.town
+      }));
+    });
+    /* direct-label the top towns by count */
+    towns.slice(0, 6).forEach(function (t) {
+      var c = TOWN_COORDS[t.town.toLowerCase()];
+      svg.appendChild(svgText(PX(c[1]) + 12, PY(c[0]) + 4, t.town, { "font-size": 11, fill: "#1c2621", "font-weight": 600, stroke: "#fffdf7", "stroke-width": 3, "paint-order": "stroke" }));
+    });
+
+    var box = document.getElementById("map-slot");
+    box.innerHTML = "";
+    box.appendChild(svg);
+    if (unplotted > 0) {
+      var p = document.createElement("p");
+      p.className = "chart-note";
+      p.textContent = unplotted + " town" + (unplotted === 1 ? "" : "s") + " without embedded coordinates appear in the list below but not on the map.";
+      box.appendChild(p);
+    }
+    var tip = attachTooltip(box);
+    svg.addEventListener("mousemove", function (ev) {
+      var rect = svg.getBoundingClientRect();
+      var sx = (ev.clientX - rect.left) * (W / rect.width);
+      var sy = (ev.clientY - rect.top) * (H / rect.height);
+      var best = null, bd = 20 * 20;
+      towns.forEach(function (t) {
+        var c = TOWN_COORDS[t.town.toLowerCase()];
+        var dx = PX(c[1]) - sx, dy = PY(c[0]) - sy;
+        var dist = dx * dx + dy * dy;
+        if (dist < bd) { bd = dist; best = t; }
+      });
+      if (!best) { tip.hide(); return; }
+      tip.show(ev.clientX, ev.clientY,
+        '<div class="tt-title">' + esc(best.town) + (best.small_n ? " · small sample" : "") + "</div>" +
+        '<div class="tt-line">' + best.n + " published winner" + (best.n === 1 ? "" : "s") + (best.total_prize ? " · " + money(best.total_prize) + " reported" : "") + "</div>" +
+        (best.shrunk_rate_per_10k != null
+          ? '<div class="tt-line">' + best.shrunk_rate_per_10k.toFixed(1) + " per 10k residents (shrunk) · raw " + (best.raw_rate_per_10k == null ? "—" : best.raw_rate_per_10k.toFixed(1)) + "</div>"
+          : '<div class="tt-line">No population on file — count only</div>'));
+    });
+    svg.addEventListener("mouseleave", tip.hide);
+  }
+
+  function renderTownBars() {
+    var d = WINNERS;
+    var rows = d.purchase_towns.slice(0, 14);
+    var hiMax = 0;
+    rows.forEach(function (t) {
+      if (t.interval90_per_10k) hiMax = Math.max(hiMax, t.interval90_per_10k[1]);
+      else if (t.raw_rate_per_10k) hiMax = Math.max(hiMax, t.raw_rate_per_10k);
+    });
+    hiMax = hiMax || 1;
+    var slot = document.getElementById("townbars-slot");
+    slot.innerHTML = rows.map(function (t) {
+      var track;
+      if (t.shrunk_rate_per_10k != null) {
+        var wPct = Math.min(100, (t.shrunk_rate_per_10k / hiMax) * 100);
+        var whisk = "";
+        if (t.interval90_per_10k) {
+          var lo = Math.min(100, (t.interval90_per_10k[0] / hiMax) * 100);
+          var hi = Math.min(100, (t.interval90_per_10k[1] / hiMax) * 100);
+          whisk = '<span class="town-whisker" style="left:' + lo.toFixed(1) + "%;width:" + Math.max(hi - lo, 0.5).toFixed(1) + '%"></span>';
+        }
+        track = '<span class="town-bar" style="width:' + wPct.toFixed(1) + '%"></span>' + whisk;
+      } else {
+        track = '<span class="town-bar" style="width:' + Math.min(100, t.n * 8) + '%;background:#c9d7cd"></span>';
+      }
+      return '<div class="town-row">' +
+        '<span class="town-name">' + esc(t.town) + (t.small_n ? '<span class="small-n-badge">n&lt;3</span>' : "") + "</span>" +
+        '<span class="town-track">' + track + "</span>" +
+        '<span class="town-n">' + t.n + " win" + (t.n === 1 ? "" : "s") + "</span>" +
+        "</div>";
+    }).join("");
+    if (!rows.length) {
+      slot.innerHTML = '<div class="chart-empty">No aligned winner records yet.</div>';
+    }
+  }
+
+  function renderRetailerTable() {
+    var d = WINNERS;
+    var html = ["<thead><tr><th>Retailer</th><th>Town</th><th>Winners</th><th>Reported prizes</th></tr></thead><tbody>"];
+    d.retailers.slice(0, 25).forEach(function (r) {
+      html.push("<tr><td>" + esc(r.retailer) + "</td><td>" + (r.town ? esc(r.town) : "—") + "</td>" +
+        '<td class="num">' + r.n + "</td>" +
+        '<td class="num">' + (r.total_prize ? money(r.total_prize) : "—") + "</td></tr>");
+    });
+    html.push("</tbody>");
+    document.getElementById("retailer-table").innerHTML = html.join("");
   }
 
   fetch("../data/latest.json")

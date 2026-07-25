@@ -71,6 +71,32 @@ enabled, this repo behaves as a plain routed-agent project.
   scripts/m6b_null_validation.py). Owner accepted WITHOUT a reviewer pass
   (lead verification = gate + validation reproduction) — noted, not
   precedent; reviewer gate resumes as the norm.
+- 2026-07-22 cloud-session batch (owner-directed end-to-end build; spec/
+  mockup touchpoints compressed into one batch ACCEPT — recorded, not
+  precedent): (1) HARNESS v5.1 — gate.sh honors stop_hook_active (red gate
+  warns instead of re-blocking on a hook-forced continuation; bounds the
+  read-only-agent wedge), GATE_TIMEOUT_SECS=900 kills hung gate commands,
+  settings.json hooks got explicit 1200s timeouts (Claude Code's 60s
+  default was killing full-pytest gates mid-run — likely the phantom
+  gate flakiness); tests/test_gate_hardening.py pins all of it.
+  (2) COMPLEXITY×BURN — analysis/complexity.py + committed
+  data/insights/complexity_burn.json + tests; findings in docs/reports/
+  complexity_burn_report.md (headline: price is the dominant burn
+  gradient; within-band complexity signal only in $1 games; descriptive
+  only). (3) WINNERS — scraper/winners.py (parse/merge offline; fetch/
+  wayback owner CLIs), data/winners/winners.jsonl seeded 2026-07-22,
+  analysis/location_trends.py + data/insights/location_trends.json
+  (EB-shrunk town rates); owner runbook in docs/specs/
+  winners_location_spec.md (wayback backfill NOT yet run — owner action).
+  (4) SITE v2 — three-view console (best pick / game insights / winner
+  map), offline-clean hand-rolled SVG charts, dataviz-validated palette,
+  mockup-of-record docs/mockups/insights_v2_mockup.html; site tests
+  extended (fetch anchor now "one fetch per committed artifact").
+  (5) 2026-07-23 continuation: winners-refresh Actions workflow
+  (workflow_dispatch ONLY, never scheduled — test-enforced isolation from
+  the daily pipeline), scripts/refresh_insights.cmd Windows one-shot,
+  numpy appended to requirements-dev.txt (the M6b Resolution 2 dev-only
+  authorization had never actually landed in the file).
 - Next milestone: M6c per docs/specs/m6_v2_program_spec.md (evidence-gated;
   inherits M6b's finding that confirmatory lag inference is retired and the
   open question whether a dev-only numpy/scipy state-space likelihood —
@@ -143,11 +169,17 @@ resume from git state, never replay (Rule 9).
   (m5a spec, 2026-07-13 incident).
 
 ## Landmines
-- While the repo gate is RED, the SubagentStop hook bounces EVERY subagent's
-  completion — including read-only agents (planner/drafter) that cannot fix a
-  red gate; they loop until force-ended and their final message may be lost.
-  During a red gate: dispatch only agents whose task makes the gate green, and
-  recover trapped read-only output via SendMessage resume afterward.
+- While the repo gate is RED, the SubagentStop hook bounces subagent
+  completions — including read-only agents that cannot fix it. BOUNDED
+  since gate v5.1 (2026-07-22): on a hook-forced continuation
+  (stop_hook_active) the gate warns loudly and releases instead of
+  re-blocking, so the worst case is one bounce, not a deadlock. The
+  discipline is unchanged: during a red gate, dispatch only agents whose
+  task makes the gate green.
+- Claude Code's DEFAULT hook timeout (60s) silently kills a full-pytest
+  gate mid-run. settings.json pins "timeout": 1200 on both hooks and
+  gate.sh pins GATE_TIMEOUT_SECS=900 per command — if the suite outgrows
+  those, raise BOTH, never remove them (2026-07-22 audit).
 - Windows Path.write_text without newline="\n" emits CRLF — breaks byte-identity
   vs LF-committed artifacts. All pipeline CLI writes pin newline="\n" (m5a).
 - The lead's Stop-hook gate races concurrent background implementers: a red

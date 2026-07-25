@@ -22,12 +22,22 @@
       "Bash(git log:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
+      "Bash(git push)",
+      "Bash(git push:*)",
+      "Bash(python -m scraper.winners:*)",
+      "Bash(python -m analysis.location_trends:*)",
+      "Bash(python -m analysis.complexity:*)",
+      "Bash(pip install -r requirements-dev.txt)",
+      "Bash(cp _incoming_harness/:*)",
+      "Bash(rm -r _incoming_harness)",
+      "Bash(rm -r _to_delete)",
       "Read(**)",
       "Edit(**)",
       "Write(**)"
     ],
     "deny": [
-      "Bash(git push:*)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
       "Bash(rm -rf:*)",
       "Bash(curl:*)",
       "Bash(wget:*)",
@@ -43,7 +53,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/gate.sh"
+            "command": "bash .claude/hooks/gate.sh",
+            "timeout": 1200
           }
         ]
       }
@@ -54,7 +65,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/gate.sh"
+            "command": "bash .claude/hooks/gate.sh",
+            "timeout": 1200
           }
         ]
       }

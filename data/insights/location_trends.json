@@ -1,0 +1,634 @@
+{
+ "as_of": "2026-07-22",
+ "params": {
+  "seed": 20260722,
+  "posterior_draws": 4000,
+  "small_n_threshold": 3,
+  "interval": "90% posterior percentile",
+  "population_source": "US Census 2020, rounded (embedded table)"
+ },
+ "inputs": {
+  "winners_path": "data/winners/winners.jsonl",
+  "winners_sha256": "59dc180b03cf5140128a1367866450af6e3cd85b93d978cc46a14f3b8e41126d",
+  "n_records": 19,
+  "n_instant": 10,
+  "sources": [
+   "seed"
+  ]
+ },
+ "caveats": [
+  "DESCRIPTIVE ONLY. Winner locations describe where PUBLISHED winners bought or lived \u2014 they carry zero information about where future winning tickets will be sold. Every unsold ticket is uniformly random (\u00a78 framing, binding).",
+  "The Winner Information page is a curated rotating sample with no dates, skewed to larger prizes \u2014 not Maine's complete winner ledger.",
+  "Purchase-town (where the ticket was sold) is the location signal of record; winner residence is secondary.",
+  "Per-capita rates use an approximate embedded 2020 Census table; towns not in the table get counts only.",
+  "Empirical-Bayes shrinkage pulls small samples toward the statewide mean; n < 3 rows are additionally flagged.",
+  "The page publishes no dates, so identical repeat claims (same names, town, game, prize, retailer) collapse into one record \u2014 a conservative undercount by design."
+ ],
+ "purchase_towns": [
+  {
+   "town": "Bath",
+   "n": 2,
+   "total_prize": 0.0,
+   "n_games": 0,
+   "n_retailers": 2,
+   "pop_2020": 8800,
+   "small_n": true,
+   "raw_rate_per_10k": 2.2727,
+   "expected_uniform": 1.028,
+   "shrunk_rate_per_10k": 1.7281,
+   "interval90_per_10k": [
+    0.4727,
+    3.6054
+   ]
+  },
+  {
+   "town": "Winslow",
+   "n": 2,
+   "total_prize": 40000.0,
+   "n_games": 2,
+   "n_retailers": 2,
+   "pop_2020": 7900,
+   "small_n": true,
+   "raw_rate_per_10k": 2.5316,
+   "expected_uniform": 0.9229,
+   "shrunk_rate_per_10k": 1.8226,
+   "interval90_per_10k": [
+    0.5289,
+    3.7706
+   ]
+  },
+  {
+   "town": "Augusta",
+   "n": 1,
+   "total_prize": 30000.0,
+   "n_games": 1,
+   "n_retailers": 1,
+   "pop_2020": 18900,
+   "small_n": true,
+   "raw_rate_per_10k": 0.5291,
+   "expected_uniform": 2.2079,
+   "shrunk_rate_per_10k": 0.7283,
+   "interval90_per_10k": [
+    0.1308,
+    1.7045
+   ]
+  },
+  {
+   "town": "Bangor",
+   "n": 1,
+   "total_prize": 10000.0,
+   "n_games": 1,
+   "n_retailers": 1,
+   "pop_2020": 31800,
+   "small_n": true,
+   "raw_rate_per_10k": 0.3145,
+   "expected_uniform": 3.715,
+   "shrunk_rate_per_10k": 0.4955,
+   "interval90_per_10k": [
+    0.0848,
+    1.157
+   ]
+  },
+  {
+   "town": "Carthage",
+   "n": 1,
+   "total_prize": 0.0,
+   "n_games": 0,
+   "n_retailers": 1,
+   "pop_2020": 500,
+   "small_n": true,
+   "raw_rate_per_10k": 20.0,
+   "expected_uniform": 0.0584,
+   "shrunk_rate_per_10k": 2.2075,
+   "interval90_per_10k": [
+    0.4204,
+    5.3003
+   ]
+  },
+  {
+   "town": "Fort Kent",
+   "n": 1,
+   "total_prize": 0.0,
+   "n_games": 0,
+   "n_retailers": 1,
+   "pop_2020": 4100,
+   "small_n": true,
+   "raw_rate_per_10k": 2.439,
+   "expected_uniform": 0.479,
+   "shrunk_rate_per_10k": 1.5798,
+   "interval90_per_10k": [
+    0.2835,
+    3.6679
+   ]
+  },
+  {
+   "town": "Jefferson",
+   "n": 1,
+   "total_prize": 20000.0,
+   "n_games": 1,
+   "n_retailers": 1,
+   "pop_2020": 2600,
+   "small_n": true,
+   "raw_rate_per_10k": 3.8462,
+   "expected_uniform": 0.3037,
+   "shrunk_rate_per_10k": 1.7921,
+   "interval90_per_10k": [
+    0.3226,
+    4.3299
+   ]
+  },
+  {
+   "town": "Livermore",
+   "n": 1,
+   "total_prize": 10000.0,
+   "n_games": 1,
+   "n_retailers": 1,
+   "pop_2020": 2200,
+   "small_n": true,
+   "raw_rate_per_10k": 4.5455,
+   "expected_uniform": 0.257,
+   "shrunk_rate_per_10k": 1.8587,
+   "interval90_per_10k": [
+    0.3326,
+    4.5072
+   ]
+  },
+  {
+   "town": "Mexico",
+   "n": 1,
+   "total_prize": 10000.0,
+   "n_games": 1,
+   "n_retailers": 1,
+   "pop_2020": 2700,
+   "small_n": true,
+   "raw_rate_per_10k": 3.7037,
+   "expected_uniform": 0.3154,
+   "shrunk_rate_per_10k": 1.7762,
+   "interval90_per_10k": [
+    0.3198,
+    4.1535
+   ]
+  },
+  {
+   "town": "Sanford",
+   "n": 1,
+   "total_prize": 30000.0,
+   "n_games": 1,
+   "n_retailers": 1,
+   "pop_2020": 21900,
+   "small_n": true,
+   "raw_rate_per_10k": 0.4566,
+   "expected_uniform": 2.5584,
+   "shrunk_rate_per_10k": 0.6566,
+   "interval90_per_10k": [
+    0.1147,
+    1.5613
+   ]
+  },
+  {
+   "town": "Warren",
+   "n": 1,
+   "total_prize": 100000.0,
+   "n_games": 1,
+   "n_retailers": 1,
+   "pop_2020": 4900,
+   "small_n": true,
+   "raw_rate_per_10k": 2.0408,
+   "expected_uniform": 0.5724,
+   "shrunk_rate_per_10k": 1.4859,
+   "interval90_per_10k": [
+    0.2622,
+    3.5732
+   ]
+  },
+  {
+   "town": "Windham",
+   "n": 1,
+   "total_prize": 100000.0,
+   "n_games": 1,
+   "n_retailers": 1,
+   "pop_2020": 18400,
+   "small_n": true,
+   "raw_rate_per_10k": 0.5435,
+   "expected_uniform": 2.1495,
+   "shrunk_rate_per_10k": 0.7418,
+   "interval90_per_10k": [
+    0.1316,
+    1.739
+   ]
+  },
+  {
+   "town": "Wiscasset",
+   "n": 1,
+   "total_prize": 500000.0,
+   "n_games": 1,
+   "n_retailers": 1,
+   "pop_2020": 3700,
+   "small_n": true,
+   "raw_rate_per_10k": 2.7027,
+   "expected_uniform": 0.4322,
+   "shrunk_rate_per_10k": 1.6313,
+   "interval90_per_10k": [
+    0.2798,
+    3.7986
+   ]
+  }
+ ],
+ "residence_towns": [
+  {
+   "town": "Andover",
+   "n": 1,
+   "total_prize": 10000.0,
+   "n_games": 1,
+   "n_retailers": 1,
+   "pop_2020": 700,
+   "small_n": true,
+   "raw_rate_per_10k": 14.2857,
+   "expected_uniform": 0.1413,
+   "shrunk_rate_per_10k": 3.363,
+   "interval90_per_10k": [
+    0.6101,
+    7.8271
+   ]
+  },
+  {
+   "town": "Augusta",
+   "n": 1,
+   "total_prize": 30000.0,
+   "n_games": 1,
+   "n_retailers": 1,
+   "pop_2020": 18900,
+   "small_n": true,
+   "raw_rate_per_10k": 0.5291,
+   "expected_uniform": 3.8139,
+   "shrunk_rate_per_10k": 0.8283,
+   "interval90_per_10k": [
+    0.1506,
+    1.9412
+   ]
+  },
+  {
+   "town": "Bath",
+   "n": 1,
+   "total_prize": 0.0,
+   "n_games": 0,
+   "n_retailers": 1,
+   "pop_2020": 8800,
+   "small_n": true,
+   "raw_rate_per_10k": 1.1364,
+   "expected_uniform": 1.7758,
+   "shrunk_rate_per_10k": 1.4238,
+   "interval90_per_10k": [
+    0.25,
+    3.2694
+   ]
+  },
+  {
+   "town": "Clinton",
+   "n": 1,
+   "total_prize": 10000.0,
+   "n_games": 1,
+   "n_retailers": 1,
+   "pop_2020": 3300,
+   "small_n": true,
+   "raw_rate_per_10k": 3.0303,
+   "expected_uniform": 0.6659,
+   "shrunk_rate_per_10k": 2.34,
+   "interval90_per_10k": [
+    0.4311,
+    5.3746
+   ]
+  },
+  {
+   "town": "Dixfield",
+   "n": 1,
+   "total_prize": 0.0,
+   "n_games": 0,
+   "n_retailers": 1,
+   "pop_2020": 2300,
+   "small_n": true,
+   "raw_rate_per_10k": 4.3478,
+   "expected_uniform": 0.4641,
+   "shrunk_rate_per_10k": 2.65,
+   "interval90_per_10k": [
+    0.4729,
+    6.3745
+   ]
+  },
+  {
+   "town": "Fort Kent",
+   "n": 1,
+   "total_prize": 0.0,
+   "n_games": 0,
+   "n_retailers": 1,
+   "pop_2020": 4100,
+   "small_n": true,
+   "raw_rate_per_10k": 2.439,
+   "expected_uniform": 0.8274,
+   "shrunk_rate_per_10k": 2.1397,
+   "interval90_per_10k": [
+    0.3769,
+    5.0311
+   ]
+  },
+  {
+   "town": "Friendship",
+   "n": 1,
+   "total_prize": 0.0,
+   "n_games": 0,
+   "n_retailers": 1,
+   "pop_2020": 1100,
+   "small_n": true,
+   "raw_rate_per_10k": 9.0909,
+   "expected_uniform": 0.222,
+   "shrunk_rate_per_10k": 3.1511,
+   "interval90_per_10k": [
+    0.5458,
+    7.4622
+   ]
+  },
+  {
+   "town": "Glenburn",
+   "n": 1,
+   "total_prize": 10000.0,
+   "n_games": 1,
+   "n_retailers": 1,
+   "pop_2020": 4600,
+   "small_n": true,
+   "raw_rate_per_10k": 2.1739,
+   "expected_uniform": 0.9283,
+   "shrunk_rate_per_10k": 2.0311,
+   "interval90_per_10k": [
+    0.3501,
+    4.6794
+   ]
+  },
+  {
+   "town": "Hartland",
+   "n": 1,
+   "total_prize": 0.0,
+   "n_games": 0,
+   "n_retailers": 1,
+   "pop_2020": 1800,
+   "small_n": true,
+   "raw_rate_per_10k": 5.5556,
+   "expected_uniform": 0.3632,
+   "shrunk_rate_per_10k": 2.8381,
+   "interval90_per_10k": [
+    0.5049,
+    6.7183
+   ]
+  },
+  {
+   "town": "Millinocket",
+   "n": 1,
+   "total_prize": 100000.0,
+   "n_games": 1,
+   "n_retailers": 1,
+   "pop_2020": 4100,
+   "small_n": true,
+   "raw_rate_per_10k": 2.439,
+   "expected_uniform": 0.8274,
+   "shrunk_rate_per_10k": 2.1397,
+   "interval90_per_10k": [
+    0.3964,
+    5.049
+   ]
+  },
+  {
+   "town": "Phippsburg",
+   "n": 1,
+   "total_prize": 0.0,
+   "n_games": 0,
+   "n_retailers": 1,
+   "pop_2020": 2200,
+   "small_n": true,
+   "raw_rate_per_10k": 4.5455,
+   "expected_uniform": 0.4439,
+   "shrunk_rate_per_10k": 2.6856,
+   "interval90_per_10k": [
+    0.4788,
+    6.377
+   ]
+  },
+  {
+   "town": "Roxbury",
+   "n": 1,
+   "total_prize": 10000.0,
+   "n_games": 1,
+   "n_retailers": 1,
+   "pop_2020": 400,
+   "small_n": true,
+   "raw_rate_per_10k": 25.0,
+   "expected_uniform": 0.0807,
+   "shrunk_rate_per_10k": 3.5417,
+   "interval90_per_10k": [
+    0.5853,
+    8.3728
+   ]
+  },
+  {
+   "town": "Shapleigh",
+   "n": 1,
+   "total_prize": 30000.0,
+   "n_games": 1,
+   "n_retailers": 1,
+   "pop_2020": 2900,
+   "small_n": true,
+   "raw_rate_per_10k": 3.4483,
+   "expected_uniform": 0.5852,
+   "shrunk_rate_per_10k": 2.4549,
+   "interval90_per_10k": [
+    0.4375,
+    5.8489
+   ]
+  },
+  {
+   "town": "Thomaston",
+   "n": 1,
+   "total_prize": 100000.0,
+   "n_games": 1,
+   "n_retailers": 1,
+   "pop_2020": 2800,
+   "small_n": true,
+   "raw_rate_per_10k": 3.5714,
+   "expected_uniform": 0.565,
+   "shrunk_rate_per_10k": 2.4854,
+   "interval90_per_10k": [
+    0.4638,
+    5.9982
+   ]
+  },
+  {
+   "town": "Warren",
+   "n": 1,
+   "total_prize": 20000.0,
+   "n_games": 1,
+   "n_retailers": 1,
+   "pop_2020": 4900,
+   "small_n": true,
+   "raw_rate_per_10k": 2.0408,
+   "expected_uniform": 0.9888,
+   "shrunk_rate_per_10k": 1.971,
+   "interval90_per_10k": [
+    0.3563,
+    4.655
+   ]
+  },
+  {
+   "town": "Wicasset",
+   "n": 1,
+   "total_prize": 500000.0,
+   "n_games": 1,
+   "n_retailers": 1,
+   "pop_2020": null,
+   "small_n": true,
+   "raw_rate_per_10k": null,
+   "expected_uniform": null,
+   "shrunk_rate_per_10k": null,
+   "interval90_per_10k": null
+  },
+  {
+   "town": "Windham",
+   "n": 1,
+   "total_prize": 100000.0,
+   "n_games": 1,
+   "n_retailers": 1,
+   "pop_2020": 18400,
+   "small_n": true,
+   "raw_rate_per_10k": 0.5435,
+   "expected_uniform": 3.713,
+   "shrunk_rate_per_10k": 0.8458,
+   "interval90_per_10k": [
+    0.1658,
+    2.0071
+   ]
+  },
+  {
+   "town": "Winslow",
+   "n": 1,
+   "total_prize": 30000.0,
+   "n_games": 1,
+   "n_retailers": 1,
+   "pop_2020": 7900,
+   "small_n": true,
+   "raw_rate_per_10k": 1.2658,
+   "expected_uniform": 1.5942,
+   "shrunk_rate_per_10k": 1.5213,
+   "interval90_per_10k": [
+    0.2632,
+    3.6484
+   ]
+  }
+ ],
+ "retailers": [
+  {
+   "retailer": "Andes Variety",
+   "town": "Warren",
+   "n": 1,
+   "total_prize": 100000.0
+  },
+  {
+   "retailer": "Big Apple",
+   "town": "Augusta",
+   "n": 1,
+   "total_prize": 30000.0
+  },
+  {
+   "retailer": "Bradbury's Market and Diner",
+   "town": "Carthage",
+   "n": 1,
+   "total_prize": 0.0
+  },
+  {
+   "retailer": "Brettun's Variety",
+   "town": "Livermore",
+   "n": 1,
+   "total_prize": 10000.0
+  },
+  {
+   "retailer": "Canaan Superette",
+   "town": null,
+   "n": 1,
+   "total_prize": 0.0
+  },
+  {
+   "retailer": "Cigaret Shopper",
+   "town": "Windham",
+   "n": 1,
+   "total_prize": 100000.0
+  },
+  {
+   "retailer": "Circle K",
+   "town": "Mexico",
+   "n": 1,
+   "total_prize": 10000.0
+  },
+  {
+   "retailer": "City Tobacco & Beverage Center",
+   "town": "Sanford",
+   "n": 1,
+   "total_prize": 30000.0
+  },
+  {
+   "retailer": "Cumberland Farms",
+   "town": "Bath",
+   "n": 1,
+   "total_prize": 0.0
+  },
+  {
+   "retailer": "Cumberland Farms",
+   "town": "Winslow",
+   "n": 1,
+   "total_prize": 30000.0
+  },
+  {
+   "retailer": "J&S Oil",
+   "town": "Winslow",
+   "n": 1,
+   "total_prize": 10000.0
+  },
+  {
+   "retailer": "Lil Mart",
+   "town": "Wiscasset",
+   "n": 1,
+   "total_prize": 500000.0
+  },
+  {
+   "retailer": "Millinocket Save A Lot",
+   "town": null,
+   "n": 1,
+   "total_prize": 100000.0
+  },
+  {
+   "retailer": "Paradi's Family Market",
+   "town": "Fort Kent",
+   "n": 1,
+   "total_prize": 0.0
+  },
+  {
+   "retailer": "Peaslee Quick Stop",
+   "town": "Jefferson",
+   "n": 1,
+   "total_prize": 20000.0
+  },
+  {
+   "retailer": "Shaw's",
+   "town": "Bath",
+   "n": 1,
+   "total_prize": 0.0
+  },
+  {
+   "retailer": "Tom T Convenience",
+   "town": "Bangor",
+   "n": 1,
+   "total_prize": 10000.0
+  },
+  {
+   "retailer": "Warren Farms",
+   "town": null,
+   "n": 1,
+   "total_prize": 0.0
+  }
+ ]
+}
