@@ -2,6 +2,7 @@
 no-op when the resolved file is absent. Shells out to bash; skipped where bash absent."""
 import shutil
 import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -10,27 +11,49 @@ REPO = Path(__file__).resolve().parents[2]
 GATE = REPO / ".claude" / "hooks" / "gate.sh"
 FIX = Path(__file__).resolve().parent / "fixtures"
 
-def _bash_works():
-    """which() finding bash is not enough on Windows: System32's bash.exe is a WSL
-    stub that exists but fails with ERROR_PATH_NOT_FOUND when no distro is set up."""
-    if shutil.which("bash") is None:
-        return False
-    try:
-        r = subprocess.run(["bash", "-c", "echo ok"], capture_output=True,
-                           text=True, timeout=15)
-        return r.returncode == 0 and "ok" in r.stdout
-    except (OSError, subprocess.TimeoutExpired):
-        return False
+def _find_bash():
+    """A FUNCTIONAL bash, by full path. which() finding bash is not enough on
+    Windows — and neither is spawning a bare "bash": CreateProcess resolves it
+    via System32 BEFORE PATH, hitting the WSL stub, which fails where no
+    distro is set up. That silently skipped this whole file on the owner's
+    machine (2026-07-26). Probe which() plus the standard Git for Windows
+    locations and return the first bash that actually works."""
+    candidates = [shutil.which("bash"),
+                  r"C:\Program Files\Git\usr\bin\bash.exe",
+                  r"C:\Program Files\Git\bin\bash.exe"]
+    for cand in candidates:
+        if not cand:
+            continue
+        try:
+            r = subprocess.run([cand, "-c", "echo ok"], capture_output=True,
+                               text=True, timeout=15)
+            if r.returncode == 0 and "ok" in r.stdout:
+                return cand
+        except (OSError, subprocess.TimeoutExpired):
+            continue
+    return None
 
 
-pytestmark = pytest.mark.skipif(not _bash_works(), reason="no functional bash")
+BASH = _find_bash()
+pytestmark = pytest.mark.skipif(BASH is None, reason="no functional bash")
 
-# A no-op primary gate so we isolate GATE 4 behavior.
-ENV_BASE = {"CLAUDE_VERIFY_CMD": "true", "PATH": "/usr/bin:/bin"}
+def _posix(p):
+    """C:\\x\\y -> /c/x/y so a Windows dir can ride a POSIX PATH string."""
+    p = str(p).replace("\\", "/")
+    if len(p) > 1 and p[1] == ":":
+        p = "/" + p[0].lower() + p[2:]
+    return p
+
+
+# A no-op primary gate so we isolate GATE 4 behavior. The GATE 4 branch needs
+# a python on PATH for verdict_lint; Git bash's /usr/bin has none on Windows,
+# so append the running interpreter's dir (harmless no-op on Linux/CI).
+ENV_BASE = {"CLAUDE_VERIFY_CMD": "true",
+            "PATH": f"/usr/bin:/bin:{_posix(Path(sys.executable).parent)}"}
 
 
 def run_gate(cwd, env):
-    return subprocess.run(["bash", str(GATE)], cwd=str(cwd),
+    return subprocess.run([BASH, str(GATE)], cwd=str(cwd),
                           capture_output=True, text=True, env=env)
 
 

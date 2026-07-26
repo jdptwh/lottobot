@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# gate.sh v5.1 — deterministic verification gate (loop 3). Runs on agent completion
+# gate.sh v5.2 — deterministic verification gate (loop 3). Runs on agent completion
 # via Claude Code hooks (settings.json). A non-zero exit blocks the stop and
 # bounces the failure back to the agent — no human or top-tier tokens spent on
 # machine-catchable failures. This is NOT a model; it is the floor under every tier.
@@ -18,6 +18,13 @@
 #           never wedge a stop indefinitely.
 #       Both degrade to exact v5 behavior when stdin is empty or `timeout`
 #       is unavailable.
+# v5.2: clean-skip (2026-07-25 owner incident): the Stop hook fires on EVERY
+#       turn end — including pure conversation — so the full pytest suite ran
+#       after every reply and the lead sat "spinning" for minutes. If the tree
+#       is byte-identical to the last ALL-PASS run (fingerprint: HEAD + status
+#       + tracked diff + untracked contents, .claude/state excluded), the gate
+#       exits 0 immediately. Anything changed, or a panel verdict pending →
+#       full run, exact v5.1 behavior. Kill switch: GATE_SKIP_CLEAN=0.
 # Precedence: env var > agent.config > default (empty = slot skipped).
 #   GATE 1  primary   — main correctness check (code: tests/build · docs:
 #                       structure validator · data: schema check)
@@ -33,6 +40,7 @@ set -uo pipefail
 _env_verify="${CLAUDE_VERIFY_CMD-}"; _env_lint="${CLAUDE_LINT_CMD-}"; _env_ui="${CLAUDE_UI_VERIFY_CMD-}"
 _env_panel_path="${PANEL_VERDICT_PATH-}"
 _env_gate_timeout="${GATE_TIMEOUT_SECS-}"
+_env_skip_clean="${GATE_SKIP_CLEAN-}"
 [ -f .claude/agent.config ] && . .claude/agent.config
 PRIMARY_CMD="${_env_verify:-${VERIFY_CMD:-}}"
 SECONDARY_CMD="${_env_lint:-${LINT_CMD:-}}"
@@ -55,6 +63,40 @@ if [ ! -t 0 ] && command -v timeout >/dev/null 2>&1; then
       STOP_HOOK_ACTIVE=1 ;;
   esac
 fi
+
+# ---- v5.2 clean-skip ---------------------------------------------------------
+# If the working tree is byte-identical to the state that last produced an
+# ALL-PASS, re-running the (multi-minute) verify surface proves nothing and
+# only makes the human wait. Fingerprint covers HEAD, tracked changes, and
+# untracked file CONTENTS; .claude/state/ is excluded because the fingerprint
+# file itself (and verdict scratch) lives there. A pending panel verdict
+# always forces the full path so GATE 4 can adjudicate it. Degrades to exact
+# v5.1 behavior when git or sha256sum is unavailable or GATE_SKIP_CLEAN=0.
+GATE_FP_FILE=".claude/state/gate_green.fp"
+SKIP_CLEAN="${_env_skip_clean:-${GATE_SKIP_CLEAN:-1}}"
+PANEL_VERDICT_FILE="${_env_panel_path:-${PANEL_VERDICT_PATH:-.claude/state/panel_verdict.json}}"
+
+_tree_fingerprint() {
+  git rev-parse --is-inside-work-tree >/dev/null 2>&1 || return 1
+  command -v sha256sum >/dev/null 2>&1 || return 1
+  {
+    git rev-parse HEAD 2>/dev/null
+    git status --porcelain=v1 -uall 2>/dev/null | grep -v '\.claude/state/' || true
+    git diff HEAD 2>/dev/null
+    git ls-files --others --exclude-standard -z 2>/dev/null \
+      | { grep -z -v '^\.claude/state/' || true; } | xargs -0 -r cat 2>/dev/null
+  } | sha256sum | cut -d' ' -f1
+}
+
+if [ "$SKIP_CLEAN" = "1" ] && [ ! -f "$PANEL_VERDICT_FILE" ]; then
+  _fp="$(_tree_fingerprint)" || _fp=""
+  if [ -n "$_fp" ] && [ -f "$GATE_FP_FILE" ] \
+     && [ "$_fp" = "$(cat "$GATE_FP_FILE" 2>/dev/null)" ]; then
+    echo "[gate] SKIP — tree identical to last green run; nothing to re-verify." >&2
+    exit 0
+  fi
+fi
+# ------------------------------------------------------------------------------
 
 # In anti-wedge mode a red gate cannot block again; it must still be LOUD.
 soft_or_hard_fail () {
@@ -112,7 +154,6 @@ fi
 # stop indefinitely (self-audit finding: no freshness/task-scoping). Resolve a
 # fresh block by recording a reviewer verdict or archiving the panel verdict.
 # Absent file → no-op (v4 behavior). Path: env > agent.config > default.
-PANEL_VERDICT_FILE="${_env_panel_path:-${PANEL_VERDICT_PATH:-.claude/state/panel_verdict.json}}"
 _RECORD_FILE="${VERDICT_PATH:-.claude/state/verdict.json}"
 if [ -f "$PANEL_VERDICT_FILE" ]; then
   # Prefer `python` (Windows/agent.config convention); fall back to python3.
@@ -136,5 +177,16 @@ if [ "$GATE_SOFT_FAILED" = "1" ]; then
   echo "[gate] RED (soft) — released only to prevent a stop-hook wedge; the gate is NOT green." >&2
   exit 0
 fi
+
+# Record the green fingerprint so the next unchanged-tree stop can clean-skip.
+# Soft-RED runs never record (the gate was not actually green).
+if [ "$SKIP_CLEAN" = "1" ]; then
+  _fp="$(_tree_fingerprint)" || _fp=""
+  if [ -n "$_fp" ]; then
+    mkdir -p .claude/state
+    printf '%s' "$_fp" > "$GATE_FP_FILE"
+  fi
+fi
+
 echo "[gate] ALL PASS" >&2
 exit 0

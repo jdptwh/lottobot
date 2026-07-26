@@ -204,3 +204,12 @@ resume from git state, never replay (Rule 9).
   system deadlocks silently. Pattern: quarantine the WIP test surface outside
   testpaths (e.g. wip/) until the method converges, run the developer
   synchronously (foreground), restore tests at convergence (2026-07-13, M6b).
+- The full pytest suite exceeds the gate's 900s timeout
+  (tests/analysis/test_phase1_synthetic.py ≈ 23 min of permutation nulls).
+  The per-turn Stop-gate therefore runs VERIFY_CMD with
+  --ignore=tests/analysis (agent.config POLICY note); the FULL suite is a
+  pre-commit/CI surface, run it explicitly. gate.sh v5.2 clean-skip makes
+  unchanged-tree stops instant (fingerprint in .claude/state/, pinned by
+  tests/test_gate_hardening.py). Windows: never spawn bare "bash" from
+  Python tests — System32's WSL stub shadows Git bash and the suite
+  silently skips (both gate test files carry the _find_bash resolver).
