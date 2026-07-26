@@ -87,7 +87,7 @@ enabled, this repo behaves as a plain routed-agent project.
   wayback owner CLIs), data/winners/winners.jsonl seeded 2026-07-22,
   analysis/location_trends.py + data/insights/location_trends.json
   (EB-shrunk town rates); owner runbook in docs/specs/
-  winners_location_spec.md (wayback backfill NOT yet run — owner action).
+  winners_location_spec.md (wayback backfill RUN 2026-07-25, see below).
   (4) SITE v2 — three-view console (best pick / game insights / winner
   map), offline-clean hand-rolled SVG charts, dataviz-validated palette,
   mockup-of-record docs/mockups/insights_v2_mockup.html; site tests
@@ -97,6 +97,14 @@ enabled, this repo behaves as a plain routed-agent project.
   the daily pipeline), scripts/refresh_insights.cmd Windows one-shot,
   numpy appended to requirements-dev.txt (the M6b Resolution 2 dev-only
   authorization had never actually landed in the file).
+- 2026-07-25: winners wayback backfill RUN (36b39e3) — 107 CDX captures,
+  105 fetched/cached, 2 skipped on archive.org 503s (timestamps logged,
+  resumable cache retries them free); dataset 19 seed -> 98 unique winners
+  (seed records correctly re-dated to earlier wayback sightings — the
+  showcase page is stale, same winners since 2016); live refresh added 0;
+  trends rebuilt as-of 2026-07-25 (35 purchase towns, 77 retailers);
+  targeted gates green (winners/trends/site, 49 tests), winner-map view
+  verified against backfilled data, zero console errors; pushed.
 - Next milestone: M6c per docs/specs/m6_v2_program_spec.md (evidence-gated;
   inherits M6b's finding that confirmatory lag inference is retired and the
   open question whether a dev-only numpy/scipy state-space likelihood —
