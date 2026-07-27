@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mainescratchevranker.example/schemas/fastplay.schema.json",
+  "title": "fastplay.json — Fast Play extension contract (docs/specs/fastplay_extension_spec.md)",
+  "description": "Additive-only contract, parallel to latest.schema.json but NEVER merged into it (D6). v1 ships every game print_run:null / ev_ratio:null / value_score:null / grade:null / rated:false (D1); progressive-jackpot games are additionally ev_ratio:null unconditionally (D2).",
+  "type": "object",
+  "required": ["as_of", "source_timestamp", "games"],
+  "properties": {
+    "as_of": {
+      "type": "string",
+      "description": "ISO date the run happened (run truth, not page truth)."
+    },
+    "source_timestamp": {
+      "type": "string",
+      "description": "The Fast Play page's own 'as of ...' timestamp (page truth)."
+    },
+    "games": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/game" }
+    }
+  },
+  "$defs": {
+    "game": {
+      "type": "object",
+      "required": [
+        "game_no",
+        "name",
+        "price",
+        "percent_unsold",
+        "total_unclaimed",
+        "top_prizes",
+        "print_run",
+        "remaining_tickets",
+        "ev_per_ticket",
+        "ev_ratio",
+        "ev_ratio_adjusted",
+        "relative_score",
+        "dead_game",
+        "flags",
+        "confidence",
+        "value_score",
+        "grade",
+        "rated",
+        "reason"
+      ],
+      "properties": {
+        "game_no": { "type": "integer" },
+        "name": { "type": "string" },
+        "price": { "type": "number" },
+        "percent_unsold": { "type": "number" },
+        "total_unclaimed": { "type": "number" },
+        "top_prizes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/top_prize" }
+        },
+        "print_run": { "type": ["integer", "null"] },
+        "remaining_tickets": { "type": ["number", "null"] },
+        "ev_per_ticket": { "type": ["number", "null"] },
+        "ev_ratio": { "type": ["number", "null"] },
+        "ev_ratio_adjusted": { "type": "null", "const": null },
+        "relative_score": { "type": ["number", "null"] },
+        "dead_game": { "type": "boolean" },
+        "flags": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "confidence": {
+          "type": "string",
+          "enum": ["high", "medium", "low"]
+        },
+        "value_score": { "type": ["integer", "null"] },
+        "grade": {
+          "type": ["string", "null"],
+          "enum": ["A", "A-", "B+", "B", "B-", "C", "D", "F", null]
+        },
+        "rated": { "type": "boolean" },
+        "reason": { "type": "string", "minLength": 1 }
+      }
+    },
+    "top_prize": {
+      "type": "object",
+      "required": ["level", "remaining"],
+      "properties": {
+        "level": { "type": ["integer", "null"] },
+        "level_label": { "type": "string" },
+        "remaining": { "type": "integer" }
+      },
+      "if": {
+        "properties": { "level": { "const": null } }
+      },
+      "then": {
+        "required": ["level_label"]
+      }
+    }
+  }
+}
