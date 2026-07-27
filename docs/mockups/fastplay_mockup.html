@@ -1,0 +1,1859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Maine Scratch EV — Fast Play mockup (CP4)</title>
+<style>
+/*
+  Visual language carried verbatim from the approved console mockup
+  (docs/mockups/insights_v2_mockup.html): warm parchment/cream surface, deep
+  pine green structure, a single muted gold accent reserved for grade/score
+  emphasis, serif wordmark, sticky segmented view nav. This file adds the
+  4th segment ("Fast Play") to that same console shell. See the DESIGN NOTES
+  comment further down for the reference study behind the new moves.
+*/
+
+:root {
+  --pine-950: #0c2b21;
+  --pine-900: #123a2c;
+  --pine-700: #1f5c45;
+  --pine-500: #2f7d5e;
+  --cream-50: #fbf7ee;
+  --cream-100: #f3ecda;
+  --cream-200: #e9decb;
+  --paper: #fffdf7;
+  --gold-600: #a9721f;
+  --gold-500: #c98a2c;
+  --gold-300: #e3b466;
+  --plum-600: #ab4d79;
+  --plum-800: #6e2f4c;
+  --amber-warn-bg: #f4e6cf;
+  --amber-warn-rule: #b5762a;
+  --ink: #1c2621;
+  --ink-soft: #4a564e;
+  --line: #d9cfb8;
+  --focus: #1f5c45;
+  --radius-lg: 18px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--cream-50);
+  color: var(--ink);
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+body { min-height: 100vh; padding-bottom: 48px; }
+
+.tabular { font-variant-numeric: tabular-nums; }
+
+a { color: var(--pine-700); }
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--pine-900);
+  color: var(--cream-50);
+  padding: 10px 16px;
+  z-index: 100;
+}
+.skip-link:focus { left: 8px; top: 8px; }
+
+/* ---------- header ---------- */
+header.site-header {
+  background: var(--pine-950);
+  color: var(--cream-50);
+  padding: 28px 20px 22px;
+  position: relative;
+}
+header.site-header::after {
+  content: "";
+  display: block;
+  height: 6px;
+  margin-top: 20px;
+  background-image: radial-gradient(circle, var(--gold-500) 2px, transparent 2.4px);
+  background-size: 14px 6px;
+  background-position: 0 center;
+  opacity: 0.7;
+}
+.wordmark {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.wordmark small {
+  font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gold-300);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+.framing {
+  margin: 12px 0 0;
+  max-width: 62ch;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--cream-100);
+}
+.as-of-line {
+  margin: 10px 0 0;
+  font-size: 12.5px;
+  color: var(--gold-300);
+}
+
+/* ---------- staleness banner ---------- */
+.staleness-banner {
+  background: #7a2b12;
+  color: #ffe6d6;
+  padding: 12px 20px;
+  font-size: 13.5px;
+  border-bottom: 1px solid #5a1e0c;
+}
+.staleness-banner strong { font-weight: 700; }
+
+/* ---------- error panel ---------- */
+.error-panel {
+  margin: 24px 16px;
+  padding: 28px 20px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-left: 6px solid #8c2f14;
+  border-radius: var(--radius-md);
+  max-width: 560px;
+}
+.error-panel h2 { margin: 0 0 8px; font-family: Georgia, serif; }
+.error-panel p { margin: 0 0 12px; color: var(--ink-soft); line-height: 1.5; }
+
+/* ---------- v2 console: segmented view nav ---------- */
+.view-nav {
+  background: var(--pine-950);
+  padding: 0 16px 14px;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  box-shadow: 0 2px 10px rgba(12, 43, 33, 0.25);
+}
+.segmented {
+  display: flex;
+  gap: 0;
+  max-width: 680px;
+  margin: 0 auto;
+  background: var(--pine-900);
+  border: 1px solid var(--pine-700);
+  border-radius: 999px;
+  padding: 3px;
+}
+.seg-btn {
+  flex: 1;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--cream-100);
+  font: 600 13px/1.2 -apple-system, "Segoe UI", Roboto, sans-serif;
+  padding: 9px 4px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.seg-btn[aria-selected="true"] {
+  background: var(--cream-50);
+  color: var(--pine-950);
+  box-shadow: 0 1px 4px rgba(12, 43, 33, 0.35);
+}
+
+/* ---------- shared section furniture ---------- */
+.insight-intro { margin: 22px 16px 0; }
+.insight-framing {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 62ch;
+  margin: 8px 0 0;
+}
+.section-title {
+  font-family: Georgia, serif;
+  font-size: 17px;
+  margin: 0 0 10px;
+  color: var(--pine-950);
+}
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+  margin: 16px 0 0;
+}
+.stat-tile {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+}
+.stat-tile .stat-value {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--pine-950);
+  font-variant-numeric: tabular-nums;
+  margin: 0;
+}
+.stat-tile .stat-label {
+  margin: 3px 0 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.chart-section { margin: 26px 16px 0; }
+.chart-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  color: var(--pine-950);
+  margin: 0 0 4px;
+}
+.chart-sub {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin: 0 0 10px;
+  max-width: 62ch;
+}
+.chart-note { font-size: 12px; color: var(--ink-soft); margin: 8px 0 0; }
+.chart-box {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 10px 8px 6px;
+  position: relative;
+}
+.chart-empty {
+  padding: 26px 16px;
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+.claim-lag-caveat {
+  margin: 14px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #5c3210;
+  background: var(--amber-warn-bg);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+}
+
+/* ---------- shortlist / rank rows (reused for Fast Play rows) ---------- */
+.rank-row {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.rank-rail {
+  flex: 0 0 40px;
+  background: var(--cream-200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Georgia, serif;
+  font-weight: 700;
+  color: var(--pine-700);
+  font-size: 15px;
+}
+.rank-main { padding: 12px 12px 12px 4px; flex: 1; min-width: 0; }
+.rank-name-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: baseline;
+}
+.rank-name { font-weight: 700; font-size: 14.5px; margin: 0; }
+.rank-price { font-size: 13px; color: var(--ink-soft); white-space: nowrap; }
+.rank-reason {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+.rank-row > .rank-main > details.expander { width: 100%; }
+details.expander summary {
+  list-style: none;
+  cursor: pointer;
+  min-height: 44px;
+}
+details.expander summary::-webkit-details-marker { display: none; }
+.rank-row .expand-toggle {
+  display: block;
+  font-size: 12px;
+  color: var(--pine-700);
+  font-weight: 600;
+  margin-top: 6px;
+}
+.detail-sheet {
+  background: var(--cream-100);
+  border-top: 1px dashed var(--line);
+  padding: 12px 16px 14px;
+  font-size: 13px;
+}
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 14px;
+  margin: 8px 0;
+}
+.detail-grid dt { color: var(--ink-soft); font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.04em; }
+.detail-grid dd { margin: 0 0 6px; font-weight: 600; }
+.tiers-list { margin: 4px 0 8px; padding-left: 0; list-style: none; }
+.tiers-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+}
+.pending-note { font-size: 12px; color: var(--ink-soft); font-style: italic; margin: 4px 0 0; }
+
+/* ---------- Fast Play: relative-signal meter (NOT a score ring — see design notes) ---------- */
+.relscore-meter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 7px 0 5px;
+}
+.relscore-track {
+  position: relative;
+  flex: 1;
+  height: 8px;
+  background: var(--cream-200);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.relscore-fill {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  background: var(--pine-500);
+  border-radius: 999px;
+}
+.relscore-fill--progressive { background: var(--plum-600); }
+.relscore-label {
+  flex: 0 0 auto;
+  font-size: 11px;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+/* ---------- Fast Play: sections ---------- */
+.fp-intro { margin: 22px 16px 0; }
+.fp-list-section { margin: 26px 16px 0; }
+.fp-group-section {
+  padding-top: 16px;
+  border-top: 3px solid var(--plum-600);
+}
+.fp-group-section > .section-title { color: var(--plum-800); }
+.fp-asof { margin: 10px 0 0; font-size: 12px; color: var(--ink-soft); }
+
+/* ---------- Fast Play: mockup-only state preview box ---------- */
+.fp-preview-states {
+  border: 1.5px dashed var(--line);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  background: var(--cream-100);
+}
+.fp-preview-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  color: var(--ink-soft);
+  margin: 18px 0 6px;
+}
+.fp-preview-label:first-of-type { margin-top: 2px; }
+.fp-preview-states .staleness-banner,
+.fp-preview-states .error-panel {
+  border-radius: var(--radius-md);
+  margin: 0;
+}
+
+/* ---------- stub panels (views 1-3: existing, unchanged in the real build) ---------- */
+.stub-panel {
+  margin: 22px 16px 0;
+  padding: 20px;
+  background: var(--cream-100);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-lg);
+}
+.stub-panel h2 { font-family: Georgia, serif; margin: 0 0 8px; font-size: 18px; color: var(--pine-950); }
+.stub-badge {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--pine-700);
+  background: var(--cream-200);
+  border-radius: 999px;
+  padding: 2px 9px;
+  margin-left: 8px;
+  vertical-align: 2px;
+}
+.stub-panel p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.5; margin: 8px 0 0; }
+.stub-panel code { font-size: 12.5px; }
+
+/* ---------- footer ---------- */
+footer.site-footer {
+  margin: 40px 16px 0;
+  padding: 18px 4px 4px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+footer.site-footer p { margin: 0 0 8px; }
+footer.site-footer a { font-weight: 600; }
+
+@media (min-width: 640px) {
+  .fp-intro, .fp-list-section, .stub-panel,
+  .chart-section, .insight-intro, footer.site-footer {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 640px;
+    width: calc(100% - 32px);
+  }
+  header.site-header { padding-left: max(20px, calc(50% - 320px)); padding-right: max(20px, calc(50% - 320px)); }
+  .staleness-banner { padding-left: max(20px, calc(50% - 320px)); padding-right: max(20px, calc(50% - 320px)); }
+}
+
+/* Narrow-viewport tab strip: 4 segments no longer all fit the "Best pick
+   today"-width flex layout at 420px without cramming or wrapping mid-word.
+   Rather than shorten the existing three (byte-untouched) labels, the strip
+   becomes a horizontally scrollable tab bar below 480px — a standard mobile
+   tab-bar move (GitHub, many native apps), and it is the *nav*, not the
+   primary list, so it does not trip the "no horizontal scroll on the
+   primary list" acceptance criterion. */
+@media (max-width: 480px) {
+  .segmented { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .segmented::-webkit-scrollbar { display: none; }
+  .seg-btn { flex: 0 0 auto; padding: 9px 14px; }
+}
+</style>
+</head>
+<body>
+<!-- MOCKUP ONLY — Fast Play 4th-view mockup, CP4 of docs/specs/fastplay_extension_spec.md (Rule 11).
+
+DESIGN NOTES (reference study, per docs/ui_mockup_protocol.md):
+- Carried identity: this is the same console shell as the approved
+  docs/mockups/insights_v2_mockup.html (pine/cream/gold, serif wordmark,
+  sticky segmented nav, rank-row list rhythm, tabular-nums figures). Fast
+  Play is a 4th segment added to that shell, not a new design language —
+  reskin/redesign concerns here are about how the NEW view departs from the
+  ring/grade idiom on honesty grounds, not about departing from the console.
+- References studied for the one genuinely new move this view needs (how to
+  rank a list that has NO score or grade, honestly):
+  1. USGS WaterWatch state streamflow dashboards — percentile bands and
+     gauge fills communicate "where this sits among its peers today" without
+     a pass/fail verdict. Borrowed move: a plain magnitude bar instead of
+     the scratch view's conic score ring/grade letter — there is no grade
+     to ring around in v1, and a ring here would visually imply one exists.
+  2. Google Trends' "relative interest" index — explicitly disclaims its
+     0-100 bars as relative-to-each-other, not absolute, not a rate, not a
+     forecast. Borrowed move: the bar's own inline label says "relative
+     signal" and prints the raw relative_score number next to the fill, so
+     the bar reads as a comparison device, never a hidden 0-100 score.
+  3. State-lottery "Games with Top Prizes Remaining" disclosure pages (the
+     same family this data itself comes from) — plain tier tables (prize
+     level, count remaining) with jackpot/progressive games broken out into
+     their own list rather than folded into the fixed-prize table. Borrowed
+     move: the detail-sheet's plain tiers list, and putting every
+     progressive_jackpot game in its own permanently-separate group instead
+     of interleaving it into the ranked list with an asterisk.
+- Deliberate omission: no "hero"/featured-game card. The scratch view's hero
+  reads as an implicit recommendation ("today's best pick"); Fast Play's
+  ranking is a relative money signal with zero EV grounding in v1, so
+  featuring one game the same way would misrepresent what the number means.
+  Visual hierarchy here comes from the intro copy + stat row + the ranked
+  list's own top-to-bottom order, not from a callout card.
+- States shown: this file embeds a real data snapshot (data/fastplay.json,
+  as_of 2026-07-27, 28 games, 16 ranked + 12 progressive) as the LOADED
+  state, rendered through the same fetch path the real page will use
+  (../data/fastplay.json). The artifact-missing / stale / error furniture
+  states are demonstrated in a clearly labeled "mockup preview" box at the
+  foot of the view (never shown at the same time as the loaded state in the
+  real build — see the box's own caption).
+- Honesty constraints carried into every new element: no ev_ratio, no
+  value_score, no grade anywhere in this view; the "relative signal" label
+  sits next to every number that could be mistaken for a score; the
+  upper-bound claim-lag caveat is repeated verbatim in spirit from the
+  scratch view; the progressive_jackpot copy-bank string is rendered
+  verbatim, never summarized or reworded.
+-->
+<script>
+/* MOCKUP ONLY: embedded snapshot + fetch shim so the mockup renders offline,
+   matching the pattern in docs/mockups/insights_v2_mockup.html — any fetch
+   not present in __MOCK_DATA below resolves not-ok, which is what drives
+   the (undemonstrated-here) artifact-missing fallback in the real build. */
+window.__MOCK_DATA = {
+  "../data/fastplay.json": {
+  "as_of": "2026-07-27",
+  "source_timestamp": "July 27, 2026 5:00 AM",
+  "games": [
+    {
+      "game_no": 11,
+      "name": "FAT WALLET",
+      "price": 5.0,
+      "percent_unsold": 57.9,
+      "total_unclaimed": 5557210.0,
+      "top_prizes": [
+        {
+          "level": 75000,
+          "remaining": 6
+        },
+        {
+          "level": 10000,
+          "remaining": 9
+        },
+        {
+          "level": 1000,
+          "remaining": 95
+        },
+        {
+          "level": 500,
+          "remaining": 250
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 95979.447323,
+      "dead_game": false,
+      "flags": [
+        "no_print_run"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Total ticket quantity unknown for this Fast Play game \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+    },
+    {
+      "game_no": 22,
+      "name": "PATRIOTS PROGRESSIVE",
+      "price": 5.0,
+      "percent_unsold": 61.7,
+      "total_unclaimed": 2222905.0,
+      "top_prizes": [
+        {
+          "level": null,
+          "level_label": "JACKPOT",
+          "remaining": 1
+        },
+        {
+          "level": 5000,
+          "remaining": 10
+        },
+        {
+          "level": 1000,
+          "remaining": 15
+        },
+        {
+          "level": 500,
+          "remaining": 30
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 36027.633712,
+      "dead_game": false,
+      "flags": [
+        "no_print_run",
+        "progressive_jackpot"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Jackpot value isn't published on the state's Fast Play page \u2014 expected value can't be computed for this progressive game."
+    },
+    {
+      "game_no": 25,
+      "name": "BLACKJACK PROGRESSIVE",
+      "price": 2.0,
+      "percent_unsold": 22.0,
+      "total_unclaimed": 632412.0,
+      "top_prizes": [
+        {
+          "level": null,
+          "level_label": "JACKPOT",
+          "remaining": 3
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 28746.0,
+      "dead_game": false,
+      "flags": [
+        "no_print_run",
+        "progressive_jackpot"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Jackpot value isn't published on the state's Fast Play page \u2014 expected value can't be computed for this progressive game."
+    },
+    {
+      "game_no": 26,
+      "name": "CA$H BLAST PROGRESSIVE",
+      "price": 2.0,
+      "percent_unsold": 52.3,
+      "total_unclaimed": 753632.0,
+      "top_prizes": [
+        {
+          "level": null,
+          "level_label": "JACKPOT",
+          "remaining": 2
+        },
+        {
+          "level": 1000,
+          "remaining": 6
+        },
+        {
+          "level": 500,
+          "remaining": 19
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 14409.789675,
+      "dead_game": false,
+      "flags": [
+        "no_print_run",
+        "progressive_jackpot"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Jackpot value isn't published on the state's Fast Play page \u2014 expected value can't be computed for this progressive game."
+    },
+    {
+      "game_no": 27,
+      "name": "CA$H BLAST PROGRESSIVE",
+      "price": 5.0,
+      "percent_unsold": 61.5,
+      "total_unclaimed": 2214570.0,
+      "top_prizes": [
+        {
+          "level": null,
+          "level_label": "JACKPOT",
+          "remaining": 3
+        },
+        {
+          "level": 10000,
+          "remaining": 3
+        },
+        {
+          "level": 1000,
+          "remaining": 15
+        },
+        {
+          "level": 500,
+          "remaining": 60
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 36009.268293,
+      "dead_game": false,
+      "flags": [
+        "no_print_run",
+        "progressive_jackpot"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Jackpot value isn't published on the state's Fast Play page \u2014 expected value can't be computed for this progressive game."
+    },
+    {
+      "game_no": 28,
+      "name": "CA$H BLAST PROGRESSIVE",
+      "price": 10.0,
+      "percent_unsold": 76.7,
+      "total_unclaimed": 9206610.0,
+      "top_prizes": [
+        {
+          "level": null,
+          "level_label": "JACKPOT",
+          "remaining": 4
+        },
+        {
+          "level": 10000,
+          "remaining": 6
+        },
+        {
+          "level": 1000,
+          "remaining": 529
+        },
+        {
+          "level": 500,
+          "remaining": 689
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 120034.028683,
+      "dead_game": false,
+      "flags": [
+        "no_print_run",
+        "progressive_jackpot"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Jackpot value isn't published on the state's Fast Play page \u2014 expected value can't be computed for this progressive game."
+    },
+    {
+      "game_no": 30,
+      "name": "MAINE CA$H MULTIPLIER PROGRESS",
+      "price": 10.0,
+      "percent_unsold": 74.7,
+      "total_unclaimed": 9411100.0,
+      "top_prizes": [
+        {
+          "level": null,
+          "level_label": "JACKPOT",
+          "remaining": 3
+        },
+        {
+          "level": 2000,
+          "remaining": 11
+        },
+        {
+          "level": 1000,
+          "remaining": 52
+        },
+        {
+          "level": 500,
+          "remaining": 577
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 125985.274431,
+      "dead_game": false,
+      "flags": [
+        "no_print_run",
+        "progressive_jackpot"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Jackpot value isn't published on the state's Fast Play page \u2014 expected value can't be computed for this progressive game."
+    },
+    {
+      "game_no": 31,
+      "name": "MAINE CA$H MULTIPLIER PROGRESS",
+      "price": 20.0,
+      "percent_unsold": 79.2,
+      "total_unclaimed": 19963600.0,
+      "top_prizes": [
+        {
+          "level": null,
+          "level_label": "JACKPOT",
+          "remaining": 3
+        },
+        {
+          "level": 10000,
+          "remaining": 8
+        },
+        {
+          "level": 1000,
+          "remaining": 111
+        },
+        {
+          "level": 500,
+          "remaining": 998
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 252065.656566,
+      "dead_game": false,
+      "flags": [
+        "no_print_run",
+        "progressive_jackpot"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Jackpot value isn't published on the state's Fast Play page \u2014 expected value can't be computed for this progressive game."
+    },
+    {
+      "game_no": 35,
+      "name": "CRAZY 8`S",
+      "price": 2.0,
+      "percent_unsold": 33.1,
+      "total_unclaimed": 318122.0,
+      "top_prizes": [
+        {
+          "level": 8888,
+          "remaining": 1
+        },
+        {
+          "level": 888,
+          "remaining": 4
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 9610.936556,
+      "dead_game": false,
+      "flags": [
+        "no_print_run"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Total ticket quantity unknown for this Fast Play game \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+    },
+    {
+      "game_no": 36,
+      "name": "JACKPOT PARTY PROGRESSIVE",
+      "price": 5.0,
+      "percent_unsold": 76.6,
+      "total_unclaimed": 2297630.0,
+      "top_prizes": [
+        {
+          "level": null,
+          "level_label": "JACKPOT",
+          "remaining": 3
+        },
+        {
+          "level": 10000,
+          "remaining": 3
+        },
+        {
+          "level": 1000,
+          "remaining": 12
+        },
+        {
+          "level": 500,
+          "remaining": 12
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 29995.169713,
+      "dead_game": false,
+      "flags": [
+        "no_print_run",
+        "progressive_jackpot"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Jackpot value isn't published on the state's Fast Play page \u2014 expected value can't be computed for this progressive game."
+    },
+    {
+      "game_no": 38,
+      "name": "COLD HARD CASH PROGRESSIVE",
+      "price": 10.0,
+      "percent_unsold": 78.6,
+      "total_unclaimed": 4714370.0,
+      "top_prizes": [
+        {
+          "level": null,
+          "level_label": "JACKPOT",
+          "remaining": 1
+        },
+        {
+          "level": 50000,
+          "remaining": 3
+        },
+        {
+          "level": 10000,
+          "remaining": 3
+        },
+        {
+          "level": 1000,
+          "remaining": 7
+        },
+        {
+          "level": 500,
+          "remaining": 26
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 59979.262087,
+      "dead_game": false,
+      "flags": [
+        "no_print_run",
+        "progressive_jackpot"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Jackpot value isn't published on the state's Fast Play page \u2014 expected value can't be computed for this progressive game."
+    },
+    {
+      "game_no": 40,
+      "name": "VIP CLUB PROGRESSIVE",
+      "price": 30.0,
+      "percent_unsold": 60.9,
+      "total_unclaimed": 21920880.0,
+      "top_prizes": [
+        {
+          "level": null,
+          "level_label": "JACKPOT",
+          "remaining": 3
+        },
+        {
+          "level": 100000,
+          "remaining": 3
+        },
+        {
+          "level": 5000,
+          "remaining": 6
+        },
+        {
+          "level": 1000,
+          "remaining": 45
+        },
+        {
+          "level": 500,
+          "remaining": 1067
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 359948.768473,
+      "dead_game": false,
+      "flags": [
+        "no_print_run",
+        "progressive_jackpot"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Jackpot value isn't published on the state's Fast Play page \u2014 expected value can't be computed for this progressive game."
+    },
+    {
+      "game_no": 43,
+      "name": "FA-LA-LA-LA-LLAMA",
+      "price": 5.0,
+      "percent_unsold": 78.2,
+      "total_unclaimed": 1877080.0,
+      "top_prizes": [
+        {
+          "level": 75000,
+          "remaining": 2
+        },
+        {
+          "level": 5000,
+          "remaining": 11
+        },
+        {
+          "level": 1000,
+          "remaining": 55
+        },
+        {
+          "level": 500,
+          "remaining": 317
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 24003.580563,
+      "dead_game": false,
+      "flags": [
+        "no_print_run"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Total ticket quantity unknown for this Fast Play game \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+    },
+    {
+      "game_no": 44,
+      "name": "HOLIDAY BLOWOUT",
+      "price": 10.0,
+      "percent_unsold": 75.8,
+      "total_unclaimed": 3640530.0,
+      "top_prizes": [
+        {
+          "level": 150000,
+          "remaining": 2
+        },
+        {
+          "level": 5000,
+          "remaining": 19
+        },
+        {
+          "level": 1000,
+          "remaining": 25
+        },
+        {
+          "level": 500,
+          "remaining": 1024
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 48028.100264,
+      "dead_game": false,
+      "flags": [
+        "no_print_run"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Total ticket quantity unknown for this Fast Play game \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+    },
+    {
+      "game_no": 45,
+      "name": "FARMERS MARKET",
+      "price": 2.0,
+      "percent_unsold": 80.6,
+      "total_unclaimed": 773552.0,
+      "top_prizes": [
+        {
+          "level": 15000,
+          "remaining": 1
+        },
+        {
+          "level": 500,
+          "remaining": 97
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 9597.419355,
+      "dead_game": false,
+      "flags": [
+        "no_print_run"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Total ticket quantity unknown for this Fast Play game \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+    },
+    {
+      "game_no": 48,
+      "name": "ROYAL CASH PROGRESSIVE",
+      "price": 5.0,
+      "percent_unsold": 73.3,
+      "total_unclaimed": 1760215.0,
+      "top_prizes": [
+        {
+          "level": null,
+          "level_label": "JACKPOT",
+          "remaining": 3
+        },
+        {
+          "level": 1000,
+          "remaining": 11
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 24013.847203,
+      "dead_game": false,
+      "flags": [
+        "no_print_run",
+        "progressive_jackpot"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Jackpot value isn't published on the state's Fast Play page \u2014 expected value can't be computed for this progressive game."
+    },
+    {
+      "game_no": 49,
+      "name": "SUMMER FAST CASH BINGO",
+      "price": 2.0,
+      "percent_unsold": 78.2,
+      "total_unclaimed": 562786.0,
+      "top_prizes": [
+        {
+          "level": 20000,
+          "remaining": 2
+        },
+        {
+          "level": 5000,
+          "remaining": 2
+        },
+        {
+          "level": 1000,
+          "remaining": 11
+        },
+        {
+          "level": 500,
+          "remaining": 22
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 7196.751918,
+      "dead_game": false,
+      "flags": [
+        "no_print_run"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Total ticket quantity unknown for this Fast Play game \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+    },
+    {
+      "game_no": 50,
+      "name": "FALL FAST CASH BINGO",
+      "price": 2.0,
+      "percent_unsold": 78.9,
+      "total_unclaimed": 568386.0,
+      "top_prizes": [
+        {
+          "level": 20000,
+          "remaining": 2
+        },
+        {
+          "level": 5000,
+          "remaining": 2
+        },
+        {
+          "level": 1000,
+          "remaining": 12
+        },
+        {
+          "level": 500,
+          "remaining": 23
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 7203.878327,
+      "dead_game": false,
+      "flags": [
+        "no_print_run"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Total ticket quantity unknown for this Fast Play game \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+    },
+    {
+      "game_no": 51,
+      "name": "WINTER FAST CASH BINGO",
+      "price": 2.0,
+      "percent_unsold": 79.9,
+      "total_unclaimed": 575572.0,
+      "top_prizes": [
+        {
+          "level": 20000,
+          "remaining": 2
+        },
+        {
+          "level": 5000,
+          "remaining": 2
+        },
+        {
+          "level": 1000,
+          "remaining": 11
+        },
+        {
+          "level": 500,
+          "remaining": 26
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 7203.654568,
+      "dead_game": false,
+      "flags": [
+        "no_print_run"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Total ticket quantity unknown for this Fast Play game \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+    },
+    {
+      "game_no": 52,
+      "name": "SPRING FAST CASH BINGO",
+      "price": 2.0,
+      "percent_unsold": 76.9,
+      "total_unclaimed": 553874.0,
+      "top_prizes": [
+        {
+          "level": 20000,
+          "remaining": 1
+        },
+        {
+          "level": 5000,
+          "remaining": 2
+        },
+        {
+          "level": 1000,
+          "remaining": 11
+        },
+        {
+          "level": 500,
+          "remaining": 24
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 7202.522757,
+      "dead_game": false,
+      "flags": [
+        "no_print_run"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Total ticket quantity unknown for this Fast Play game \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+    },
+    {
+      "game_no": 53,
+      "name": "MONOPOLY",
+      "price": 10.0,
+      "percent_unsold": 43.0,
+      "total_unclaimed": 1289940.0,
+      "top_prizes": [
+        {
+          "level": 250000,
+          "remaining": 1
+        },
+        {
+          "level": 10000,
+          "remaining": 2
+        },
+        {
+          "level": 5000,
+          "remaining": 4
+        },
+        {
+          "level": 1000,
+          "remaining": 5
+        },
+        {
+          "level": 500,
+          "remaining": 345
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 29998.604651,
+      "dead_game": false,
+      "flags": [
+        "no_print_run"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Total ticket quantity unknown for this Fast Play game \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+    },
+    {
+      "game_no": 56,
+      "name": "CHA-CHING!",
+      "price": 10.0,
+      "percent_unsold": 5.1,
+      "total_unclaimed": 128650.0,
+      "top_prizes": [
+        {
+          "level": 500,
+          "remaining": 72
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 25225.490196,
+      "dead_game": false,
+      "flags": [
+        "no_print_run"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Total ticket quantity unknown for this Fast Play game \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+    },
+    {
+      "game_no": 57,
+      "name": "$500,000 PLATINUM PAYOUT",
+      "price": 20.0,
+      "percent_unsold": 80.7,
+      "total_unclaimed": 7750560.0,
+      "top_prizes": [
+        {
+          "level": 500000,
+          "remaining": 2
+        },
+        {
+          "level": 100000,
+          "remaining": 2
+        },
+        {
+          "level": 50000,
+          "remaining": 1
+        },
+        {
+          "level": 25000,
+          "remaining": 2
+        },
+        {
+          "level": 10000,
+          "remaining": 4
+        },
+        {
+          "level": 5000,
+          "remaining": 3
+        },
+        {
+          "level": 1000,
+          "remaining": 7
+        },
+        {
+          "level": 500,
+          "remaining": 38
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 96041.635688,
+      "dead_game": false,
+      "flags": [
+        "no_print_run"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Total ticket quantity unknown for this Fast Play game \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+    },
+    {
+      "game_no": 58,
+      "name": "BLANK CHECK PROGRESSIVE",
+      "price": 20.0,
+      "percent_unsold": 84.3,
+      "total_unclaimed": 6743300.0,
+      "top_prizes": [
+        {
+          "level": null,
+          "level_label": "JACKPOT",
+          "remaining": 2
+        },
+        {
+          "level": 10000,
+          "remaining": 4
+        },
+        {
+          "level": 5000,
+          "remaining": 5
+        },
+        {
+          "level": 1000,
+          "remaining": 35
+        },
+        {
+          "level": 500,
+          "remaining": 51
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 79991.696323,
+      "dead_game": false,
+      "flags": [
+        "no_print_run",
+        "progressive_jackpot"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Jackpot value isn't published on the state's Fast Play page \u2014 expected value can't be computed for this progressive game."
+    },
+    {
+      "game_no": 61,
+      "name": "FABULOUS 5S",
+      "price": 5.0,
+      "percent_unsold": 43.7,
+      "total_unclaimed": 546040.0,
+      "top_prizes": [
+        {
+          "level": 5000,
+          "remaining": 13
+        },
+        {
+          "level": 2000,
+          "remaining": 10
+        },
+        {
+          "level": 1000,
+          "remaining": 6
+        },
+        {
+          "level": 500,
+          "remaining": 21
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 12495.194508,
+      "dead_game": false,
+      "flags": [
+        "no_print_run"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Total ticket quantity unknown for this Fast Play game \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+    },
+    {
+      "game_no": 69,
+      "name": "GNOME FOR THE HOLIDAYS",
+      "price": 2.0,
+      "percent_unsold": 77.3,
+      "total_unclaimed": 309140.0,
+      "top_prizes": [
+        {
+          "level": 5000,
+          "remaining": 15
+        },
+        {
+          "level": 500,
+          "remaining": 13
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 3999.223803,
+      "dead_game": false,
+      "flags": [
+        "no_print_run"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Total ticket quantity unknown for this Fast Play game \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+    },
+    {
+      "game_no": 73,
+      "name": "FIRECRACKER FAST CASH BINGO",
+      "price": 2.0,
+      "percent_unsold": 56.3,
+      "total_unclaimed": 67502.0,
+      "top_prizes": [
+        {
+          "level": 15000,
+          "remaining": 1
+        },
+        {
+          "level": 500,
+          "remaining": 9
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 1198.969805,
+      "dead_game": false,
+      "flags": [
+        "no_print_run"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Total ticket quantity unknown for this Fast Play game \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+    },
+    {
+      "game_no": 74,
+      "name": "FAST $500S",
+      "price": 10.0,
+      "percent_unsold": 74.6,
+      "total_unclaimed": 1492340.0,
+      "top_prizes": [
+        {
+          "level": 500,
+          "remaining": 1265
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 20004.557641,
+      "dead_game": false,
+      "flags": [
+        "no_print_run"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Total ticket quantity unknown for this Fast Play game \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+    }
+  ]
+}
+};
+window.fetch = function (url) {
+  return Promise.resolve({
+    ok: Object.prototype.hasOwnProperty.call(window.__MOCK_DATA, url),
+    json: function () { return Promise.resolve(window.__MOCK_DATA[url]); }
+  });
+};
+</script>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <p class="wordmark">Maine Scratch EV <small>Least bad today</small></p>
+  <p class="framing">Ranks every active Maine scratch game by the expected value of a ticket bought today — it cannot predict a win, and every scratch game loses money on average.</p>
+</header>
+
+<nav class="view-nav" aria-label="Site sections">
+  <div class="segmented" role="tablist" aria-label="Views">
+    <button class="seg-btn" type="button" role="tab" id="tab-best" aria-selected="true" data-view="best">Best pick today</button>
+    <button class="seg-btn" type="button" role="tab" id="tab-insights" aria-selected="false" data-view="insights">Game insights</button>
+    <button class="seg-btn" type="button" role="tab" id="tab-winners" aria-selected="false" data-view="winners">Winner map</button>
+    <button class="seg-btn" type="button" role="tab" id="tab-fastplay" aria-selected="false" data-view="fastplay">Fast Play</button>
+  </div>
+</nav>
+
+<main id="main">
+
+  <div id="content-slot" class="view-panel" role="tabpanel" aria-labelledby="tab-best">
+    <div class="stub-panel">
+      <h2>Best pick today <span class="stub-badge">Existing view — unchanged</span></h2>
+      <p>This mockup's job is CP4 of docs/specs/fastplay_extension_spec.md — adding the Fast Play segment below. This view's own markup, styling, and behavior are untouched; see the approved <code>docs/mockups/best_pick_mockup.html</code> and the built <code>site/index.html</code> for its full detail.</p>
+    </div>
+  </div>
+
+  <div id="insights-view" class="view-panel" role="tabpanel" aria-labelledby="tab-insights" hidden>
+    <div class="stub-panel">
+      <h2>Game insights <span class="stub-badge">Existing view — unchanged</span></h2>
+      <p>Untouched by this task. See the approved <code>docs/mockups/insights_v2_mockup.html</code> and the built <code>site/index.html</code> for its full detail.</p>
+    </div>
+  </div>
+
+  <div id="winners-view" class="view-panel" role="tabpanel" aria-labelledby="tab-winners" hidden>
+    <div class="stub-panel">
+      <h2>Winner map <span class="stub-badge">Existing view — unchanged</span></h2>
+      <p>Untouched by this task. See the approved <code>docs/mockups/insights_v2_mockup.html</code> and the built <code>site/index.html</code> for its full detail.</p>
+    </div>
+  </div>
+
+  <div id="fastplay-view" class="view-panel" role="tabpanel" aria-labelledby="tab-fastplay" hidden>
+
+    <section class="fp-intro" aria-labelledby="fp-heading">
+      <h2 class="section-title" id="fp-heading">Fast Play — ranked by relative signal only</h2>
+      <p class="insight-framing">Fast Play games are Maine's quick-pick terminal tickets — a different family from the scratch cards in Best pick today. The state publishes each game's percent unsold and total unclaimed dollars, but not its print run or overall odds, so <strong>expected value can't be computed here yet</strong> and no Fast Play game carries a grade. Every game below is ordered only by its <strong>relative unclaimed-money signal</strong> — how its unclaimed total compares to other Fast Play games today. That's a comparison, never a probability, and it does not predict where a winning ticket sits.</p>
+      <p class="claim-lag-caveat">Caution: as with the scratch pipeline, "unclaimed" dollars are an upper bound. Some of that money sits on tickets already sold but not yet redeemed rather than tickets still on terminals — so both the raw totals below and the relative signal built from them can overstate what's actually left to win.</p>
+      <div class="stat-row" id="fp-stats"></div>
+      <p class="fp-asof tabular" id="fp-asof"></p>
+    </section>
+
+    <section class="fp-list-section" aria-labelledby="fp-ranked-heading">
+      <h3 class="section-title" id="fp-ranked-heading">Ranked by relative signal</h3>
+      <p class="chart-sub">Bar length is each game's unclaimed-dollar signal relative to the highest game in this list today — not a score, not a percentage of anything, and not an EV.</p>
+      <div id="fp-ranked-slot"></div>
+    </section>
+
+    <section class="fp-list-section fp-group-section" aria-labelledby="fp-progressive-heading">
+      <h3 class="section-title" id="fp-progressive-heading">Progressive jackpot games — not rateable</h3>
+      <p class="chart-sub">These games' top prize is an uncapped jackpot. Its current dollar value isn't published anywhere scrapable, so it's excluded from ranking and can never get an expected value in this view — permanently, not just until more data arrives.</p>
+      <div id="fp-progressive-slot"></div>
+    </section>
+
+    <section class="chart-section fp-preview-states" aria-labelledby="fp-preview-heading">
+      <h3 class="chart-title" id="fp-preview-heading">Other states this view handles (mockup preview only)</h3>
+      <p class="chart-sub">Rendered together here only so this review can see every state at once. In the built page exactly one of these replaces the two ranked lists above — they never show at the same time as each other or as the loaded lists.</p>
+      <p class="fp-preview-label">Artifact missing</p>
+      <div class="chart-box"><div class="chart-empty">The Fast Play artifact hasn't been published yet. It is generated by <code>python -m scraper.fastplay --fixture tests/scraper/fixtures/unclaimed_fastplay_&lt;date&gt;.html --as-of &lt;date&gt; --out data/fastplay.json</code>.</div></div>
+      <p class="fp-preview-label">Data may be stale</p>
+      <div class="staleness-banner"><strong>Data may be stale.</strong> The last good Fast Play update was <strong>2026-07-20</strong> — the Lottery may have published newer figures we haven't picked up yet.</div>
+      <p class="fp-preview-label">Couldn't load today's data</p>
+      <div class="error-panel">
+        <h2>Couldn't load Fast Play data</h2>
+        <p>We weren't able to fetch today's Fast Play figures. Try reloading in a few minutes, or check the Lottery's own list directly.</p>
+        <p><a href="https://www.mainelottery.com/fastplay/unclaimed_fastplay.html" target="_blank" rel="noopener">View the Fast Play unclaimed/unsold list at mainelottery.com &rarr;</a></p>
+      </div>
+    </section>
+
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <p>Score, grade, and reason for scratch games are computed once daily from the state's published unclaimed-prize and percent-unsold figures; Fast Play games are ranked by the relative unclaimed-money signal only — no score, no grade, no EV in v1.</p>
+  <p>Data: <a href="https://www.mainelottery.com/players_info/unclaimed_prizes.html" target="_blank" rel="noopener">Maine State Lottery scratch unclaimed prizes</a> &middot; <a href="https://www.mainelottery.com/fastplay/unclaimed_fastplay.html" target="_blank" rel="noopener">Maine State Lottery Fast Play unclaimed/unsold</a> &middot; winner reports from the Lottery's <a href="https://www.mainelottery.com/players_info/winners_showcase.html" target="_blank" rel="noopener">Winner Information</a> page</p>
+  <p>The Maine State Lottery's own published disclosures prevail over anything shown here.</p>
+  <p>This tool cannot predict winners. All scratch and Fast Play games are negative-expected-value under normal conditions. If gambling is a problem for you or someone you know, call <a href="tel:1-800-426-2537">1-800-GAMBLER</a>.</p>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------------- formatting helpers (mirrors insights_v2_mockup.html) ---------------- */
+  function money(n) {
+    if (n === null || n === undefined) return "—";
+    return "$" + Math.round(n).toLocaleString("en-US");
+  }
+  function pct1(n) {
+    if (n === null || n === undefined) return "—";
+    return n.toFixed(1) + "%";
+  }
+  function priceLabel(p) {
+    return "$" + (p % 1 === 0 ? p : p.toFixed(2));
+  }
+  function esc(s) {
+    var d = document.createElement("div");
+    d.textContent = String(s);
+    return d.innerHTML;
+  }
+  function statTile(value, label) {
+    return '<div class="stat-tile"><p class="stat-value">' + value + '</p><p class="stat-label">' + label + "</p></div>";
+  }
+  function hasProgressiveFlag(g) {
+    return (g.flags || []).indexOf("progressive_jackpot") !== -1;
+  }
+  function tierLabel(t) {
+    if (t.level === null || t.level === undefined) return t.level_label || "JACKPOT";
+    return money(t.level);
+  }
+  function renderTiers(tiers) {
+    if (!tiers || !tiers.length) return '<p class="pending-note">No tier data.</p>';
+    return '<ul class="tiers-list">' + tiers.map(function (t) {
+      return "<li><span>" + esc(tierLabel(t)) + " prize</span><span class=\"tabular\">" + t.remaining + " remaining</span></li>";
+    }).join("") + "</ul>";
+  }
+
+  /* ---------------- Fast Play rows ---------------- */
+  function renderFPRow(g, rank, maxScore) {
+    var score = g.relative_score || 0;
+    var pct = maxScore ? Math.max(2, Math.round((score / maxScore) * 100)) : 0;
+    var isProg = hasProgressiveFlag(g);
+    var fillClass = "relscore-fill" + (isProg ? " relscore-fill--progressive" : "");
+    return '<div class="rank-row">' +
+      '<div class="rank-rail tabular">' + rank + "</div>" +
+      '<div class="rank-main">' +
+      '<details class="expander">' +
+      "<summary>" +
+      '<div class="rank-name-row">' +
+      '<p class="rank-name">' + esc(g.name) + ' <span class="tabular" style="font-weight:400;color:var(--ink-soft)">#' + g.game_no + "</span></p>" +
+      '<span class="rank-price tabular">' + priceLabel(g.price) + "</span>" +
+      "</div>" +
+      '<div class="relscore-meter"><div class="relscore-track"><div class="' + fillClass + '" style="width:' + pct + '%"></div></div><span class="relscore-label tabular">Relative signal ' + Math.round(score).toLocaleString("en-US") + "</span></div>" +
+      '<p class="rank-reason">' + esc(g.reason) + "</p>" +
+      '<span class="expand-toggle">Top prizes &amp; detail &#9662;</span>' +
+      "</summary>" +
+      '<div class="detail-sheet">' +
+      '<dl class="detail-grid tabular">' +
+      "<dt>Percent unsold</dt><dd>" + pct1(g.percent_unsold) + "</dd>" +
+      "<dt>Total unclaimed (upper bound)</dt><dd>" + money(g.total_unclaimed) + "</dd>" +
+      "<dt>Print run</dt><dd>—</dd>" +
+      "<dt>Relative signal</dt><dd>" + Math.round(score).toLocaleString("en-US") + "</dd>" +
+      "</dl>" +
+      renderTiers(g.top_prizes) +
+      "</div>" +
+      "</details>" +
+      "</div></div>";
+  }
+
+  function renderFPStats(games) {
+    var prog = games.filter(hasProgressiveFlag);
+    var nonProg = games.filter(function (g) { return !hasProgressiveFlag(g); });
+    var totalUnclaimed = games.reduce(function (s, g) { return s + (g.total_unclaimed || 0); }, 0);
+    document.getElementById("fp-stats").innerHTML =
+      statTile(games.length, "Fast Play games tracked") +
+      statTile(nonProg.length, "ranked by relative signal") +
+      statTile(prog.length, "progressive — not rateable") +
+      statTile(money(totalUnclaimed), "total unclaimed (upper bound)");
+  }
+
+  function renderFPRanked(games) {
+    var nonProg = games.filter(function (g) { return !hasProgressiveFlag(g); })
+      .slice().sort(function (a, b) { return (b.relative_score || 0) - (a.relative_score || 0); });
+    var prog = games.filter(hasProgressiveFlag)
+      .slice().sort(function (a, b) { return (b.relative_score || 0) - (a.relative_score || 0); });
+    var maxNonProg = nonProg.length ? (nonProg[0].relative_score || 0) : 0;
+    var maxProg = prog.length ? (prog[0].relative_score || 0) : 0;
+
+    document.getElementById("fp-ranked-slot").innerHTML = nonProg.length
+      ? nonProg.map(function (g, i) { return renderFPRow(g, i + 1, maxNonProg); }).join("")
+      : '<p style="color:var(--ink-soft);font-size:13px;">No ranked Fast Play games right now.</p>';
+
+    document.getElementById("fp-progressive-slot").innerHTML = prog.length
+      ? prog.map(function (g, i) { return renderFPRow(g, i + 1, maxProg); }).join("")
+      : '<p style="color:var(--ink-soft);font-size:13px;">No progressive Fast Play games right now.</p>';
+  }
+
+  var fpRequested = false;
+  var FP_DATA = null;
+  function loadFastPlay() {
+    if (fpRequested) return;
+    fpRequested = true;
+    fetch("../data/fastplay.json")
+      .then(function (res) { if (!res.ok) throw new Error("HTTP " + res.status); return res.json(); })
+      .then(function (data) { FP_DATA = data; renderFastPlay(); })
+      .catch(function () {
+        document.getElementById("fp-ranked-slot").innerHTML =
+          '<div class="chart-empty">The Fast Play artifact hasn\'t been published yet. It is generated by <code>python -m scraper.fastplay --fixture tests/scraper/fixtures/unclaimed_fastplay_&lt;date&gt;.html --as-of &lt;date&gt; --out data/fastplay.json</code>.</div>';
+        document.getElementById("fp-progressive-slot").innerHTML = "";
+      });
+  }
+  function renderFastPlay() {
+    document.getElementById("fp-asof").textContent = "As of " + FP_DATA.as_of + " \u00b7 state snapshot: " + FP_DATA.source_timestamp;
+    renderFPStats(FP_DATA.games);
+    renderFPRanked(FP_DATA.games);
+  }
+
+  /* ---------------- view switching ---------------- */
+  var VIEWS = {
+    best: document.getElementById("content-slot"),
+    insights: document.getElementById("insights-view"),
+    winners: document.getElementById("winners-view"),
+    fastplay: document.getElementById("fastplay-view")
+  };
+  function showView(name) {
+    Object.keys(VIEWS).forEach(function (key) {
+      var on = key === name;
+      VIEWS[key].hidden = !on;
+      var tab = document.getElementById("tab-" + key);
+      tab.setAttribute("aria-selected", on ? "true" : "false");
+    });
+    if (name === "fastplay") loadFastPlay();
+  }
+  Array.prototype.forEach.call(document.querySelectorAll(".seg-btn"), function (btn) {
+    btn.addEventListener("click", function () { showView(btn.getAttribute("data-view")); });
+  });
+})();
+</script>
+</body>
+</html>
