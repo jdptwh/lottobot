@@ -59,7 +59,8 @@ def _find_bash():
 
 
 BASH = _find_bash()
-pytestmark = pytest.mark.skipif(BASH is None, reason="no functional bash")
+pytestmark = [pytest.mark.subproc,
+              pytest.mark.skipif(BASH is None, reason="no functional bash")]
 
 ENV_BASE = {"PATH": "/usr/bin:/bin"}
 

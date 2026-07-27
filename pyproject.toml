@@ -13,4 +13,5 @@ addopts = "-q -m 'not live' --import-mode=importlib"
 pythonpath = ["."]
 markers = [
     "live: opt-in real OpenRouter call, costs money, requires OPENROUTER_API_KEY (run with -m live)",
+    "subproc: nested pytest / bash-spawning gate tests that overrun the 900s per-turn stop-gate budget on Windows (excluded from VERIFY_CMD via -m 'not subproc'; still run in the full pre-commit/CI suite)",
 ]

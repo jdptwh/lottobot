@@ -192,7 +192,12 @@ resume from git state, never replay (Rule 9).
 - Claude Code's DEFAULT hook timeout (60s) silently kills a full-pytest
   gate mid-run. settings.json pins "timeout": 1200 on both hooks and
   gate.sh pins GATE_TIMEOUT_SECS=900 per command — if the suite outgrows
-  those, raise BOTH, never remove them (2026-07-22 audit).
+  those, raise BOTH, never remove them (2026-07-22 audit). 2026-07-27: the
+  un-skip of the bash-spawning gate tests (subprocess trees plus a nested
+  full-pytest run in test_packaging.py) pushed the fast subset itself past
+  900s under overlapping load, false-failing elapsed-time-sensitive tests;
+  those tests are now `@pytest.mark.subproc` and excluded from VERIFY_CMD
+  via `-m "not subproc"` while remaining in the full pre-commit/CI suite.
 - Windows Path.write_text without newline="\n" emits CRLF — breaks byte-identity
   vs LF-committed artifacts. All pipeline CLI writes pin newline="\n" (m5a).
 - The lead's Stop-hook gate races concurrent background implementers: a red

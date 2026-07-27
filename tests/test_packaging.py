@@ -130,6 +130,7 @@ def test_watch_video_vendored_pinned_with_licenses():
 
 # ---- install-into: the harness is self-contained ------------------------------------
 
+@pytest.mark.subproc
 @pytest.mark.skipif(os.environ.get("HARNESS_SELF_TEST") == "1",
                     reason="already inside a self-containment run (no recursion)")
 def test_install_into_produces_a_green_standalone_harness(tmp_path):

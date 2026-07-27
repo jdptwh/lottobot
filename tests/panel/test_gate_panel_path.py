@@ -35,7 +35,8 @@ def _find_bash():
 
 
 BASH = _find_bash()
-pytestmark = pytest.mark.skipif(BASH is None, reason="no functional bash")
+pytestmark = [pytest.mark.subproc,
+              pytest.mark.skipif(BASH is None, reason="no functional bash")]
 
 def _posix(p):
     """C:\\x\\y -> /c/x/y so a Windows dir can ride a POSIX PATH string."""
