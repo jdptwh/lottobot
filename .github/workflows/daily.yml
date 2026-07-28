@@ -21,11 +21,15 @@ jobs:
         run: pip install -r requirements.txt
       - name: Run daily pipeline (all gates enforced; no write on failure)
         run: python -m scraper.run_daily --live
+      - name: Run Fast Play pipeline (all gates enforced; no write on failure)
+        id: fastplay
+        continue-on-error: true
+        run: python -m scraper.fastplay --live
       - name: Commit and push snapshot
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/latest.json data/history/
+          git add data/latest.json data/history/ data/fastplay.json data/fastplay_history/
           git diff --cached --quiet || git commit -m "daily: snapshot $(date -u +%F)"
           git push
       - name: Open failure issue (deduplicated per day)
@@ -41,4 +45,18 @@ jobs:
           Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
           No data was committed; the site keeps serving the last-good data/latest.json (the 48h staleness banner covers prolonged outage). Check the run log for which gate failed (parser / schema / diff / fetch)."
+          fi
+      - name: Open Fast Play failure issue (deduplicated per day)
+        if: steps.fastplay.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create fastplay-run-failure --description "Automated Fast Play pipeline failure" --color B60205 || true
+          TODAY=$(date -u +%F)
+          if [ -z "$(gh issue list --state open --label fastplay-run-failure --search "in:title $TODAY" --json number --jq '.[].number')" ]; then
+            gh issue create --title "Fast Play run failed: $TODAY" --label fastplay-run-failure --body "Automated Fast Play pipeline failed on $TODAY (UTC).
+
+          Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+          No Fast Play data was committed; the site keeps serving the last-good data/fastplay.json. Check the run log for which gate failed (parser / schema / fetch)."
           fi

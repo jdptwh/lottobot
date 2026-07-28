@@ -110,6 +110,34 @@ enabled, this repo behaves as a plain routed-agent project.
   evidence the 7-green scheduled-run M5 "shipped" threshold is met
   (confirm in the Actions tab that all runs show green, not just
   committed).
+- FAST PLAY EXTENSION v1 (docs/specs/fastplay_extension_spec.md, owner-approved
+  2026-07-27) CP1–CP6 COMPLETE, awaiting owner acceptance: CP1+CP2
+  scraper/fastplay.py parse/gate/compute/schema pipeline (ef5a865, D8
+  constants-parity + D9 structural progressive detection, D10 both
+  stop-conditions cleared and recorded in-module), CP3 jackpot-value spike
+  (not found, non-blocking, 32998ca), CP4 docs/mockups/fastplay_mockup.html
+  OWNER-APPROVED (fe00eea; stub panels + scrollable 4-tab nav judgment
+  calls both approved with it), CP5 site/index.html 4th "Fast Play"
+  segmented view built faithful to the mockup (relative-signal meter
+  reusing mockup CSS/copy verbatim, permanently-separate progressive_jackpot
+  group, all-ungraded v1 honesty framing; views 1–3 confirmed byte-unchanged
+  outside the shared nav/VIEWS plumbing via git diff), tests/site/
+  test_site_static.py extended (ALLOWED_FETCHES→4, Fast Play label/copy
+  pinned, all pre-existing anchors pass unmodified); polish audit vs the
+  mockup found zero deviations (structure/CSS classes/copy ported 1:1,
+  states diverge only where the mockup itself deferred real logic to the
+  build); zero console errors at 420px/1100px + the artifact-missing state
+  verified via a jsdom-driven harness (scratchpad script — no live browser
+  tool available this session, documented substitute in the implementer
+  report). CP6 .github/workflows/daily.yml wired per D4 exactly
+  (continue-on-error fastplay step, its own fastplay-run-failure dedup
+  issue keyed on step outcome, extended `git add` line), tests/workflow/
+  test_daily_workflow.py extended and green. Full `python -m pytest -q`
+  (648/648, includes tests/analysis) green before both checkpoint commits;
+  git diff --stat confirmed data/latest.json, latest.schema.json,
+  scraper/scrape.py, scraper/compute.py, scraper/run_daily.py byte-unchanged
+  (isolation AC-12 held). First live fastplay workflow-step outcome will be
+  observed on the next scheduled daily run (non-blocking per D4).
 - Next milestone: M6c per docs/specs/m6_v2_program_spec.md (evidence-gated;
   inherits M6b's finding that confirmatory lag inference is retired and the
   open question whether a dev-only numpy/scipy state-space likelihood —

@@ -156,7 +156,9 @@ class TestWorkflowCommitStep:
                 break
 
         run_script = commit_step.get("run", "")
-        assert "git add data/latest.json data/history/" in run_script
+        # D4 (docs/specs/fastplay_extension_spec.md): the git add line is
+        # extended to include both new Fast Play paths, exactly.
+        assert "git add data/latest.json data/history/ data/fastplay.json data/fastplay_history/" in run_script
 
     def test_commit_step_has_plain_git_push(self, workflow_doc):
         jobs = workflow_doc.get("jobs", {})
@@ -267,3 +269,78 @@ class TestWorkflowBotIdentity:
         # Both identity strings must be present
         assert 'git config user.name "github-actions[bot]"' in run_script
         assert "41898282+github-actions[bot]@users.noreply.github.com" in run_script
+
+
+class TestWorkflowFastPlayStep:
+    """D4 (docs/specs/fastplay_extension_spec.md): the Fast Play step is its
+    own independent failure domain — id: fastplay, continue-on-error: true,
+    exact run command — placed AFTER the scratch pipeline step and BEFORE
+    the commit step."""
+
+    @staticmethod
+    def _steps(workflow_doc):
+        jobs = workflow_doc.get("jobs", {})
+        run_job = jobs.get("run")
+        return run_job.get("steps", [])
+
+    def test_fastplay_step_exists_with_exact_fields(self, workflow_doc):
+        steps = self._steps(workflow_doc)
+        fastplay_step = None
+        for step in steps:
+            if step.get("name") == "Run Fast Play pipeline (all gates enforced; no write on failure)":
+                fastplay_step = step
+                break
+
+        assert fastplay_step is not None, "Run Fast Play pipeline step not found"
+        assert fastplay_step.get("id") == "fastplay"
+        assert fastplay_step.get("continue-on-error") is True
+        assert fastplay_step.get("run") == "python -m scraper.fastplay --live"
+
+    def test_fastplay_step_ordering(self, workflow_doc):
+        steps = self._steps(workflow_doc)
+        names = [s.get("name") for s in steps]
+        pipeline_idx = names.index("Run daily pipeline (all gates enforced; no write on failure)")
+        fastplay_idx = names.index("Run Fast Play pipeline (all gates enforced; no write on failure)")
+        commit_idx = names.index("Commit and push snapshot")
+        assert pipeline_idx < fastplay_idx < commit_idx
+
+
+class TestWorkflowFastPlayFailureStep:
+    """D4: dedicated, deduplicated Fast Play failure issue, keyed on the
+    fastplay step's own outcome (not the job's overall failure() — a
+    continue-on-error step never trips that), under its own label."""
+
+    @staticmethod
+    def _steps(workflow_doc):
+        jobs = workflow_doc.get("jobs", {})
+        run_job = jobs.get("run")
+        return run_job.get("steps", [])
+
+    def _find(self, workflow_doc):
+        for step in self._steps(workflow_doc):
+            if step.get("name") == "Open Fast Play failure issue (deduplicated per day)":
+                return step
+        return None
+
+    def test_fastplay_failure_step_exists(self, workflow_doc):
+        assert self._find(workflow_doc) is not None, "Open Fast Play failure issue step not found"
+
+    def test_fastplay_failure_step_if_condition(self, workflow_doc):
+        step = self._find(workflow_doc)
+        assert step.get("if") == "steps.fastplay.outcome == 'failure'"
+
+    def test_fastplay_failure_step_label_reference(self, workflow_doc):
+        step = self._find(workflow_doc)
+        run_script = step.get("run", "")
+        assert "fastplay-run-failure" in run_script
+        # Distinct from the scratch pipeline's own label.
+        assert "daily-run-failure" not in run_script
+
+    def test_fastplay_gh_issue_list_before_gh_issue_create(self, workflow_doc):
+        step = self._find(workflow_doc)
+        run_script = step.get("run", "")
+        assert "gh issue list" in run_script
+        assert "gh issue create" in run_script
+        list_pos = run_script.find("gh issue list")
+        create_pos = run_script.find("gh issue create")
+        assert list_pos < create_pos, "gh issue list must appear before gh issue create"
