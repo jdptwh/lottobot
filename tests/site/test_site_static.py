@@ -367,6 +367,7 @@ class TestSiteOnlyAnchors:
         r"fetch\(\s*[\"']\.\./data/latest\.json[\"']",
         r"fetch\(\s*[\"']\.\./data/insights/complexity_burn\.json[\"']",
         r"fetch\(\s*[\"']\.\./data/insights/location_trends\.json[\"']",
+        r"fetch\(\s*[\"']\.\./data/fastplay\.json[\"']",
     )
 
     def test_exactly_one_fetch_per_committed_artifact(self, site_text):
@@ -412,6 +413,27 @@ class TestSiteOnlyAnchors:
         text = mock.read_text(encoding="utf-8")
         assert "MOCKUP ONLY" in text
         assert "DESIGN NOTES" in text
+
+    # Fast Play (docs/specs/fastplay_extension_spec.md CP5): the 4th segment
+    # label and its binding copy-bank fragments (FASTPLAY_REASONS strings,
+    # verbatim substrings) must be present in the build.
+    # Note: the FASTPLAY_REASONS strings themselves (progressive_jackpot,
+    # no_print_run, etc.) are runtime data rendered from data/fastplay.json's
+    # `reason` field — like view 1's claim_lag/sold_out reason text, they are
+    # never hardcoded in the static HTML/JS template, so they are not pinned
+    # here. This list pins the static framing/heading/caveat copy that IS
+    # baked into the page around that dynamic content.
+    FASTPLAY_REQUIRED = [
+        "Fast Play",
+        "ranked by relative signal only",
+        "relative unclaimed-money signal",
+        "Progressive jackpot games — not rateable",
+        "dollars are an upper bound",
+    ]
+
+    def test_fastplay_view_and_honesty_copy_present(self, site_text):
+        for fragment in self.FASTPLAY_REQUIRED:
+            assert fragment in site_text, f"missing fastplay fragment: {fragment}"
 
     def test_normalizeGame_present(self, site_text):
         """Version-skew guard (docs/specs/w2_v15_honesty_spec.md, AC-8):

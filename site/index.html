@@ -26,6 +26,8 @@
   --gold-600: #a9721f;
   --gold-500: #c98a2c;
   --gold-300: #e3b466;
+  --plum-600: #ab4d79;
+  --plum-800: #6e2f4c;
   --amber-warn-bg: #f4e6cf;
   --amber-warn-rule: #b5762a;
   --ink: #1c2621;
@@ -801,6 +803,67 @@ footer.site-footer a { font-weight: 600; }
   header.site-header { padding-left: max(20px, calc(50% - 320px)); padding-right: max(20px, calc(50% - 320px)); }
   .staleness-banner { padding-left: max(20px, calc(50% - 320px)); padding-right: max(20px, calc(50% - 320px)); }
 }
+
+/* ---------- Fast Play (docs/specs/fastplay_extension_spec.md CP5) ---------- */
+.fp-intro { margin: 22px 16px 0; }
+.fp-list-section { margin: 26px 16px 0; }
+.fp-group-section {
+  padding-top: 16px;
+  border-top: 3px solid var(--plum-600);
+}
+.fp-group-section > .section-title { color: var(--plum-800); }
+.fp-asof { margin: 10px 0 0; font-size: 12px; color: var(--ink-soft); }
+
+/* relative-signal meter (NOT a score ring — no grade exists in v1) */
+.relscore-meter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 7px 0 5px;
+}
+.relscore-track {
+  position: relative;
+  flex: 1;
+  height: 8px;
+  background: var(--cream-200);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.relscore-fill {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  background: var(--pine-500);
+  border-radius: 999px;
+}
+.relscore-fill--progressive { background: var(--plum-600); }
+.relscore-label {
+  flex: 0 0 auto;
+  font-size: 11px;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .fp-intro, .fp-list-section {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 640px;
+    width: calc(100% - 32px);
+  }
+}
+
+/* Narrow-viewport tab strip: 4 segments no longer all fit the "Best pick
+   today"-width flex layout at 420px without cramming or wrapping mid-word.
+   Rather than shorten the existing three (byte-untouched) labels, the strip
+   becomes a horizontally scrollable tab bar below 480px — a standard mobile
+   tab-bar move (GitHub, many native apps), and it is the *nav*, not the
+   primary list, so it does not trip the "no horizontal scroll on the
+   primary list" acceptance criterion. */
+@media (max-width: 480px) {
+  .segmented { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .segmented::-webkit-scrollbar { display: none; }
+  .seg-btn { flex: 0 0 auto; padding: 9px 14px; }
+}
 </style>
 </head>
 <body>
@@ -817,6 +880,7 @@ footer.site-footer a { font-weight: 600; }
     <button class="seg-btn" type="button" role="tab" id="tab-best" aria-selected="true" data-view="best">Best pick today</button>
     <button class="seg-btn" type="button" role="tab" id="tab-insights" aria-selected="false" data-view="insights">Game insights</button>
     <button class="seg-btn" type="button" role="tab" id="tab-winners" aria-selected="false" data-view="winners">Winner map</button>
+    <button class="seg-btn" type="button" role="tab" id="tab-fastplay" aria-selected="false" data-view="fastplay">Fast Play</button>
   </div>
 </nav>
 
@@ -934,6 +998,34 @@ footer.site-footer a { font-weight: 600; }
       <div class="coverage-note" id="winner-coverage"></div>
     </section>
     <div id="winners-empty-slot"></div>
+  </div>
+
+  <div id="fastplay-view" class="view-panel" role="tabpanel" aria-labelledby="tab-fastplay" hidden>
+    <div id="fp-staleness-slot"></div>
+    <div id="fp-error-slot"></div>
+    <div id="fp-body-slot">
+
+      <section class="fp-intro" aria-labelledby="fp-heading">
+        <h2 class="section-title" id="fp-heading">Fast Play — ranked by relative signal only</h2>
+        <p class="insight-framing">Fast Play games are Maine's quick-pick terminal tickets — a different family from the scratch cards in Best pick today. The state publishes each game's percent unsold and total unclaimed dollars, but not its print run or overall odds, so <strong>expected value can't be computed here yet</strong> and no Fast Play game carries a grade. Every game below is ordered only by its <strong>relative unclaimed-money signal</strong> — how its unclaimed total compares to other Fast Play games today. That's a comparison, never a probability, and it does not predict where a winning ticket sits.</p>
+        <p class="claim-lag-caveat">Caution: as with the scratch pipeline, &quot;unclaimed&quot; dollars are an upper bound. Some of that money sits on tickets already sold but not yet redeemed rather than tickets still on terminals — so both the raw totals below and the relative signal built from them can overstate what's actually left to win.</p>
+        <div class="stat-row" id="fp-stats"></div>
+        <p class="fp-asof tabular" id="fp-asof"></p>
+      </section>
+
+      <section class="fp-list-section" aria-labelledby="fp-ranked-heading">
+        <h3 class="section-title" id="fp-ranked-heading">Ranked by relative signal</h3>
+        <p class="chart-sub">Bar length is each game's unclaimed-dollar signal relative to the highest game in this list today — not a score, not a percentage of anything, and not an EV.</p>
+        <div id="fp-ranked-slot"></div>
+      </section>
+
+      <section class="fp-list-section fp-group-section" aria-labelledby="fp-progressive-heading">
+        <h3 class="section-title" id="fp-progressive-heading">Progressive jackpot games — not rateable</h3>
+        <p class="chart-sub">These games' top prize is an uncapped jackpot. Its current dollar value isn't published anywhere scrapable, so it's excluded from ranking and can never get an expected value in this view — permanently, not just until more data arrives.</p>
+        <div id="fp-progressive-slot"></div>
+      </section>
+
+    </div>
   </div>
 </main>
 
@@ -1369,7 +1461,8 @@ footer.site-footer a { font-weight: 600; }
   var VIEWS = {
     best: document.getElementById("content-slot"),
     insights: document.getElementById("insights-view"),
-    winners: document.getElementById("winners-view")
+    winners: document.getElementById("winners-view"),
+    fastplay: document.getElementById("fastplay-view")
   };
   function showView(name) {
     Object.keys(VIEWS).forEach(function (key) {
@@ -1382,6 +1475,7 @@ footer.site-footer a { font-weight: 600; }
     document.getElementById("error-slot").style.display = name === "best" ? "" : "none";
     if (name === "insights") loadInsights();
     if (name === "winners") loadWinners();
+    if (name === "fastplay") loadFastPlay();
   }
   Array.prototype.forEach.call(document.querySelectorAll(".seg-btn"), function (btn) {
     btn.addEventListener("click", function () { showView(btn.getAttribute("data-view")); });
@@ -1831,6 +1925,149 @@ footer.site-footer a { font-weight: 600; }
     });
     html.push("</tbody>");
     document.getElementById("retailer-table").innerHTML = html.join("");
+  }
+
+  /* =====================================================================
+     Fast Play view (docs/specs/fastplay_extension_spec.md CP5). RENDERS the
+     committed data/fastplay.json artifact; v1 posture is all-ungraded
+     (print_run/ev_ratio/value_score/grade null for every game), ranked only
+     by relative_score, with progressive_jackpot games broken into their own
+     permanently non-rateable group (D2). Reuses money/pct1/esc/priceLabel/
+     statTile already defined above for view 1/2/3 — no redefinition.
+     ===================================================================== */
+
+  var FASTPLAY = null;
+  var fpRequested = false;
+
+  function fpHasProgressive(g) {
+    return (g.flags || []).indexOf("progressive_jackpot") !== -1;
+  }
+  function fpTierLabel(t) {
+    if (t.level === null || t.level === undefined) return t.level_label || "JACKPOT";
+    return money(t.level);
+  }
+  function fpTiersHtml(tiers) {
+    if (!tiers || !tiers.length) return '<p class="pending-note">No tier data.</p>';
+    return '<ul class="tiers-list">' + tiers.map(function (t) {
+      return "<li><span>" + esc(fpTierLabel(t)) + " prize</span><span class=\"tabular\">" + t.remaining + " remaining</span></li>";
+    }).join("") + "</ul>";
+  }
+
+  function renderFPRow(g, rank, maxScore) {
+    var score = g.relative_score || 0;
+    var pct = maxScore ? Math.max(2, Math.round((score / maxScore) * 100)) : 0;
+    var isProg = fpHasProgressive(g);
+    var fillClass = "relscore-fill" + (isProg ? " relscore-fill--progressive" : "");
+    return '<div class="rank-row">' +
+      '<div class="rank-rail tabular">' + rank + "</div>" +
+      '<div class="rank-main">' +
+      '<details class="expander">' +
+      "<summary>" +
+      '<div class="rank-name-row">' +
+      '<p class="rank-name">' + esc(g.name) + ' <span class="tabular" style="font-weight:400;color:var(--ink-soft)">#' + g.game_no + "</span></p>" +
+      '<span class="rank-price tabular">' + priceLabel(g.price) + "</span>" +
+      "</div>" +
+      '<div class="relscore-meter"><div class="relscore-track"><div class="' + fillClass + '" style="width:' + pct + '%"></div></div><span class="relscore-label tabular">Relative signal ' + Math.round(score).toLocaleString("en-US") + "</span></div>" +
+      '<p class="rank-reason">' + esc(g.reason) + "</p>" +
+      '<span class="expand-toggle">Top prizes &amp; detail &#9662;</span>' +
+      "</summary>" +
+      '<div class="detail-sheet">' +
+      '<dl class="detail-grid tabular">' +
+      "<dt>Percent unsold</dt><dd>" + pct1(g.percent_unsold) + "</dd>" +
+      "<dt>Total unclaimed (upper bound)</dt><dd>" + money(g.total_unclaimed) + "</dd>" +
+      "<dt>Print run</dt><dd>—</dd>" +
+      "<dt>Relative signal</dt><dd>" + Math.round(score).toLocaleString("en-US") + "</dd>" +
+      "</dl>" +
+      fpTiersHtml(g.top_prizes) +
+      "</div>" +
+      "</details>" +
+      "</div></div>";
+  }
+
+  function renderFPStats(games) {
+    var prog = games.filter(fpHasProgressive);
+    var nonProg = games.filter(function (g) { return !fpHasProgressive(g); });
+    var totalUnclaimed = games.reduce(function (s, g) { return s + (g.total_unclaimed || 0); }, 0);
+    document.getElementById("fp-stats").innerHTML =
+      statTile(games.length, "Fast Play games tracked") +
+      statTile(nonProg.length, "ranked by relative signal") +
+      statTile(prog.length, "progressive — not rateable") +
+      statTile(money(totalUnclaimed), "total unclaimed (upper bound)");
+  }
+
+  function renderFPRanked(games) {
+    var nonProg = games.filter(function (g) { return !fpHasProgressive(g); })
+      .slice().sort(function (a, b) { return (b.relative_score || 0) - (a.relative_score || 0); });
+    var prog = games.filter(fpHasProgressive)
+      .slice().sort(function (a, b) { return (b.relative_score || 0) - (a.relative_score || 0); });
+    var maxNonProg = nonProg.length ? (nonProg[0].relative_score || 0) : 0;
+    var maxProg = prog.length ? (prog[0].relative_score || 0) : 0;
+
+    document.getElementById("fp-ranked-slot").innerHTML = nonProg.length
+      ? nonProg.map(function (g, i) { return renderFPRow(g, i + 1, maxNonProg); }).join("")
+      : '<p style="color:var(--ink-soft);font-size:13px;">No ranked Fast Play games right now.</p>';
+
+    document.getElementById("fp-progressive-slot").innerHTML = prog.length
+      ? prog.map(function (g, i) { return renderFPRow(g, i + 1, maxProg); }).join("")
+      : '<p style="color:var(--ink-soft);font-size:13px;">No progressive Fast Play games right now.</p>';
+  }
+
+  function renderFastPlayMissing(show) {
+    var slot = document.getElementById("fp-error-slot");
+    var body = document.getElementById("fp-body-slot");
+    if (!show) { return; }
+    body.style.display = "none";
+    document.getElementById("fp-staleness-slot").innerHTML = "";
+    slot.innerHTML = '<div class="chart-box"><div class="chart-empty">The Fast Play artifact hasn\'t been published yet. It is generated by <code>python -m scraper.fastplay --fixture tests/scraper/fixtures/unclaimed_fastplay_&lt;date&gt;.html --as-of &lt;date&gt; --out data/fastplay.json</code>.</div></div>';
+  }
+
+  function renderFastPlayError(show) {
+    var slot = document.getElementById("fp-error-slot");
+    var body = document.getElementById("fp-body-slot");
+    if (!show) { return; }
+    body.style.display = "none";
+    document.getElementById("fp-staleness-slot").innerHTML = "";
+    slot.innerHTML = '<div class="error-panel">' +
+      "<h2>Couldn't load Fast Play data</h2>" +
+      "<p>We weren't able to load today's Fast Play figures. Try reloading in a few minutes, or check the Lottery's own list directly.</p>" +
+      '<p><a href="https://www.mainelottery.com/fastplay/unclaimed_fastplay.html" target="_blank" rel="noopener">View the Fast Play unclaimed/unsold list at mainelottery.com &rarr;</a></p>' +
+      "</div>";
+  }
+
+  function renderFastPlayStaleness() {
+    var slot = document.getElementById("fp-staleness-slot");
+    if (!FASTPLAY) { slot.innerHTML = ""; return; }
+    var stale = (Date.now() - Date.parse(FASTPLAY.as_of + "T00:00:00Z")) > STALE_MS;
+    if (!stale) { slot.innerHTML = ""; return; }
+    slot.innerHTML = '<div class="staleness-banner">' +
+      "<strong>Data may be stale.</strong> The last good Fast Play update was <strong>" + esc(FASTPLAY.as_of) + "</strong> — the Lottery may have published newer figures we haven't picked up yet." +
+      "</div>";
+  }
+
+  function renderFastPlay() {
+    document.getElementById("fp-error-slot").innerHTML = "";
+    document.getElementById("fp-body-slot").style.display = "";
+    renderFastPlayStaleness();
+    document.getElementById("fp-asof").textContent = "As of " + FASTPLAY.as_of + " · state snapshot: " + FASTPLAY.source_timestamp;
+    renderFPStats(FASTPLAY.games);
+    renderFPRanked(FASTPLAY.games);
+  }
+
+  function loadFastPlay() {
+    if (fpRequested) return;
+    fpRequested = true;
+    fetch("../data/fastplay.json")
+      .then(function (res) {
+        if (res.status === 404) { renderFastPlayMissing(true); return null; }
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        if (!data) return;
+        FASTPLAY = data;
+        renderFastPlay();
+      })
+      .catch(function () { renderFastPlayError(true); });
   }
 
   fetch("../data/latest.json")
