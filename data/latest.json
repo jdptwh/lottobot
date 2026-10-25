@@ -1,6 +1,6 @@
 {
-  "as_of": "2026-10-24",
-  "source_timestamp": "October 24, 2026 5:00 AM",
+  "as_of": "2026-10-25",
+  "source_timestamp": "October 25, 2026 5:00 AM",
   "games": [
     {
       "game_no": 630,
@@ -19,7 +19,7 @@
         },
         {
           "level": 500,
-          "remaining": 60
+          "remaining": 59
         }
       ],
       "print_run": 960000,
@@ -1010,7 +1010,7 @@
         },
         {
           "level": 500,
-          "remaining": 315
+          "remaining": 314
         }
       ],
       "print_run": 1320000,
@@ -1365,7 +1365,7 @@
         },
         {
           "level": 500,
-          "remaining": 168
+          "remaining": 167
         }
       ],
       "print_run": 1440000,
@@ -1684,7 +1684,7 @@
         },
         {
           "level": 500,
-          "remaining": 294
+          "remaining": 293
         }
       ],
       "print_run": 1200000,
@@ -2580,7 +2580,7 @@
         },
         {
           "level": 500,
-          "remaining": 4812
+          "remaining": 4803
         }
       ],
       "print_run": 3100000,
@@ -2683,7 +2683,7 @@
         },
         {
           "level": 500,
-          "remaining": 187
+          "remaining": 186
         }
       ],
       "print_run": 1560000,
@@ -2799,7 +2799,7 @@
         },
         {
           "level": 500,
-          "remaining": 54
+          "remaining": 52
         }
       ],
       "print_run": 960000,
@@ -3167,7 +3167,7 @@
       "top_prizes": [
         {
           "level": 500,
-          "remaining": 39
+          "remaining": 35
         }
       ],
       "print_run": 960000,
@@ -3176,7 +3176,7 @@
       "ev_ratio": 28.2125,
       "ev_ratio_adjusted": null,
       "relative_score": 1354200.0,
-      "top_prize_odds_now": 24.615385,
+      "top_prize_odds_now": 27.428571,
       "dead_game": false,
       "flags": [
         "anomaly_candidate",
@@ -3217,7 +3217,7 @@
       "top_prizes": [
         {
           "level": 500,
-          "remaining": 1504
+          "remaining": 1480
         }
       ],
       "print_run": null,
@@ -3256,7 +3256,7 @@
         },
         {
           "level": 500,
-          "remaining": 305
+          "remaining": 300
         }
       ],
       "print_run": null,
@@ -3350,7 +3350,7 @@
         },
         {
           "level": 500,
-          "remaining": 1778
+          "remaining": 1774
         }
       ],
       "print_run": null,
@@ -3409,7 +3409,7 @@
         },
         {
           "level": 500,
-          "remaining": 2889
+          "remaining": 2880
         }
       ],
       "print_run": null,
