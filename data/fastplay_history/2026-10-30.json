@@ -1,0 +1,1034 @@
+{
+  "as_of": "2026-10-30",
+  "source_timestamp": "October 30, 2026 5:00 AM",
+  "games": [
+    {
+      "game_no": 11,
+      "name": "FAT WALLET",
+      "price": 5.0,
+      "percent_unsold": 57.0,
+      "total_unclaimed": 5476040.0,
+      "top_prizes": [
+        {
+          "level": 75000,
+          "remaining": 6
+        },
+        {
+          "level": 10000,
+          "remaining": 9
+        },
+        {
+          "level": 1000,
+          "remaining": 91
+        },
+        {
+          "level": 500,
+          "remaining": 247
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 96070.877193,
+      "dead_game": false,
+      "flags": [
+        "no_print_run"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Total ticket quantity unknown for this Fast Play game \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+    },
+    {
+      "game_no": 22,
+      "name": "PATRIOTS PROGRESSIVE",
+      "price": 5.0,
+      "percent_unsold": 61.7,
+      "total_unclaimed": 2222905.0,
+      "top_prizes": [
+        {
+          "level": null,
+          "level_label": "JACKPOT",
+          "remaining": 1
+        },
+        {
+          "level": 5000,
+          "remaining": 10
+        },
+        {
+          "level": 1000,
+          "remaining": 15
+        },
+        {
+          "level": 500,
+          "remaining": 30
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 36027.633712,
+      "dead_game": false,
+      "flags": [
+        "no_print_run",
+        "progressive_jackpot"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Jackpot value isn't published on the state's Fast Play page \u2014 expected value can't be computed for this progressive game."
+    },
+    {
+      "game_no": 25,
+      "name": "BLACKJACK PROGRESSIVE",
+      "price": 2.0,
+      "percent_unsold": 30.4,
+      "total_unclaimed": 1019836.0,
+      "top_prizes": [
+        {
+          "level": null,
+          "level_label": "JACKPOT",
+          "remaining": 4
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 33547.236842,
+      "dead_game": false,
+      "flags": [
+        "no_print_run",
+        "progressive_jackpot"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Jackpot value isn't published on the state's Fast Play page \u2014 expected value can't be computed for this progressive game."
+    },
+    {
+      "game_no": 26,
+      "name": "CA$H BLAST PROGRESSIVE",
+      "price": 2.0,
+      "percent_unsold": 49.4,
+      "total_unclaimed": 711368.0,
+      "top_prizes": [
+        {
+          "level": null,
+          "level_label": "JACKPOT",
+          "remaining": 2
+        },
+        {
+          "level": 1000,
+          "remaining": 6
+        },
+        {
+          "level": 500,
+          "remaining": 18
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 14400.161943,
+      "dead_game": false,
+      "flags": [
+        "no_print_run",
+        "progressive_jackpot"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Jackpot value isn't published on the state's Fast Play page \u2014 expected value can't be computed for this progressive game."
+    },
+    {
+      "game_no": 27,
+      "name": "CA$H BLAST PROGRESSIVE",
+      "price": 5.0,
+      "percent_unsold": 59.5,
+      "total_unclaimed": 2141800.0,
+      "top_prizes": [
+        {
+          "level": null,
+          "level_label": "JACKPOT",
+          "remaining": 3
+        },
+        {
+          "level": 10000,
+          "remaining": 3
+        },
+        {
+          "level": 1000,
+          "remaining": 14
+        },
+        {
+          "level": 500,
+          "remaining": 60
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 35996.638655,
+      "dead_game": false,
+      "flags": [
+        "no_print_run",
+        "progressive_jackpot"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Jackpot value isn't published on the state's Fast Play page \u2014 expected value can't be computed for this progressive game."
+    },
+    {
+      "game_no": 28,
+      "name": "CA$H BLAST PROGRESSIVE",
+      "price": 10.0,
+      "percent_unsold": 73.9,
+      "total_unclaimed": 8867360.0,
+      "top_prizes": [
+        {
+          "level": null,
+          "level_label": "JACKPOT",
+          "remaining": 4
+        },
+        {
+          "level": 10000,
+          "remaining": 6
+        },
+        {
+          "level": 1000,
+          "remaining": 506
+        },
+        {
+          "level": 500,
+          "remaining": 668
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 119991.339648,
+      "dead_game": false,
+      "flags": [
+        "no_print_run",
+        "progressive_jackpot"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Jackpot value isn't published on the state's Fast Play page \u2014 expected value can't be computed for this progressive game."
+    },
+    {
+      "game_no": 30,
+      "name": "MAINE CA$H MULTIPLIER PROGRESS",
+      "price": 10.0,
+      "percent_unsold": 72.6,
+      "total_unclaimed": 9151600.0,
+      "top_prizes": [
+        {
+          "level": null,
+          "level_label": "JACKPOT",
+          "remaining": 3
+        },
+        {
+          "level": 2000,
+          "remaining": 11
+        },
+        {
+          "level": 1000,
+          "remaining": 51
+        },
+        {
+          "level": 500,
+          "remaining": 559
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 126055.096419,
+      "dead_game": false,
+      "flags": [
+        "no_print_run",
+        "progressive_jackpot"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Jackpot value isn't published on the state's Fast Play page \u2014 expected value can't be computed for this progressive game."
+    },
+    {
+      "game_no": 31,
+      "name": "MAINE CA$H MULTIPLIER PROGRESS",
+      "price": 20.0,
+      "percent_unsold": 77.4,
+      "total_unclaimed": 19515600.0,
+      "top_prizes": [
+        {
+          "level": null,
+          "level_label": "JACKPOT",
+          "remaining": 3
+        },
+        {
+          "level": 10000,
+          "remaining": 8
+        },
+        {
+          "level": 1000,
+          "remaining": 108
+        },
+        {
+          "level": 500,
+          "remaining": 976
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 252139.534884,
+      "dead_game": false,
+      "flags": [
+        "no_print_run",
+        "progressive_jackpot"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Jackpot value isn't published on the state's Fast Play page \u2014 expected value can't be computed for this progressive game."
+    },
+    {
+      "game_no": 35,
+      "name": "CRAZY 8`S",
+      "price": 2.0,
+      "percent_unsold": 33.1,
+      "total_unclaimed": 318122.0,
+      "top_prizes": [
+        {
+          "level": 8888,
+          "remaining": 1
+        },
+        {
+          "level": 888,
+          "remaining": 4
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 9610.936556,
+      "dead_game": false,
+      "flags": [
+        "no_print_run"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Total ticket quantity unknown for this Fast Play game \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+    },
+    {
+      "game_no": 36,
+      "name": "JACKPOT PARTY PROGRESSIVE",
+      "price": 5.0,
+      "percent_unsold": 72.9,
+      "total_unclaimed": 2187760.0,
+      "top_prizes": [
+        {
+          "level": null,
+          "level_label": "JACKPOT",
+          "remaining": 3
+        },
+        {
+          "level": 10000,
+          "remaining": 3
+        },
+        {
+          "level": 1000,
+          "remaining": 11
+        },
+        {
+          "level": 500,
+          "remaining": 11
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 30010.42524,
+      "dead_game": false,
+      "flags": [
+        "no_print_run",
+        "progressive_jackpot"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Jackpot value isn't published on the state's Fast Play page \u2014 expected value can't be computed for this progressive game."
+    },
+    {
+      "game_no": 38,
+      "name": "COLD HARD CASH PROGRESSIVE",
+      "price": 10.0,
+      "percent_unsold": 78.6,
+      "total_unclaimed": 4714370.0,
+      "top_prizes": [
+        {
+          "level": null,
+          "level_label": "JACKPOT",
+          "remaining": 1
+        },
+        {
+          "level": 50000,
+          "remaining": 3
+        },
+        {
+          "level": 10000,
+          "remaining": 3
+        },
+        {
+          "level": 1000,
+          "remaining": 7
+        },
+        {
+          "level": 500,
+          "remaining": 26
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 59979.262087,
+      "dead_game": false,
+      "flags": [
+        "no_print_run",
+        "progressive_jackpot"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Jackpot value isn't published on the state's Fast Play page \u2014 expected value can't be computed for this progressive game."
+    },
+    {
+      "game_no": 40,
+      "name": "VIP CLUB PROGRESSIVE",
+      "price": 30.0,
+      "percent_unsold": 57.4,
+      "total_unclaimed": 20675040.0,
+      "top_prizes": [
+        {
+          "level": null,
+          "level_label": "JACKPOT",
+          "remaining": 3
+        },
+        {
+          "level": 100000,
+          "remaining": 3
+        },
+        {
+          "level": 5000,
+          "remaining": 6
+        },
+        {
+          "level": 1000,
+          "remaining": 43
+        },
+        {
+          "level": 500,
+          "remaining": 1004
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 360192.334495,
+      "dead_game": false,
+      "flags": [
+        "no_print_run",
+        "progressive_jackpot"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Jackpot value isn't published on the state's Fast Play page \u2014 expected value can't be computed for this progressive game."
+    },
+    {
+      "game_no": 43,
+      "name": "FA-LA-LA-LA-LLAMA",
+      "price": 5.0,
+      "percent_unsold": 78.2,
+      "total_unclaimed": 1877080.0,
+      "top_prizes": [
+        {
+          "level": 75000,
+          "remaining": 2
+        },
+        {
+          "level": 5000,
+          "remaining": 11
+        },
+        {
+          "level": 1000,
+          "remaining": 55
+        },
+        {
+          "level": 500,
+          "remaining": 317
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 24003.580563,
+      "dead_game": false,
+      "flags": [
+        "no_print_run"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Total ticket quantity unknown for this Fast Play game \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+    },
+    {
+      "game_no": 44,
+      "name": "HOLIDAY BLOWOUT",
+      "price": 10.0,
+      "percent_unsold": 74.0,
+      "total_unclaimed": 3553520.0,
+      "top_prizes": [
+        {
+          "level": 150000,
+          "remaining": 2
+        },
+        {
+          "level": 5000,
+          "remaining": 16
+        },
+        {
+          "level": 1000,
+          "remaining": 25
+        },
+        {
+          "level": 500,
+          "remaining": 1002
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 48020.540541,
+      "dead_game": false,
+      "flags": [
+        "no_print_run"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Total ticket quantity unknown for this Fast Play game \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+    },
+    {
+      "game_no": 48,
+      "name": "ROYAL CASH PROGRESSIVE",
+      "price": 5.0,
+      "percent_unsold": 69.4,
+      "total_unclaimed": 1665060.0,
+      "top_prizes": [
+        {
+          "level": null,
+          "level_label": "JACKPOT",
+          "remaining": 3
+        },
+        {
+          "level": 1000,
+          "remaining": 10
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 23992.21902,
+      "dead_game": false,
+      "flags": [
+        "no_print_run",
+        "progressive_jackpot"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Jackpot value isn't published on the state's Fast Play page \u2014 expected value can't be computed for this progressive game."
+    },
+    {
+      "game_no": 50,
+      "name": "FALL FAST CASH BINGO",
+      "price": 2.0,
+      "percent_unsold": 78.9,
+      "total_unclaimed": 568386.0,
+      "top_prizes": [
+        {
+          "level": 20000,
+          "remaining": 2
+        },
+        {
+          "level": 5000,
+          "remaining": 2
+        },
+        {
+          "level": 1000,
+          "remaining": 12
+        },
+        {
+          "level": 500,
+          "remaining": 23
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 7203.878327,
+      "dead_game": false,
+      "flags": [
+        "no_print_run"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Total ticket quantity unknown for this Fast Play game \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+    },
+    {
+      "game_no": 51,
+      "name": "WINTER FAST CASH BINGO",
+      "price": 2.0,
+      "percent_unsold": 79.9,
+      "total_unclaimed": 575572.0,
+      "top_prizes": [
+        {
+          "level": 20000,
+          "remaining": 2
+        },
+        {
+          "level": 5000,
+          "remaining": 2
+        },
+        {
+          "level": 1000,
+          "remaining": 11
+        },
+        {
+          "level": 500,
+          "remaining": 26
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 7203.654568,
+      "dead_game": false,
+      "flags": [
+        "no_print_run"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Total ticket quantity unknown for this Fast Play game \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+    },
+    {
+      "game_no": 52,
+      "name": "SPRING FAST CASH BINGO",
+      "price": 2.0,
+      "percent_unsold": 76.9,
+      "total_unclaimed": 553874.0,
+      "top_prizes": [
+        {
+          "level": 20000,
+          "remaining": 1
+        },
+        {
+          "level": 5000,
+          "remaining": 2
+        },
+        {
+          "level": 1000,
+          "remaining": 11
+        },
+        {
+          "level": 500,
+          "remaining": 24
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 7202.522757,
+      "dead_game": false,
+      "flags": [
+        "no_print_run"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Total ticket quantity unknown for this Fast Play game \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+    },
+    {
+      "game_no": 53,
+      "name": "MONOPOLY",
+      "price": 10.0,
+      "percent_unsold": 35.7,
+      "total_unclaimed": 1069930.0,
+      "top_prizes": [
+        {
+          "level": 250000,
+          "remaining": 1
+        },
+        {
+          "level": 10000,
+          "remaining": 2
+        },
+        {
+          "level": 5000,
+          "remaining": 3
+        },
+        {
+          "level": 1000,
+          "remaining": 5
+        },
+        {
+          "level": 500,
+          "remaining": 284
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 29970.028011,
+      "dead_game": false,
+      "flags": [
+        "no_print_run"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Total ticket quantity unknown for this Fast Play game \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+    },
+    {
+      "game_no": 57,
+      "name": "$500,000 PLATINUM PAYOUT",
+      "price": 20.0,
+      "percent_unsold": 78.4,
+      "total_unclaimed": 7530500.0,
+      "top_prizes": [
+        {
+          "level": 500000,
+          "remaining": 2
+        },
+        {
+          "level": 100000,
+          "remaining": 1
+        },
+        {
+          "level": 50000,
+          "remaining": 1
+        },
+        {
+          "level": 25000,
+          "remaining": 2
+        },
+        {
+          "level": 10000,
+          "remaining": 4
+        },
+        {
+          "level": 5000,
+          "remaining": 3
+        },
+        {
+          "level": 1000,
+          "remaining": 7
+        },
+        {
+          "level": 500,
+          "remaining": 38
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 96052.295918,
+      "dead_game": false,
+      "flags": [
+        "no_print_run"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Total ticket quantity unknown for this Fast Play game \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+    },
+    {
+      "game_no": 58,
+      "name": "BLANK CHECK PROGRESSIVE",
+      "price": 20.0,
+      "percent_unsold": 82.4,
+      "total_unclaimed": 6589220.0,
+      "top_prizes": [
+        {
+          "level": null,
+          "level_label": "JACKPOT",
+          "remaining": 2
+        },
+        {
+          "level": 10000,
+          "remaining": 4
+        },
+        {
+          "level": 5000,
+          "remaining": 4
+        },
+        {
+          "level": 1000,
+          "remaining": 33
+        },
+        {
+          "level": 500,
+          "remaining": 51
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 79966.262136,
+      "dead_game": false,
+      "flags": [
+        "no_print_run",
+        "progressive_jackpot"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Jackpot value isn't published on the state's Fast Play page \u2014 expected value can't be computed for this progressive game."
+    },
+    {
+      "game_no": 61,
+      "name": "FABULOUS 5S",
+      "price": 5.0,
+      "percent_unsold": 35.3,
+      "total_unclaimed": 441120.0,
+      "top_prizes": [
+        {
+          "level": 5000,
+          "remaining": 13
+        },
+        {
+          "level": 2000,
+          "remaining": 8
+        },
+        {
+          "level": 1000,
+          "remaining": 6
+        },
+        {
+          "level": 500,
+          "remaining": 16
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 12496.31728,
+      "dead_game": false,
+      "flags": [
+        "no_print_run"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Total ticket quantity unknown for this Fast Play game \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+    },
+    {
+      "game_no": 69,
+      "name": "GNOME FOR THE HOLIDAYS",
+      "price": 2.0,
+      "percent_unsold": 73.6,
+      "total_unclaimed": 294214.0,
+      "top_prizes": [
+        {
+          "level": 5000,
+          "remaining": 15
+        },
+        {
+          "level": 500,
+          "remaining": 11
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 3997.472826,
+      "dead_game": false,
+      "flags": [
+        "no_print_run"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Total ticket quantity unknown for this Fast Play game \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+    },
+    {
+      "game_no": 73,
+      "name": "FIRECRACKER FAST CASH BINGO",
+      "price": 2.0,
+      "percent_unsold": 66.7,
+      "total_unclaimed": 160078.0,
+      "top_prizes": [
+        {
+          "level": 15000,
+          "remaining": 3
+        },
+        {
+          "level": 500,
+          "remaining": 19
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 2399.970015,
+      "dead_game": false,
+      "flags": [
+        "no_print_run"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Total ticket quantity unknown for this Fast Play game \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+    },
+    {
+      "game_no": 74,
+      "name": "FAST $500S",
+      "price": 10.0,
+      "percent_unsold": 59.5,
+      "total_unclaimed": 2380650.0,
+      "top_prizes": [
+        {
+          "level": 500,
+          "remaining": 2018
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 40010.92437,
+      "dead_game": false,
+      "flags": [
+        "no_print_run"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Total ticket quantity unknown for this Fast Play game \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+    },
+    {
+      "game_no": 76,
+      "name": "TRICK OR TREASURE FAST CASH BI",
+      "price": 2.0,
+      "percent_unsold": 72.0,
+      "total_unclaimed": 172906.0,
+      "top_prizes": [
+        {
+          "level": 15000,
+          "remaining": 3
+        },
+        {
+          "level": 500,
+          "remaining": 23
+        }
+      ],
+      "print_run": null,
+      "remaining_tickets": null,
+      "ev_per_ticket": null,
+      "ev_ratio": null,
+      "ev_ratio_adjusted": null,
+      "relative_score": 2401.472222,
+      "dead_game": false,
+      "flags": [
+        "no_print_run"
+      ],
+      "confidence": "low",
+      "value_score": null,
+      "grade": null,
+      "rated": false,
+      "reason": "Total ticket quantity unknown for this Fast Play game \u2014 expected value can't be computed; ranked by the relative unclaimed-money signal only."
+    }
+  ]
+}

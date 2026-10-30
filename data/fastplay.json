@@ -1,6 +1,6 @@
 {
-  "as_of": "2026-10-29",
-  "source_timestamp": "October 29, 2026 5:00 AM",
+  "as_of": "2026-10-30",
+  "source_timestamp": "October 30, 2026 5:00 AM",
   "games": [
     {
       "game_no": 11,
@@ -89,7 +89,7 @@
       "name": "BLACKJACK PROGRESSIVE",
       "price": 2.0,
       "percent_unsold": 30.4,
-      "total_unclaimed": 1020570.0,
+      "total_unclaimed": 1019836.0,
       "top_prizes": [
         {
           "level": null,
@@ -102,7 +102,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 33571.381579,
+      "relative_score": 33547.236842,
       "dead_game": false,
       "flags": [
         "no_print_run",
@@ -119,7 +119,7 @@
       "name": "CA$H BLAST PROGRESSIVE",
       "price": 2.0,
       "percent_unsold": 49.4,
-      "total_unclaimed": 711702.0,
+      "total_unclaimed": 711368.0,
       "top_prizes": [
         {
           "level": null,
@@ -140,7 +140,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 14406.923077,
+      "relative_score": 14400.161943,
       "dead_game": false,
       "flags": [
         "no_print_run",
@@ -157,7 +157,7 @@
       "name": "CA$H BLAST PROGRESSIVE",
       "price": 5.0,
       "percent_unsold": 59.5,
-      "total_unclaimed": 2142450.0,
+      "total_unclaimed": 2141800.0,
       "top_prizes": [
         {
           "level": null,
@@ -182,7 +182,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 36007.563025,
+      "relative_score": 35996.638655,
       "dead_game": false,
       "flags": [
         "no_print_run",
@@ -199,7 +199,7 @@
       "name": "CA$H BLAST PROGRESSIVE",
       "price": 10.0,
       "percent_unsold": 73.9,
-      "total_unclaimed": 8869790.0,
+      "total_unclaimed": 8867360.0,
       "top_prizes": [
         {
           "level": null,
@@ -224,7 +224,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 120024.221922,
+      "relative_score": 119991.339648,
       "dead_game": false,
       "flags": [
         "no_print_run",
@@ -240,8 +240,8 @@
       "game_no": 30,
       "name": "MAINE CA$H MULTIPLIER PROGRESS",
       "price": 10.0,
-      "percent_unsold": 72.7,
-      "total_unclaimed": 9154830.0,
+      "percent_unsold": 72.6,
+      "total_unclaimed": 9151600.0,
       "top_prizes": [
         {
           "level": null,
@@ -266,7 +266,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 125926.134801,
+      "relative_score": 126055.096419,
       "dead_game": false,
       "flags": [
         "no_print_run",
@@ -282,8 +282,8 @@
       "game_no": 31,
       "name": "MAINE CA$H MULTIPLIER PROGRESS",
       "price": 20.0,
-      "percent_unsold": 77.5,
-      "total_unclaimed": 19520180.0,
+      "percent_unsold": 77.4,
+      "total_unclaimed": 19515600.0,
       "top_prizes": [
         {
           "level": null,
@@ -308,7 +308,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 251873.290323,
+      "relative_score": 252139.534884,
       "dead_game": false,
       "flags": [
         "no_print_run",
@@ -357,7 +357,7 @@
       "name": "JACKPOT PARTY PROGRESSIVE",
       "price": 5.0,
       "percent_unsold": 72.9,
-      "total_unclaimed": 2188445.0,
+      "total_unclaimed": 2187760.0,
       "top_prizes": [
         {
           "level": null,
@@ -382,7 +382,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 30019.821674,
+      "relative_score": 30010.42524,
       "dead_game": false,
       "flags": [
         "no_print_run",
@@ -444,8 +444,8 @@
       "game_no": 40,
       "name": "VIP CLUB PROGRESSIVE",
       "price": 30.0,
-      "percent_unsold": 57.5,
-      "total_unclaimed": 20688000.0,
+      "percent_unsold": 57.4,
+      "total_unclaimed": 20675040.0,
       "top_prizes": [
         {
           "level": null,
@@ -466,7 +466,7 @@
         },
         {
           "level": 500,
-          "remaining": 1005
+          "remaining": 1004
         }
       ],
       "print_run": null,
@@ -474,7 +474,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 359791.304348,
+      "relative_score": 360192.334495,
       "dead_game": false,
       "flags": [
         "no_print_run",
@@ -530,8 +530,8 @@
       "game_no": 44,
       "name": "HOLIDAY BLOWOUT",
       "price": 10.0,
-      "percent_unsold": 74.1,
-      "total_unclaimed": 3556540.0,
+      "percent_unsold": 74.0,
+      "total_unclaimed": 3553520.0,
       "top_prizes": [
         {
           "level": 150000,
@@ -555,7 +555,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 47996.491228,
+      "relative_score": 48020.540541,
       "dead_game": false,
       "flags": [
         "no_print_run"
@@ -571,7 +571,7 @@
       "name": "ROYAL CASH PROGRESSIVE",
       "price": 5.0,
       "percent_unsold": 69.4,
-      "total_unclaimed": 1666035.0,
+      "total_unclaimed": 1665060.0,
       "top_prizes": [
         {
           "level": null,
@@ -588,7 +588,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 24006.268012,
+      "relative_score": 23992.21902,
       "dead_game": false,
       "flags": [
         "no_print_run",
@@ -725,7 +725,7 @@
       "name": "MONOPOLY",
       "price": 10.0,
       "percent_unsold": 35.7,
-      "total_unclaimed": 1072190.0,
+      "total_unclaimed": 1069930.0,
       "top_prizes": [
         {
           "level": 250000,
@@ -745,7 +745,7 @@
         },
         {
           "level": 500,
-          "remaining": 285
+          "remaining": 284
         }
       ],
       "print_run": null,
@@ -753,7 +753,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 30033.333333,
+      "relative_score": 29970.028011,
       "dead_game": false,
       "flags": [
         "no_print_run"
@@ -768,8 +768,8 @@
       "game_no": 57,
       "name": "$500,000 PLATINUM PAYOUT",
       "price": 20.0,
-      "percent_unsold": 78.5,
-      "total_unclaimed": 7532760.0,
+      "percent_unsold": 78.4,
+      "total_unclaimed": 7530500.0,
       "top_prizes": [
         {
           "level": 500000,
@@ -809,7 +809,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 95958.726115,
+      "relative_score": 96052.295918,
       "dead_game": false,
       "flags": [
         "no_print_run"
@@ -825,7 +825,7 @@
       "name": "BLANK CHECK PROGRESSIVE",
       "price": 20.0,
       "percent_unsold": 82.4,
-      "total_unclaimed": 6590360.0,
+      "total_unclaimed": 6589220.0,
       "top_prizes": [
         {
           "level": null,
@@ -854,7 +854,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 79980.097087,
+      "relative_score": 79966.262136,
       "dead_game": false,
       "flags": [
         "no_print_run",
@@ -870,8 +870,8 @@
       "game_no": 61,
       "name": "FABULOUS 5S",
       "price": 5.0,
-      "percent_unsold": 35.4,
-      "total_unclaimed": 442165.0,
+      "percent_unsold": 35.3,
+      "total_unclaimed": 441120.0,
       "top_prizes": [
         {
           "level": 5000,
@@ -895,7 +895,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 12490.536723,
+      "relative_score": 12496.31728,
       "dead_game": false,
       "flags": [
         "no_print_run"
@@ -910,8 +910,8 @@
       "game_no": 69,
       "name": "GNOME FOR THE HOLIDAYS",
       "price": 2.0,
-      "percent_unsold": 73.7,
-      "total_unclaimed": 294650.0,
+      "percent_unsold": 73.6,
+      "total_unclaimed": 294214.0,
       "top_prizes": [
         {
           "level": 5000,
@@ -927,7 +927,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 3997.964722,
+      "relative_score": 3997.472826,
       "dead_game": false,
       "flags": [
         "no_print_run"
@@ -974,12 +974,12 @@
       "game_no": 74,
       "name": "FAST $500S",
       "price": 10.0,
-      "percent_unsold": 59.8,
-      "total_unclaimed": 2391500.0,
+      "percent_unsold": 59.5,
+      "total_unclaimed": 2380650.0,
       "top_prizes": [
         {
           "level": 500,
-          "remaining": 2029
+          "remaining": 2018
         }
       ],
       "print_run": null,
@@ -987,7 +987,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 39991.638796,
+      "relative_score": 40010.92437,
       "dead_game": false,
       "flags": [
         "no_print_run"
@@ -1002,8 +1002,8 @@
       "game_no": 76,
       "name": "TRICK OR TREASURE FAST CASH BI",
       "price": 2.0,
-      "percent_unsold": 72.9,
-      "total_unclaimed": 174958.0,
+      "percent_unsold": 72.0,
+      "total_unclaimed": 172906.0,
       "top_prizes": [
         {
           "level": 15000,
@@ -1019,7 +1019,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 2399.972565,
+      "relative_score": 2401.472222,
       "dead_game": false,
       "flags": [
         "no_print_run"
