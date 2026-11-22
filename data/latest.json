@@ -1,6 +1,6 @@
 {
-  "as_of": "2026-11-21",
-  "source_timestamp": "November 21, 2026 5:00 AM",
+  "as_of": "2026-11-22",
+  "source_timestamp": "November 22, 2026 5:00 AM",
   "games": [
     {
       "game_no": 630,
@@ -1650,7 +1650,7 @@
         },
         {
           "level": 500,
-          "remaining": 252
+          "remaining": 250
         }
       ],
       "print_run": 1200000,
@@ -2537,7 +2537,7 @@
         },
         {
           "level": 500,
-          "remaining": 4491
+          "remaining": 4481
         }
       ],
       "print_run": 3100000,
@@ -2640,7 +2640,7 @@
         },
         {
           "level": 500,
-          "remaining": 159
+          "remaining": 157
         }
       ],
       "print_run": 1560000,
@@ -2855,7 +2855,7 @@
         },
         {
           "level": 500,
-          "remaining": 1171
+          "remaining": 1170
         }
       ],
       "print_run": null,
@@ -3209,7 +3209,7 @@
       "top_prizes": [
         {
           "level": 500,
-          "remaining": 963
+          "remaining": 942
         }
       ],
       "print_run": null,
@@ -3248,7 +3248,7 @@
         },
         {
           "level": 500,
-          "remaining": 208
+          "remaining": 203
         }
       ],
       "print_run": null,
@@ -3342,7 +3342,7 @@
         },
         {
           "level": 500,
-          "remaining": 1692
+          "remaining": 1689
         }
       ],
       "print_run": null,
@@ -3401,7 +3401,7 @@
         },
         {
           "level": 500,
-          "remaining": 2679
+          "remaining": 2677
         }
       ],
       "print_run": null,
