@@ -1,13 +1,13 @@
 {
-  "as_of": "2026-11-22",
-  "source_timestamp": "November 22, 2026 5:00 AM",
+  "as_of": "2026-11-23",
+  "source_timestamp": "November 23, 2026 5:00 AM",
   "games": [
     {
       "game_no": 630,
       "name": "$500,000 ROYAL CASH",
       "price": 20.0,
       "percent_unsold": 0.1,
-      "total_unclaimed": 775110.0,
+      "total_unclaimed": 770590.0,
       "top_prizes": [
         {
           "level": 500000,
@@ -24,10 +24,10 @@
       ],
       "print_run": 960000,
       "remaining_tickets": 960,
-      "ev_per_ticket": 807.40625,
-      "ev_ratio": 40.370312,
+      "ev_per_ticket": 802.697917,
+      "ev_ratio": 40.134896,
       "ev_ratio_adjusted": null,
-      "relative_score": 7751100.0,
+      "relative_score": 7705900.0,
       "top_prize_odds_now": 960.0,
       "dead_game": false,
       "flags": [
@@ -42,20 +42,20 @@
       "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag).",
       "remaining_tickets_min": 480,
       "remaining_tickets_max": 1440,
-      "ev_ratio_min": 26.913542,
-      "ev_ratio_max": 80.740625,
+      "ev_ratio_min": 26.756597,
+      "ev_ratio_max": 80.269792,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 20.185156
+          "ev_ratio": 20.067448
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 8.074062
+          "ev_ratio": 8.026979
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 2.018516
+          "ev_ratio": 2.006745
         }
       ],
       "overall_odds_launch": 2.84
@@ -65,7 +65,7 @@
       "name": "TIC TAC MULTIPLIER",
       "price": 2.0,
       "percent_unsold": 0.4,
-      "total_unclaimed": 113414.0,
+      "total_unclaimed": 113342.0,
       "top_prizes": [
         {
           "level": 10000,
@@ -78,10 +78,10 @@
       ],
       "print_run": 840000,
       "remaining_tickets": 3360,
-      "ev_per_ticket": 33.754167,
-      "ev_ratio": 16.877083,
+      "ev_per_ticket": 33.732738,
+      "ev_ratio": 16.866369,
       "ev_ratio_adjusted": null,
-      "relative_score": 283535.0,
+      "relative_score": 283355.0,
       "top_prize_odds_now": 3360.0,
       "dead_game": false,
       "flags": [
@@ -96,20 +96,20 @@
       "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag).",
       "remaining_tickets_min": 2940,
       "remaining_tickets_max": 3780,
-      "ev_ratio_min": 15.001852,
-      "ev_ratio_max": 19.288095,
+      "ev_ratio_min": 14.992328,
+      "ev_ratio_max": 19.27585,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 8.438542
+          "ev_ratio": 8.433185
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 3.375417
+          "ev_ratio": 3.373274
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.843854
+          "ev_ratio": 0.843318
         }
       ],
       "overall_odds_launch": 4.27
@@ -119,7 +119,7 @@
       "name": "MAINE CROSSWORD",
       "price": 3.0,
       "percent_unsold": 3.6,
-      "total_unclaimed": 826350.0,
+      "total_unclaimed": 825416.0,
       "top_prizes": [
         {
           "level": 30000,
@@ -132,10 +132,10 @@
       ],
       "print_run": 5400000,
       "remaining_tickets": 194400,
-      "ev_per_ticket": 4.250772,
-      "ev_ratio": 1.416924,
+      "ev_per_ticket": 4.245967,
+      "ev_ratio": 1.415322,
       "ev_ratio_adjusted": null,
-      "relative_score": 229541.666667,
+      "relative_score": 229282.222222,
       "top_prize_odds_now": 194400.0,
       "dead_game": false,
       "flags": [
@@ -149,20 +149,20 @@
       "reason": "Very little inventory data behind this estimate \u2014 treat this score with caution.",
       "remaining_tickets_min": 191700,
       "remaining_tickets_max": 197100,
-      "ev_ratio_min": 1.397514,
-      "ev_ratio_max": 1.436881,
+      "ev_ratio_min": 1.395934,
+      "ev_ratio_max": 1.435256,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.708462
+          "ev_ratio": 0.707661
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.283385
+          "ev_ratio": 0.283064
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.070846
+          "ev_ratio": 0.070766
         }
       ],
       "overall_odds_launch": 3.32
@@ -172,7 +172,7 @@
       "name": "DRAGONFLY DOLLARS",
       "price": 3.0,
       "percent_unsold": 28.8,
-      "total_unclaimed": 804357.0,
+      "total_unclaimed": 804341.0,
       "top_prizes": [
         {
           "level": 30000,
@@ -192,7 +192,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 27929.0625,
+      "relative_score": 27928.506944,
       "top_prize_odds_now": null,
       "dead_game": false,
       "flags": [
@@ -215,7 +215,7 @@
       "name": "MONEY TO GO!",
       "price": 5.0,
       "percent_unsold": 5.2,
-      "total_unclaimed": 257100.0,
+      "total_unclaimed": 257085.0,
       "top_prizes": [
         {
           "level": 10000,
@@ -228,10 +228,10 @@
       ],
       "print_run": 960000,
       "remaining_tickets": 49920,
-      "ev_per_ticket": 5.15024,
-      "ev_ratio": 1.030048,
+      "ev_per_ticket": 5.14994,
+      "ev_ratio": 1.029988,
       "ev_ratio_adjusted": null,
-      "relative_score": 49442.307692,
+      "relative_score": 49439.423077,
       "top_prize_odds_now": null,
       "dead_game": true,
       "flags": [
@@ -244,20 +244,20 @@
       "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
       "remaining_tickets_min": 49440,
       "remaining_tickets_max": 50400,
-      "ev_ratio_min": 1.020238,
-      "ev_ratio_max": 1.040049,
+      "ev_ratio_min": 1.020179,
+      "ev_ratio_max": 1.039988,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.515024
+          "ev_ratio": 0.514994
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.20601
+          "ev_ratio": 0.205998
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.051502
+          "ev_ratio": 0.051499
         }
       ],
       "overall_odds_launch": 3.88
@@ -267,7 +267,7 @@
       "name": "MAINE MILLIONS",
       "price": 30.0,
       "percent_unsold": 8.8,
-      "total_unclaimed": 6090550.0,
+      "total_unclaimed": 6090380.0,
       "top_prizes": [
         {
           "level": 100000,
@@ -292,10 +292,10 @@
       ],
       "print_run": 2600000,
       "remaining_tickets": 228800,
-      "ev_per_ticket": 26.619537,
-      "ev_ratio": 0.887318,
+      "ev_per_ticket": 26.618794,
+      "ev_ratio": 0.887293,
       "ev_ratio_adjusted": null,
-      "relative_score": 692107.954545,
+      "relative_score": 692088.636364,
       "top_prize_odds_now": null,
       "dead_game": true,
       "flags": [
@@ -308,20 +308,20 @@
       "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
       "remaining_tickets_min": 227500,
       "remaining_tickets_max": 230100,
-      "ev_ratio_min": 0.882305,
-      "ev_ratio_max": 0.892388,
+      "ev_ratio_min": 0.88228,
+      "ev_ratio_max": 0.892363,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.443659
+          "ev_ratio": 0.443647
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.177464
+          "ev_ratio": 0.177459
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.044366
+          "ev_ratio": 0.044365
         }
       ],
       "overall_odds_launch": 2.65
@@ -331,7 +331,7 @@
       "name": "POWER SPOT",
       "price": 5.0,
       "percent_unsold": 13.5,
-      "total_unclaimed": 920060.0,
+      "total_unclaimed": 912605.0,
       "top_prizes": [
         {
           "level": 100000,
@@ -352,10 +352,10 @@
       ],
       "print_run": 1320000,
       "remaining_tickets": 178200,
-      "ev_per_ticket": 5.163075,
-      "ev_ratio": 1.032615,
+      "ev_per_ticket": 5.12124,
+      "ev_ratio": 1.024248,
       "ev_ratio_adjusted": null,
-      "relative_score": 68152.592593,
+      "relative_score": 67600.37037,
       "top_prize_odds_now": 178200.0,
       "dead_game": false,
       "flags": [
@@ -368,20 +368,20 @@
       "reason": "Inventory is thinning; the expected-value estimate carries moderate uncertainty.",
       "remaining_tickets_min": 177540,
       "remaining_tickets_max": 178860,
-      "ev_ratio_min": 1.028805,
-      "ev_ratio_max": 1.036454,
+      "ev_ratio_min": 1.020469,
+      "ev_ratio_max": 1.028056,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.516308
+          "ev_ratio": 0.512124
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.206523
+          "ev_ratio": 0.20485
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.051631
+          "ev_ratio": 0.051212
         }
       ],
       "overall_odds_launch": 3.82
@@ -391,7 +391,7 @@
       "name": "ULTIMATE BONUS PAYOUT",
       "price": 10.0,
       "percent_unsold": 5.0,
-      "total_unclaimed": 557525.0,
+      "total_unclaimed": 557465.0,
       "top_prizes": [
         {
           "level": 5000,
@@ -408,10 +408,10 @@
       ],
       "print_run": 1200000,
       "remaining_tickets": 60000,
-      "ev_per_ticket": 9.292083,
-      "ev_ratio": 0.929208,
+      "ev_per_ticket": 9.291083,
+      "ev_ratio": 0.929108,
       "ev_ratio_adjusted": null,
-      "relative_score": 111505.0,
+      "relative_score": 111493.0,
       "top_prize_odds_now": null,
       "dead_game": true,
       "flags": [
@@ -424,20 +424,20 @@
       "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
       "remaining_tickets_min": 59400,
       "remaining_tickets_max": 60600,
-      "ev_ratio_min": 0.920008,
-      "ev_ratio_max": 0.938594,
+      "ev_ratio_min": 0.919909,
+      "ev_ratio_max": 0.938493,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.464604
+          "ev_ratio": 0.464554
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.185842
+          "ev_ratio": 0.185822
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.04646
+          "ev_ratio": 0.046455
         }
       ],
       "overall_odds_launch": 3.47
@@ -447,7 +447,7 @@
       "name": "$50,000 BANKROLL",
       "price": 20.0,
       "percent_unsold": 0.3,
-      "total_unclaimed": 234820.0,
+      "total_unclaimed": 234610.0,
       "top_prizes": [
         {
           "level": 5000,
@@ -464,10 +464,10 @@
       ],
       "print_run": 720000,
       "remaining_tickets": 2160,
-      "ev_per_ticket": 108.712963,
-      "ev_ratio": 5.435648,
+      "ev_per_ticket": 108.615741,
+      "ev_ratio": 5.430787,
       "ev_ratio_adjusted": null,
-      "relative_score": 782733.333333,
+      "relative_score": 782033.333333,
       "top_prize_odds_now": null,
       "dead_game": true,
       "flags": [
@@ -482,20 +482,20 @@
       "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
       "remaining_tickets_min": 1800,
       "remaining_tickets_max": 2520,
-      "ev_ratio_min": 4.659127,
-      "ev_ratio_max": 6.522778,
+      "ev_ratio_min": 4.65496,
+      "ev_ratio_max": 6.516944,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 2.717824
+          "ev_ratio": 2.715394
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 1.08713
+          "ev_ratio": 1.086157
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.271782
+          "ev_ratio": 0.271539
         }
       ],
       "overall_odds_launch": 2.81
@@ -505,7 +505,7 @@
       "name": "COUNT `EM UP",
       "price": 2.0,
       "percent_unsold": 9.9,
-      "total_unclaimed": 224408.0,
+      "total_unclaimed": 223805.0,
       "top_prizes": [
         {
           "level": 15000,
@@ -518,36 +518,36 @@
       ],
       "print_run": 960000,
       "remaining_tickets": 95040,
-      "ev_per_ticket": 2.361195,
-      "ev_ratio": 1.180598,
+      "ev_per_ticket": 2.354851,
+      "ev_ratio": 1.177425,
       "ev_ratio_adjusted": null,
-      "relative_score": 22667.474747,
+      "relative_score": 22606.565657,
       "top_prize_odds_now": 95040.0,
       "dead_game": false,
       "flags": [
         "anomaly_candidate"
       ],
       "confidence": "medium",
-      "value_score": 67,
-      "grade": "B-",
+      "value_score": 68,
+      "grade": "B",
       "rated": true,
       "reason": "Inventory is thinning; the expected-value estimate carries moderate uncertainty.",
       "remaining_tickets_min": 94560,
       "remaining_tickets_max": 95520,
-      "ev_ratio_min": 1.174665,
-      "ev_ratio_max": 1.186591,
+      "ev_ratio_min": 1.171509,
+      "ev_ratio_max": 1.183402,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.590299
+          "ev_ratio": 0.588713
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.23612
+          "ev_ratio": 0.235485
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.05903
+          "ev_ratio": 0.058871
         }
       ],
       "overall_odds_launch": 4.19
@@ -557,7 +557,7 @@
       "name": "9`S IN A LINE",
       "price": 5.0,
       "percent_unsold": 0.9,
-      "total_unclaimed": 120785.0,
+      "total_unclaimed": 120775.0,
       "top_prizes": [
         {
           "level": 1000,
@@ -566,10 +566,10 @@
       ],
       "print_run": 1200000,
       "remaining_tickets": 10800,
-      "ev_per_ticket": 11.183796,
-      "ev_ratio": 2.236759,
+      "ev_per_ticket": 11.18287,
+      "ev_ratio": 2.236574,
       "ev_ratio_adjusted": null,
-      "relative_score": 134205.555556,
+      "relative_score": 134194.444444,
       "top_prize_odds_now": null,
       "dead_game": true,
       "flags": [
@@ -584,20 +584,20 @@
       "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
       "remaining_tickets_min": 10200,
       "remaining_tickets_max": 11400,
-      "ev_ratio_min": 2.119035,
-      "ev_ratio_max": 2.368333,
+      "ev_ratio_min": 2.11886,
+      "ev_ratio_max": 2.368137,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 1.11838
+          "ev_ratio": 1.118287
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.447352
+          "ev_ratio": 0.447315
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.111838
+          "ev_ratio": 0.111829
         }
       ],
       "overall_odds_launch": 3.82
@@ -607,7 +607,7 @@
       "name": "$100,000 WINNING 7",
       "price": 5.0,
       "percent_unsold": 4.7,
-      "total_unclaimed": 272645.0,
+      "total_unclaimed": 272625.0,
       "top_prizes": [
         {
           "level": 1000,
@@ -619,7 +619,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 58009.574468,
+      "relative_score": 58005.319149,
       "top_prize_odds_now": null,
       "dead_game": false,
       "flags": [
@@ -643,7 +643,7 @@
       "name": "CASH BONANZA",
       "price": 20.0,
       "percent_unsold": 14.6,
-      "total_unclaimed": 2139780.0,
+      "total_unclaimed": 2139260.0,
       "top_prizes": [
         {
           "level": 50000,
@@ -672,10 +672,10 @@
       ],
       "print_run": 960000,
       "remaining_tickets": 140160,
-      "ev_per_ticket": 15.266695,
-      "ev_ratio": 0.763335,
+      "ev_per_ticket": 15.262985,
+      "ev_ratio": 0.763149,
       "ev_ratio_adjusted": null,
-      "relative_score": 146560.273973,
+      "relative_score": 146524.657534,
       "top_prize_odds_now": null,
       "dead_game": true,
       "flags": [],
@@ -686,20 +686,20 @@
       "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
       "remaining_tickets_min": 139680,
       "remaining_tickets_max": 140640,
-      "ev_ratio_min": 0.76073,
-      "ev_ratio_max": 0.765958,
+      "ev_ratio_min": 0.760545,
+      "ev_ratio_max": 0.765772,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.381668
+          "ev_ratio": 0.381575
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.152667
+          "ev_ratio": 0.15263
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.038167
+          "ev_ratio": 0.038157
         }
       ],
       "overall_odds_launch": 2.89
@@ -709,7 +709,7 @@
       "name": "WIN WIN WIN",
       "price": 2.0,
       "percent_unsold": 17.0,
-      "total_unclaimed": 238401.0,
+      "total_unclaimed": 238361.0,
       "top_prizes": [
         {
           "level": 1000,
@@ -721,7 +721,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 14023.588235,
+      "relative_score": 14021.235294,
       "top_prize_odds_now": null,
       "dead_game": false,
       "flags": [
@@ -744,7 +744,7 @@
       "name": "PINBALL PAYOUT",
       "price": 2.0,
       "percent_unsold": 7.5,
-      "total_unclaimed": 159800.0,
+      "total_unclaimed": 159724.0,
       "top_prizes": [
         {
           "level": 1000,
@@ -753,10 +753,10 @@
       ],
       "print_run": 960000,
       "remaining_tickets": 72000,
-      "ev_per_ticket": 2.219444,
-      "ev_ratio": 1.109722,
+      "ev_per_ticket": 2.218389,
+      "ev_ratio": 1.109194,
       "ev_ratio_adjusted": null,
-      "relative_score": 21306.666667,
+      "relative_score": 21296.533333,
       "top_prize_odds_now": null,
       "dead_game": true,
       "flags": [
@@ -769,20 +769,20 @@
       "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
       "remaining_tickets_min": 71520,
       "remaining_tickets_max": 72480,
-      "ev_ratio_min": 1.102373,
-      "ev_ratio_max": 1.11717,
+      "ev_ratio_min": 1.101849,
+      "ev_ratio_max": 1.116639,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.554861
+          "ev_ratio": 0.554597
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.221944
+          "ev_ratio": 0.221839
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.055486
+          "ev_ratio": 0.05546
         }
       ],
       "overall_odds_launch": 4.16
@@ -792,7 +792,7 @@
       "name": "CASH TIMES 10",
       "price": 10.0,
       "percent_unsold": 2.4,
-      "total_unclaimed": 912265.0,
+      "total_unclaimed": 896495.0,
       "top_prizes": [
         {
           "level": 250000,
@@ -812,15 +812,15 @@
         },
         {
           "level": 500,
-          "remaining": 57
+          "remaining": 56
         }
       ],
       "print_run": 1200000,
       "remaining_tickets": 28800,
-      "ev_per_ticket": 31.675868,
-      "ev_ratio": 3.167587,
+      "ev_per_ticket": 31.128299,
+      "ev_ratio": 3.11283,
       "ev_ratio_adjusted": null,
-      "relative_score": 380110.416667,
+      "relative_score": 373539.583333,
       "top_prize_odds_now": 28800.0,
       "dead_game": false,
       "flags": [
@@ -835,20 +835,20 @@
       "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag).",
       "remaining_tickets_min": 28200,
       "remaining_tickets_max": 29400,
-      "ev_ratio_min": 3.102942,
-      "ev_ratio_max": 3.234982,
+      "ev_ratio_min": 3.049303,
+      "ev_ratio_max": 3.17906,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 1.583794
+          "ev_ratio": 1.556415
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.633517
+          "ev_ratio": 0.622566
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.158379
+          "ev_ratio": 0.155642
         }
       ],
       "overall_odds_launch": 3.39
@@ -858,7 +858,7 @@
       "name": "BASEBALL",
       "price": 2.0,
       "percent_unsold": 47.7,
-      "total_unclaimed": 585274.0,
+      "total_unclaimed": 585267.0,
       "top_prizes": [
         {
           "level": 10000,
@@ -871,10 +871,10 @@
       ],
       "print_run": 840000,
       "remaining_tickets": 400680,
-      "ev_per_ticket": 1.460702,
-      "ev_ratio": 0.730351,
+      "ev_per_ticket": 1.460684,
+      "ev_ratio": 0.730342,
       "ev_ratio_adjusted": null,
-      "relative_score": 12269.895178,
+      "relative_score": 12269.748428,
       "top_prize_odds_now": 200340.0,
       "dead_game": false,
       "flags": [],
@@ -885,20 +885,20 @@
       "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
       "remaining_tickets_min": 400260,
       "remaining_tickets_max": 401100,
-      "ev_ratio_min": 0.729586,
-      "ev_ratio_max": 0.731117,
+      "ev_ratio_min": 0.729577,
+      "ev_ratio_max": 0.731109,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.365176
+          "ev_ratio": 0.365171
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.14607
+          "ev_ratio": 0.146068
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.036518
+          "ev_ratio": 0.036517
         }
       ],
       "overall_odds_launch": 4.11
@@ -908,7 +908,7 @@
       "name": "CROSSWORD BONUS",
       "price": 5.0,
       "percent_unsold": 5.6,
-      "total_unclaimed": 454345.0,
+      "total_unclaimed": 454290.0,
       "top_prizes": [
         {
           "level": 1000,
@@ -921,10 +921,10 @@
       ],
       "print_run": 1560000,
       "remaining_tickets": 87360,
-      "ev_per_ticket": 5.200836,
-      "ev_ratio": 1.040167,
+      "ev_per_ticket": 5.200206,
+      "ev_ratio": 1.040041,
       "ev_ratio_adjusted": null,
-      "relative_score": 81133.035714,
+      "relative_score": 81123.214286,
       "top_prize_odds_now": null,
       "dead_game": true,
       "flags": [
@@ -937,20 +937,20 @@
       "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
       "remaining_tickets_min": 86580,
       "remaining_tickets_max": 88140,
-      "ev_ratio_min": 1.030962,
-      "ev_ratio_max": 1.049538,
+      "ev_ratio_min": 1.030837,
+      "ev_ratio_max": 1.049411,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.520084
+          "ev_ratio": 0.520021
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.208033
+          "ev_ratio": 0.208008
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.052008
+          "ev_ratio": 0.052002
         }
       ],
       "overall_odds_launch": 3.52
@@ -960,7 +960,7 @@
       "name": "BLAZING BUCKS",
       "price": 10.0,
       "percent_unsold": 16.8,
-      "total_unclaimed": 1689325.0,
+      "total_unclaimed": 1687865.0,
       "top_prizes": [
         {
           "level": 10000,
@@ -981,10 +981,10 @@
       ],
       "print_run": 1320000,
       "remaining_tickets": 221760,
-      "ev_per_ticket": 7.617808,
-      "ev_ratio": 0.761781,
+      "ev_per_ticket": 7.611224,
+      "ev_ratio": 0.761122,
       "ev_ratio_adjusted": null,
-      "relative_score": 100555.059524,
+      "relative_score": 100468.154762,
       "top_prize_odds_now": null,
       "dead_game": true,
       "flags": [],
@@ -995,20 +995,20 @@
       "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
       "remaining_tickets_min": 221100,
       "remaining_tickets_max": 222420,
-      "ev_ratio_min": 0.75952,
-      "ev_ratio_max": 0.764055,
+      "ev_ratio_min": 0.758864,
+      "ev_ratio_max": 0.763394,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.380891
+          "ev_ratio": 0.380561
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.152356
+          "ev_ratio": 0.152224
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.038089
+          "ev_ratio": 0.038056
         }
       ],
       "overall_odds_launch": 3.41
@@ -1018,7 +1018,7 @@
       "name": "ACE IN THE HOLE",
       "price": 2.0,
       "percent_unsold": 10.0,
-      "total_unclaimed": 214032.0,
+      "total_unclaimed": 213986.0,
       "top_prizes": [
         {
           "level": 1000,
@@ -1027,10 +1027,10 @@
       ],
       "print_run": 960000,
       "remaining_tickets": 96000,
-      "ev_per_ticket": 2.2295,
-      "ev_ratio": 1.11475,
+      "ev_per_ticket": 2.229021,
+      "ev_ratio": 1.11451,
       "ev_ratio_adjusted": null,
-      "relative_score": 21403.2,
+      "relative_score": 21398.6,
       "top_prize_odds_now": null,
       "dead_game": true,
       "flags": [
@@ -1043,20 +1043,20 @@
       "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
       "remaining_tickets_min": 95520,
       "remaining_tickets_max": 96480,
-      "ev_ratio_min": 1.109204,
-      "ev_ratio_max": 1.120352,
+      "ev_ratio_min": 1.108966,
+      "ev_ratio_max": 1.120111,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.557375
+          "ev_ratio": 0.557255
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.22295
+          "ev_ratio": 0.222902
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.055738
+          "ev_ratio": 0.055726
         }
       ],
       "overall_odds_launch": 4.18
@@ -1066,7 +1066,7 @@
       "name": "$100,000 STACKS OF CASH",
       "price": 5.0,
       "percent_unsold": 12.5,
-      "total_unclaimed": 446795.0,
+      "total_unclaimed": 446790.0,
       "top_prizes": [
         {
           "level": 1000,
@@ -1078,7 +1078,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 35743.6,
+      "relative_score": 35743.2,
       "top_prize_odds_now": null,
       "dead_game": false,
       "flags": [
@@ -1101,7 +1101,7 @@
       "name": "BIG MONEY SPECTACULAR",
       "price": 2.0,
       "percent_unsold": 39.1,
-      "total_unclaimed": 617431.0,
+      "total_unclaimed": 614447.0,
       "top_prizes": [
         {
           "level": 10000,
@@ -1114,10 +1114,10 @@
       ],
       "print_run": 840000,
       "remaining_tickets": 328440,
-      "ev_per_ticket": 1.87989,
-      "ev_ratio": 0.939945,
+      "ev_per_ticket": 1.870804,
+      "ev_ratio": 0.935402,
       "ev_ratio_adjusted": null,
-      "relative_score": 15791.074169,
+      "relative_score": 15714.757033,
       "top_prize_odds_now": 109480.0,
       "dead_game": false,
       "flags": [
@@ -1130,20 +1130,20 @@
       "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
       "remaining_tickets_min": 328020,
       "remaining_tickets_max": 328860,
-      "ev_ratio_min": 0.938744,
-      "ev_ratio_max": 0.941148,
+      "ev_ratio_min": 0.934208,
+      "ev_ratio_max": 0.9366,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.469973
+          "ev_ratio": 0.467701
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.187989
+          "ev_ratio": 0.18708
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.046997
+          "ev_ratio": 0.04677
         }
       ],
       "overall_odds_launch": 4.16
@@ -1153,7 +1153,7 @@
       "name": "LADY LUCK",
       "price": 5.0,
       "percent_unsold": 1.6,
-      "total_unclaimed": 189765.0,
+      "total_unclaimed": 189665.0,
       "top_prizes": [
         {
           "level": 1000,
@@ -1162,10 +1162,10 @@
       ],
       "print_run": 1200000,
       "remaining_tickets": 19200,
-      "ev_per_ticket": 9.883594,
-      "ev_ratio": 1.976719,
+      "ev_per_ticket": 9.878385,
+      "ev_ratio": 1.975677,
       "ev_ratio_adjusted": null,
-      "relative_score": 118603.125,
+      "relative_score": 118540.625,
       "top_prize_odds_now": null,
       "dead_game": true,
       "flags": [
@@ -1180,20 +1180,20 @@
       "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
       "remaining_tickets_min": 18600,
       "remaining_tickets_max": 19800,
-      "ev_ratio_min": 1.916818,
-      "ev_ratio_max": 2.040484,
+      "ev_ratio_min": 1.915808,
+      "ev_ratio_max": 2.039409,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.98836
+          "ev_ratio": 0.987839
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.395344
+          "ev_ratio": 0.395135
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.098836
+          "ev_ratio": 0.098784
         }
       ],
       "overall_odds_launch": 3.78
@@ -1203,7 +1203,7 @@
       "name": "WINNING STREAK",
       "price": 5.0,
       "percent_unsold": 14.0,
-      "total_unclaimed": 615750.0,
+      "total_unclaimed": 615695.0,
       "top_prizes": [
         {
           "level": 2500,
@@ -1220,10 +1220,10 @@
       ],
       "print_run": 1200000,
       "remaining_tickets": 168000,
-      "ev_per_ticket": 3.665179,
-      "ev_ratio": 0.733036,
+      "ev_per_ticket": 3.664851,
+      "ev_ratio": 0.73297,
       "ev_ratio_adjusted": null,
-      "relative_score": 43982.142857,
+      "relative_score": 43978.214286,
       "top_prize_odds_now": null,
       "dead_game": true,
       "flags": [],
@@ -1234,20 +1234,20 @@
       "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
       "remaining_tickets_min": 167400,
       "remaining_tickets_max": 168600,
-      "ev_ratio_min": 0.730427,
-      "ev_ratio_max": 0.735663,
+      "ev_ratio_min": 0.730362,
+      "ev_ratio_max": 0.735597,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.366518
+          "ev_ratio": 0.366485
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.146607
+          "ev_ratio": 0.146594
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.036652
+          "ev_ratio": 0.036649
         }
       ],
       "overall_odds_launch": 3.76
@@ -1257,7 +1257,7 @@
       "name": "20X THE WIN",
       "price": 5.0,
       "percent_unsold": 2.0,
-      "total_unclaimed": 271250.0,
+      "total_unclaimed": 269640.0,
       "top_prizes": [
         {
           "level": 5000,
@@ -1270,10 +1270,10 @@
       ],
       "print_run": 1560000,
       "remaining_tickets": 31200,
-      "ev_per_ticket": 8.69391,
-      "ev_ratio": 1.738782,
+      "ev_per_ticket": 8.642308,
+      "ev_ratio": 1.728462,
       "ev_ratio_adjusted": null,
-      "relative_score": 135625.0,
+      "relative_score": 134820.0,
       "top_prize_odds_now": null,
       "dead_game": true,
       "flags": [
@@ -1288,20 +1288,20 @@
       "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
       "remaining_tickets_min": 30420,
       "remaining_tickets_max": 31980,
-      "ev_ratio_min": 1.696373,
-      "ev_ratio_max": 1.783366,
+      "ev_ratio_min": 1.686304,
+      "ev_ratio_max": 1.772781,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.869391
+          "ev_ratio": 0.864231
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.347756
+          "ev_ratio": 0.345692
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.086939
+          "ev_ratio": 0.086423
         }
       ],
       "overall_odds_launch": 3.87
@@ -1311,7 +1311,7 @@
       "name": "25X THE WIN",
       "price": 10.0,
       "percent_unsold": 31.1,
-      "total_unclaimed": 3965850.0,
+      "total_unclaimed": 3938710.0,
       "top_prizes": [
         {
           "level": 250000,
@@ -1336,36 +1336,36 @@
       ],
       "print_run": 1440000,
       "remaining_tickets": 447840,
-      "ev_per_ticket": 8.855506,
-      "ev_ratio": 0.885551,
+      "ev_per_ticket": 8.794904,
+      "ev_ratio": 0.87949,
       "ev_ratio_adjusted": null,
-      "relative_score": 127519.292605,
+      "relative_score": 126646.623794,
       "top_prize_odds_now": 447840.0,
       "dead_game": false,
       "flags": [
         "anomaly_candidate"
       ],
       "confidence": "high",
-      "value_score": 59,
+      "value_score": 58,
       "grade": "C",
       "rated": true,
       "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
       "remaining_tickets_min": 447120,
       "remaining_tickets_max": 448560,
-      "ev_ratio_min": 0.884129,
-      "ev_ratio_max": 0.886977,
+      "ev_ratio_min": 0.878079,
+      "ev_ratio_max": 0.880907,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.442776
+          "ev_ratio": 0.439745
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.17711
+          "ev_ratio": 0.175898
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.044278
+          "ev_ratio": 0.043975
         }
       ],
       "overall_odds_launch": 3.36
@@ -1375,7 +1375,7 @@
       "name": "10X THE WIN",
       "price": 2.0,
       "percent_unsold": 11.4,
-      "total_unclaimed": 434450.0,
+      "total_unclaimed": 430882.0,
       "top_prizes": [
         {
           "level": 20000,
@@ -1388,10 +1388,10 @@
       ],
       "print_run": 1560000,
       "remaining_tickets": 177840,
-      "ev_per_ticket": 2.442926,
-      "ev_ratio": 1.221463,
+      "ev_per_ticket": 2.422863,
+      "ev_ratio": 1.211432,
       "ev_ratio_adjusted": null,
-      "relative_score": 38109.649123,
+      "relative_score": 37796.666667,
       "top_prize_odds_now": 177840.0,
       "dead_game": false,
       "flags": [
@@ -1404,20 +1404,20 @@
       "reason": "Inventory is thinning; the expected-value estimate carries moderate uncertainty.",
       "remaining_tickets_min": 177060,
       "remaining_tickets_max": 178620,
-      "ev_ratio_min": 1.216129,
-      "ev_ratio_max": 1.226844,
+      "ev_ratio_min": 1.206142,
+      "ev_ratio_max": 1.216768,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.610732
+          "ev_ratio": 0.605716
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.244293
+          "ev_ratio": 0.242286
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.061073
+          "ev_ratio": 0.060572
         }
       ],
       "overall_odds_launch": 4.31
@@ -1427,7 +1427,7 @@
       "name": "DEUCE$ WILD POKER",
       "price": 5.0,
       "percent_unsold": 0.5,
-      "total_unclaimed": 119925.0,
+      "total_unclaimed": 119915.0,
       "top_prizes": [
         {
           "level": 1000,
@@ -1443,7 +1443,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 239850.0,
+      "relative_score": 239830.0,
       "top_prize_odds_now": null,
       "dead_game": false,
       "flags": [
@@ -1467,7 +1467,7 @@
       "name": "$",
       "price": 1.0,
       "percent_unsold": 1.1,
-      "total_unclaimed": 81029.0,
+      "total_unclaimed": 80882.0,
       "top_prizes": [
         {
           "level": 2000,
@@ -1476,10 +1476,10 @@
       ],
       "print_run": 960000,
       "remaining_tickets": 10560,
-      "ev_per_ticket": 7.673201,
-      "ev_ratio": 7.673201,
+      "ev_per_ticket": 7.65928,
+      "ev_ratio": 7.65928,
       "ev_ratio_adjusted": null,
-      "relative_score": 73662.727273,
+      "relative_score": 73529.090909,
       "top_prize_odds_now": 10560.0,
       "dead_game": false,
       "flags": [
@@ -1494,20 +1494,20 @@
       "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag).",
       "remaining_tickets_min": 10080,
       "remaining_tickets_max": 11040,
-      "ev_ratio_min": 7.339583,
-      "ev_ratio_max": 8.038591,
+      "ev_ratio_min": 7.326268,
+      "ev_ratio_max": 8.024008,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 3.836601
+          "ev_ratio": 3.82964
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 1.53464
+          "ev_ratio": 1.531856
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.38366
+          "ev_ratio": 0.382964
         }
       ],
       "overall_odds_launch": 4.47
@@ -1517,7 +1517,7 @@
       "name": "LUCKY DOG",
       "price": 2.0,
       "percent_unsold": 5.4,
-      "total_unclaimed": 156882.0,
+      "total_unclaimed": 156820.0,
       "top_prizes": [
         {
           "level": 1000,
@@ -1526,10 +1526,10 @@
       ],
       "print_run": 960000,
       "remaining_tickets": 51840,
-      "ev_per_ticket": 3.026273,
-      "ev_ratio": 1.513137,
+      "ev_per_ticket": 3.025077,
+      "ev_ratio": 1.512539,
       "ev_ratio_adjusted": null,
-      "relative_score": 29052.222222,
+      "relative_score": 29040.740741,
       "top_prize_odds_now": null,
       "dead_game": true,
       "flags": [
@@ -1543,20 +1543,20 @@
       "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
       "remaining_tickets_min": 51360,
       "remaining_tickets_max": 52320,
-      "ev_ratio_min": 1.499255,
-      "ev_ratio_max": 1.527278,
+      "ev_ratio_min": 1.498662,
+      "ev_ratio_max": 1.526674,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.756569
+          "ev_ratio": 0.75627
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.302627
+          "ev_ratio": 0.302508
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.075657
+          "ev_ratio": 0.075627
         }
       ],
       "overall_odds_launch": 4.21
@@ -1566,7 +1566,7 @@
       "name": "MONEY VAULT MULTIPLIER",
       "price": 5.0,
       "percent_unsold": 20.1,
-      "total_unclaimed": 1329985.0,
+      "total_unclaimed": 1319635.0,
       "top_prizes": [
         {
           "level": 100000,
@@ -1587,10 +1587,10 @@
       ],
       "print_run": 1320000,
       "remaining_tickets": 265320,
-      "ev_per_ticket": 5.012758,
-      "ev_ratio": 1.002552,
+      "ev_per_ticket": 4.973749,
+      "ev_ratio": 0.99475,
       "ev_ratio_adjusted": null,
-      "relative_score": 66168.40796,
+      "relative_score": 65653.482587,
       "top_prize_odds_now": 265320.0,
       "dead_game": false,
       "flags": [
@@ -1603,20 +1603,20 @@
       "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
       "remaining_tickets_min": 264660,
       "remaining_tickets_max": 265980,
-      "ev_ratio_min": 1.000064,
-      "ev_ratio_max": 1.005052,
+      "ev_ratio_min": 0.992281,
+      "ev_ratio_max": 0.99723,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.501276
+          "ev_ratio": 0.497375
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.20051
+          "ev_ratio": 0.19895
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.050128
+          "ev_ratio": 0.049738
         }
       ],
       "overall_odds_launch": 3.79
@@ -1626,7 +1626,7 @@
       "name": "JURASSIC PARK",
       "price": 10.0,
       "percent_unsold": 11.0,
-      "total_unclaimed": 2790540.0,
+      "total_unclaimed": 2761880.0,
       "top_prizes": [
         {
           "level": 250000,
@@ -1650,15 +1650,15 @@
         },
         {
           "level": 500,
-          "remaining": 250
+          "remaining": 249
         }
       ],
       "print_run": 1200000,
       "remaining_tickets": 132000,
-      "ev_per_ticket": 21.140455,
-      "ev_ratio": 2.114045,
+      "ev_per_ticket": 20.923333,
+      "ev_ratio": 2.092333,
       "ev_ratio_adjusted": null,
-      "relative_score": 253685.454545,
+      "relative_score": 251080.0,
       "top_prize_odds_now": 132000.0,
       "dead_game": false,
       "flags": [
@@ -1672,20 +1672,20 @@
       "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag).",
       "remaining_tickets_min": 131400,
       "remaining_tickets_max": 132600,
-      "ev_ratio_min": 2.10448,
-      "ev_ratio_max": 2.123699,
+      "ev_ratio_min": 2.082866,
+      "ev_ratio_max": 2.101887,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 1.057023
+          "ev_ratio": 1.046167
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.422809
+          "ev_ratio": 0.418467
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.105702
+          "ev_ratio": 0.104617
         }
       ],
       "overall_odds_launch": 3.36
@@ -1695,7 +1695,7 @@
       "name": "CA$H IN",
       "price": 1.0,
       "percent_unsold": 1.8,
-      "total_unclaimed": 88119.0,
+      "total_unclaimed": 87431.0,
       "top_prizes": [
         {
           "level": 1000,
@@ -1704,10 +1704,10 @@
       ],
       "print_run": 960000,
       "remaining_tickets": 17280,
-      "ev_per_ticket": 5.099479,
-      "ev_ratio": 5.099479,
+      "ev_per_ticket": 5.059664,
+      "ev_ratio": 5.059664,
       "ev_ratio_adjusted": null,
-      "relative_score": 48955.0,
+      "relative_score": 48572.777778,
       "top_prize_odds_now": 17280.0,
       "dead_game": false,
       "flags": [
@@ -1722,20 +1722,20 @@
       "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag).",
       "remaining_tickets_min": 16800,
       "remaining_tickets_max": 17760,
-      "ev_ratio_min": 4.961655,
-      "ev_ratio_max": 5.245179,
+      "ev_ratio_min": 4.922917,
+      "ev_ratio_max": 5.204226,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 2.54974
+          "ev_ratio": 2.529832
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 1.019896
+          "ev_ratio": 1.011933
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.254974
+          "ev_ratio": 0.252983
         }
       ],
       "overall_odds_launch": 4.66
@@ -1745,7 +1745,7 @@
       "name": "CASH LINE BINGO",
       "price": 3.0,
       "percent_unsold": 10.8,
-      "total_unclaimed": 403852.0,
+      "total_unclaimed": 403497.0,
       "top_prizes": [
         {
           "level": 30000,
@@ -1758,10 +1758,10 @@
       ],
       "print_run": 960000,
       "remaining_tickets": 103680,
-      "ev_per_ticket": 3.895177,
-      "ev_ratio": 1.298392,
+      "ev_per_ticket": 3.891753,
+      "ev_ratio": 1.297251,
       "ev_ratio_adjusted": null,
-      "relative_score": 37393.703704,
+      "relative_score": 37360.833333,
       "top_prize_odds_now": 103680.0,
       "dead_game": false,
       "flags": [
@@ -1774,20 +1774,20 @@
       "reason": "Inventory is thinning; the expected-value estimate carries moderate uncertainty.",
       "remaining_tickets_min": 103200,
       "remaining_tickets_max": 104160,
-      "ev_ratio_min": 1.292409,
-      "ev_ratio_max": 1.304432,
+      "ev_ratio_min": 1.291273,
+      "ev_ratio_max": 1.303285,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.649196
+          "ev_ratio": 0.648626
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.259678
+          "ev_ratio": 0.25945
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.06492
+          "ev_ratio": 0.064863
         }
       ],
       "overall_odds_launch": 3.4
@@ -1797,7 +1797,7 @@
       "name": "SKEE-BALL",
       "price": 3.0,
       "percent_unsold": 0.3,
-      "total_unclaimed": 141990.0,
+      "total_unclaimed": 140691.0,
       "top_prizes": [
         {
           "level": 30000,
@@ -1806,10 +1806,10 @@
       ],
       "print_run": 1200000,
       "remaining_tickets": 3600,
-      "ev_per_ticket": 39.441667,
-      "ev_ratio": 13.147222,
+      "ev_per_ticket": 39.080833,
+      "ev_ratio": 13.026944,
       "ev_ratio_adjusted": null,
-      "relative_score": 473300.0,
+      "relative_score": 468970.0,
       "top_prize_odds_now": 3600.0,
       "dead_game": false,
       "flags": [
@@ -1824,20 +1824,20 @@
       "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag).",
       "remaining_tickets_min": 3000,
       "remaining_tickets_max": 4200,
-      "ev_ratio_min": 11.269048,
-      "ev_ratio_max": 15.776667,
+      "ev_ratio_min": 11.165952,
+      "ev_ratio_max": 15.632333,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 6.573611
+          "ev_ratio": 6.513472
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 2.629444
+          "ev_ratio": 2.605389
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.657361
+          "ev_ratio": 0.651347
         }
       ],
       "overall_odds_launch": 3.43
@@ -1847,7 +1847,7 @@
       "name": "PATRIOTS",
       "price": 5.0,
       "percent_unsold": 28.8,
-      "total_unclaimed": 1068390.0,
+      "total_unclaimed": 1068310.0,
       "top_prizes": [
         {
           "level": 100000,
@@ -1867,7 +1867,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 37096.875,
+      "relative_score": 37094.097222,
       "top_prize_odds_now": null,
       "dead_game": false,
       "flags": [
@@ -1890,7 +1890,7 @@
       "name": "LEAP FOR LOOT",
       "price": 3.0,
       "percent_unsold": 12.8,
-      "total_unclaimed": 459183.0,
+      "total_unclaimed": 456931.0,
       "top_prizes": [
         {
           "level": 1000,
@@ -1903,10 +1903,10 @@
       ],
       "print_run": 1200000,
       "remaining_tickets": 153600,
-      "ev_per_ticket": 2.989473,
-      "ev_ratio": 0.996491,
+      "ev_per_ticket": 2.974811,
+      "ev_ratio": 0.991604,
       "ev_ratio_adjusted": null,
-      "relative_score": 35873.671875,
+      "relative_score": 35697.734375,
       "top_prize_odds_now": null,
       "dead_game": true,
       "flags": [
@@ -1919,20 +1919,20 @@
       "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
       "remaining_tickets_min": 153000,
       "remaining_tickets_max": 154200,
-      "ev_ratio_min": 0.992613,
-      "ev_ratio_max": 1.000399,
+      "ev_ratio_min": 0.987745,
+      "ev_ratio_max": 0.995492,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.498246
+          "ev_ratio": 0.495802
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.199298
+          "ev_ratio": 0.198321
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.049825
+          "ev_ratio": 0.04958
         }
       ],
       "overall_odds_launch": 3.37
@@ -1942,7 +1942,7 @@
       "name": "HOLIDAY $500S",
       "price": 5.0,
       "percent_unsold": 0.4,
-      "total_unclaimed": 153605.0,
+      "total_unclaimed": 153485.0,
       "top_prizes": [
         {
           "level": 500,
@@ -1951,10 +1951,10 @@
       ],
       "print_run": 960000,
       "remaining_tickets": 3840,
-      "ev_per_ticket": 40.001302,
-      "ev_ratio": 8.00026,
+      "ev_per_ticket": 39.970052,
+      "ev_ratio": 7.99401,
       "ev_ratio_adjusted": null,
-      "relative_score": 384012.5,
+      "relative_score": 383712.5,
       "top_prize_odds_now": 120.0,
       "dead_game": false,
       "flags": [
@@ -1969,20 +1969,20 @@
       "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag).",
       "remaining_tickets_min": 3360,
       "remaining_tickets_max": 4320,
-      "ev_ratio_min": 7.111343,
-      "ev_ratio_max": 9.143155,
+      "ev_ratio_min": 7.105787,
+      "ev_ratio_max": 9.136012,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 4.00013
+          "ev_ratio": 3.997005
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 1.600052
+          "ev_ratio": 1.598802
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.400013
+          "ev_ratio": 0.399701
         }
       ],
       "overall_odds_launch": 3.56
@@ -1992,7 +1992,7 @@
       "name": "HOLIDAY $1,000S",
       "price": 10.0,
       "percent_unsold": 19.4,
-      "total_unclaimed": 1274675.0,
+      "total_unclaimed": 1274615.0,
       "top_prizes": [
         {
           "level": 1000,
@@ -2005,10 +2005,10 @@
       ],
       "print_run": 360000,
       "remaining_tickets": 69840,
-      "ev_per_ticket": 18.25136,
-      "ev_ratio": 1.825136,
+      "ev_per_ticket": 18.250501,
+      "ev_ratio": 1.82505,
       "ev_ratio_adjusted": null,
-      "relative_score": 65704.896907,
+      "relative_score": 65701.804124,
       "top_prize_odds_now": 157.297297,
       "dead_game": false,
       "flags": [
@@ -2022,20 +2022,20 @@
       "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag).",
       "remaining_tickets_min": 69660,
       "remaining_tickets_max": 70020,
-      "ev_ratio_min": 1.820444,
-      "ev_ratio_max": 1.829852,
+      "ev_ratio_min": 1.820358,
+      "ev_ratio_max": 1.829766,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.912568
+          "ev_ratio": 0.912525
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.365027
+          "ev_ratio": 0.36501
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.091257
+          "ev_ratio": 0.091253
         }
       ],
       "overall_odds_launch": 3.63
@@ -2045,7 +2045,7 @@
       "name": "SILVER 7S",
       "price": 5.0,
       "percent_unsold": 12.1,
-      "total_unclaimed": 578770.0,
+      "total_unclaimed": 578500.0,
       "top_prizes": [
         {
           "level": 10000,
@@ -2058,10 +2058,10 @@
       ],
       "print_run": 1200000,
       "remaining_tickets": 145200,
-      "ev_per_ticket": 3.986019,
-      "ev_ratio": 0.797204,
+      "ev_per_ticket": 3.98416,
+      "ev_ratio": 0.796832,
       "ev_ratio_adjusted": null,
-      "relative_score": 47832.231405,
+      "relative_score": 47809.917355,
       "top_prize_odds_now": null,
       "dead_game": true,
       "flags": [],
@@ -2072,20 +2072,20 @@
       "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
       "remaining_tickets_min": 144600,
       "remaining_tickets_max": 145800,
-      "ev_ratio_min": 0.793923,
-      "ev_ratio_max": 0.800512,
+      "ev_ratio_min": 0.793553,
+      "ev_ratio_max": 0.800138,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.398602
+          "ev_ratio": 0.398416
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.159441
+          "ev_ratio": 0.159366
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.03986
+          "ev_ratio": 0.039842
         }
       ],
       "overall_odds_launch": 3.79
@@ -2095,7 +2095,7 @@
       "name": "ALL THE MONEY",
       "price": 2.0,
       "percent_unsold": 17.5,
-      "total_unclaimed": 403448.0,
+      "total_unclaimed": 400416.0,
       "top_prizes": [
         {
           "level": 10000,
@@ -2108,10 +2108,10 @@
       ],
       "print_run": 840000,
       "remaining_tickets": 147000,
-      "ev_per_ticket": 2.744544,
-      "ev_ratio": 1.372272,
+      "ev_per_ticket": 2.723918,
+      "ev_ratio": 1.361959,
       "ev_ratio_adjusted": null,
-      "relative_score": 23054.171429,
+      "relative_score": 22880.914286,
       "top_prize_odds_now": 49000.0,
       "dead_game": false,
       "flags": [
@@ -2124,20 +2124,20 @@
       "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
       "remaining_tickets_min": 146580,
       "remaining_tickets_max": 147420,
-      "ev_ratio_min": 1.368363,
-      "ev_ratio_max": 1.376204,
+      "ev_ratio_min": 1.358079,
+      "ev_ratio_max": 1.365862,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.686136
+          "ev_ratio": 0.68098
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.274454
+          "ev_ratio": 0.272392
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.068614
+          "ev_ratio": 0.068098
         }
       ],
       "overall_odds_launch": 4.17
@@ -2147,7 +2147,7 @@
       "name": "$60,000 CASHWORD",
       "price": 5.0,
       "percent_unsold": 4.2,
-      "total_unclaimed": 411710.0,
+      "total_unclaimed": 411595.0,
       "top_prizes": [
         {
           "level": 1000,
@@ -2160,10 +2160,10 @@
       ],
       "print_run": 1560000,
       "remaining_tickets": 65520,
-      "ev_per_ticket": 6.28373,
-      "ev_ratio": 1.256746,
+      "ev_per_ticket": 6.281975,
+      "ev_ratio": 1.256395,
       "ev_ratio_adjusted": null,
-      "relative_score": 98026.190476,
+      "relative_score": 97998.809524,
       "top_prize_odds_now": null,
       "dead_game": true,
       "flags": [
@@ -2177,20 +2177,20 @@
       "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
       "remaining_tickets_min": 64740,
       "remaining_tickets_max": 66300,
-      "ev_ratio_min": 1.241961,
-      "ev_ratio_max": 1.271888,
+      "ev_ratio_min": 1.241614,
+      "ev_ratio_max": 1.271532,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.628373
+          "ev_ratio": 0.628198
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.251349
+          "ev_ratio": 0.251279
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.062837
+          "ev_ratio": 0.06282
         }
       ],
       "overall_odds_launch": 3.52
@@ -2200,7 +2200,7 @@
       "name": "ELECTRIC 8`S",
       "price": 2.0,
       "percent_unsold": 8.8,
-      "total_unclaimed": 284799.0,
+      "total_unclaimed": 281419.0,
       "top_prizes": [
         {
           "level": 8888,
@@ -2209,10 +2209,10 @@
       ],
       "print_run": 840000,
       "remaining_tickets": 73920,
-      "ev_per_ticket": 3.8528,
-      "ev_ratio": 1.9264,
+      "ev_per_ticket": 3.807075,
+      "ev_ratio": 1.903538,
       "ev_ratio_adjusted": null,
-      "relative_score": 32363.522727,
+      "relative_score": 31979.431818,
       "top_prize_odds_now": 73920.0,
       "dead_game": false,
       "flags": [
@@ -2226,20 +2226,20 @@
       "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag).",
       "remaining_tickets_min": 73500,
       "remaining_tickets_max": 74340,
-      "ev_ratio_min": 1.915517,
-      "ev_ratio_max": 1.937408,
+      "ev_ratio_min": 1.892783,
+      "ev_ratio_max": 1.914415,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.9632
+          "ev_ratio": 0.951769
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.38528
+          "ev_ratio": 0.380708
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.09632
+          "ev_ratio": 0.095177
         }
       ],
       "overall_odds_launch": 4.22
@@ -2249,7 +2249,7 @@
       "name": "CA$H BLA$T",
       "price": 5.0,
       "percent_unsold": 5.4,
-      "total_unclaimed": 379295.0,
+      "total_unclaimed": 373555.0,
       "top_prizes": [
         {
           "level": 20000,
@@ -2266,10 +2266,10 @@
       ],
       "print_run": 960000,
       "remaining_tickets": 51840,
-      "ev_per_ticket": 7.316647,
-      "ev_ratio": 1.463329,
+      "ev_per_ticket": 7.205922,
+      "ev_ratio": 1.441184,
       "ev_ratio_adjusted": null,
-      "relative_score": 70239.814815,
+      "relative_score": 69176.851852,
       "top_prize_odds_now": null,
       "dead_game": true,
       "flags": [
@@ -2282,20 +2282,20 @@
       "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
       "remaining_tickets_min": 51360,
       "remaining_tickets_max": 52320,
-      "ev_ratio_min": 1.449904,
-      "ev_ratio_max": 1.477005,
+      "ev_ratio_min": 1.427963,
+      "ev_ratio_max": 1.454653,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.731665
+          "ev_ratio": 0.720592
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.292666
+          "ev_ratio": 0.288237
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.073166
+          "ev_ratio": 0.072059
         }
       ],
       "overall_odds_launch": 3.87
@@ -2305,7 +2305,7 @@
       "name": "$500 CA$H!",
       "price": 5.0,
       "percent_unsold": 0.2,
-      "total_unclaimed": 59020.0,
+      "total_unclaimed": 58900.0,
       "top_prizes": [
         {
           "level": 500,
@@ -2317,7 +2317,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 295100.0,
+      "relative_score": 294500.0,
       "top_prize_odds_now": null,
       "dead_game": false,
       "flags": [
@@ -2341,7 +2341,7 @@
       "name": "HAMILTON",
       "price": 10.0,
       "percent_unsold": 22.5,
-      "total_unclaimed": 2021225.0,
+      "total_unclaimed": 2020170.0,
       "top_prizes": [
         {
           "level": 25000,
@@ -2366,10 +2366,10 @@
       ],
       "print_run": 1200000,
       "remaining_tickets": 270000,
-      "ev_per_ticket": 7.486019,
-      "ev_ratio": 0.748602,
+      "ev_per_ticket": 7.482111,
+      "ev_ratio": 0.748211,
       "ev_ratio_adjusted": null,
-      "relative_score": 89832.222222,
+      "relative_score": 89785.333333,
       "top_prize_odds_now": null,
       "dead_game": true,
       "flags": [],
@@ -2380,20 +2380,20 @@
       "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
       "remaining_tickets_min": 269400,
       "remaining_tickets_max": 270600,
-      "ev_ratio_min": 0.746942,
-      "ev_ratio_max": 0.750269,
+      "ev_ratio_min": 0.746552,
+      "ev_ratio_max": 0.749878,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.374301
+          "ev_ratio": 0.374106
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.14972
+          "ev_ratio": 0.149642
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.03743
+          "ev_ratio": 0.037411
         }
       ],
       "overall_odds_launch": 3.39
@@ -2403,7 +2403,7 @@
       "name": "COLOR BLAST CROSSWORD",
       "price": 10.0,
       "percent_unsold": 65.8,
-      "total_unclaimed": 9799410.0,
+      "total_unclaimed": 9763385.0,
       "top_prizes": [
         {
           "level": 125000,
@@ -2420,10 +2420,10 @@
       ],
       "print_run": 1800000,
       "remaining_tickets": 1184400,
-      "ev_per_ticket": 8.273734,
-      "ev_ratio": 0.827373,
+      "ev_per_ticket": 8.243317,
+      "ev_ratio": 0.824332,
       "ev_ratio_adjusted": null,
-      "relative_score": 148927.203647,
+      "relative_score": 148379.711246,
       "top_prize_odds_now": 394800.0,
       "dead_game": false,
       "flags": [],
@@ -2434,20 +2434,20 @@
       "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
       "remaining_tickets_min": 1183500,
       "remaining_tickets_max": 1185300,
-      "ev_ratio_min": 0.826745,
-      "ev_ratio_max": 0.828003,
+      "ev_ratio_min": 0.823706,
+      "ev_ratio_max": 0.824959,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.413687
+          "ev_ratio": 0.412166
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.165475
+          "ev_ratio": 0.164866
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.041369
+          "ev_ratio": 0.041217
         }
       ],
       "overall_odds_launch": 3.15
@@ -2457,7 +2457,7 @@
       "name": "HI OR LO",
       "price": 5.0,
       "percent_unsold": 24.5,
-      "total_unclaimed": 1121450.0,
+      "total_unclaimed": 1114670.0,
       "top_prizes": [
         {
           "level": 100000,
@@ -2470,10 +2470,10 @@
       ],
       "print_run": 960000,
       "remaining_tickets": 235200,
-      "ev_per_ticket": 4.76807,
-      "ev_ratio": 0.953614,
+      "ev_per_ticket": 4.739243,
+      "ev_ratio": 0.947849,
       "ev_ratio_adjusted": null,
-      "relative_score": 45773.469388,
+      "relative_score": 45496.734694,
       "top_prize_odds_now": 235200.0,
       "dead_game": false,
       "flags": [
@@ -2486,20 +2486,20 @@
       "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
       "remaining_tickets_min": 234720,
       "remaining_tickets_max": 235680,
-      "ev_ratio_min": 0.951672,
-      "ev_ratio_max": 0.955564,
+      "ev_ratio_min": 0.945918,
+      "ev_ratio_max": 0.949787,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.476807
+          "ev_ratio": 0.473925
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.190723
+          "ev_ratio": 0.18957
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.047681
+          "ev_ratio": 0.047392
         }
       ],
       "overall_odds_launch": 3.87
@@ -2509,7 +2509,7 @@
       "name": "$70 MILLION SUPREME",
       "price": 30.0,
       "percent_unsold": 50.6,
-      "total_unclaimed": 41897400.0,
+      "total_unclaimed": 41717250.0,
       "top_prizes": [
         {
           "level": 1000000,
@@ -2537,15 +2537,15 @@
         },
         {
           "level": 500,
-          "remaining": 4481
+          "remaining": 4467
         }
       ],
       "print_run": 3100000,
       "remaining_tickets": 1568600,
-      "ev_per_ticket": 26.71006,
-      "ev_ratio": 0.890335,
+      "ev_per_ticket": 26.595212,
+      "ev_ratio": 0.886507,
       "ev_ratio_adjusted": null,
-      "relative_score": 828011.857708,
+      "relative_score": 824451.581028,
       "top_prize_odds_now": 522866.666667,
       "dead_game": false,
       "flags": [
@@ -2558,20 +2558,20 @@
       "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
       "remaining_tickets_min": 1567050,
       "remaining_tickets_max": 1570150,
-      "ev_ratio_min": 0.889456,
-      "ev_ratio_max": 0.891216,
+      "ev_ratio_min": 0.885632,
+      "ev_ratio_max": 0.887384,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.445168
+          "ev_ratio": 0.443254
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.178067
+          "ev_ratio": 0.177301
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.044517
+          "ev_ratio": 0.044325
         }
       ],
       "overall_odds_launch": 2.98
@@ -2581,7 +2581,7 @@
       "name": "EMERALD GREEN",
       "price": 5.0,
       "percent_unsold": 47.4,
-      "total_unclaimed": 2560940.0,
+      "total_unclaimed": 2535960.0,
       "top_prizes": [
         {
           "level": 100000,
@@ -2601,7 +2601,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 54028.270042,
+      "relative_score": 53501.265823,
       "top_prize_odds_now": null,
       "dead_game": false,
       "flags": [
@@ -2624,7 +2624,7 @@
       "name": "CROSSWORD",
       "price": 5.0,
       "percent_unsold": 40.8,
-      "total_unclaimed": 2868060.0,
+      "total_unclaimed": 2836040.0,
       "top_prizes": [
         {
           "level": 60000,
@@ -2645,36 +2645,36 @@
       ],
       "print_run": 1560000,
       "remaining_tickets": 636480,
-      "ev_per_ticket": 4.506127,
-      "ev_ratio": 0.901225,
+      "ev_per_ticket": 4.45582,
+      "ev_ratio": 0.891164,
       "ev_ratio_adjusted": null,
-      "relative_score": 70295.588235,
+      "relative_score": 69510.784314,
       "top_prize_odds_now": 212160.0,
       "dead_game": false,
       "flags": [
         "anomaly_candidate"
       ],
       "confidence": "high",
-      "value_score": 60,
+      "value_score": 59,
       "grade": "C",
       "rated": true,
       "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
       "remaining_tickets_min": 635700,
       "remaining_tickets_max": 637260,
-      "ev_ratio_min": 0.900122,
-      "ev_ratio_max": 0.902331,
+      "ev_ratio_min": 0.890073,
+      "ev_ratio_max": 0.892257,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.450613
+          "ev_ratio": 0.445582
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.180245
+          "ev_ratio": 0.178233
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.045061
+          "ev_ratio": 0.044558
         }
       ],
       "overall_odds_launch": 3.52
@@ -2684,7 +2684,7 @@
       "name": "RED HOT RICHES",
       "price": 5.0,
       "percent_unsold": 14.1,
-      "total_unclaimed": 644210.0,
+      "total_unclaimed": 637710.0,
       "top_prizes": [
         {
           "level": 10000,
@@ -2697,10 +2697,10 @@
       ],
       "print_run": 960000,
       "remaining_tickets": 135360,
-      "ev_per_ticket": 4.759235,
-      "ev_ratio": 0.951847,
+      "ev_per_ticket": 4.711215,
+      "ev_ratio": 0.942243,
       "ev_ratio_adjusted": null,
-      "relative_score": 45688.652482,
+      "relative_score": 45227.659574,
       "top_prize_odds_now": null,
       "dead_game": true,
       "flags": [
@@ -2713,20 +2713,20 @@
       "reason": "Top prize already claimed \u2014 the biggest advertised win can no longer be won.",
       "remaining_tickets_min": 134880,
       "remaining_tickets_max": 135840,
-      "ev_ratio_min": 0.948484,
-      "ev_ratio_max": 0.955234,
+      "ev_ratio_min": 0.938913,
+      "ev_ratio_max": 0.945596,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.475924
+          "ev_ratio": 0.471122
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.190369
+          "ev_ratio": 0.188449
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.047592
+          "ev_ratio": 0.047112
         }
       ],
       "overall_odds_launch": 3.87
@@ -2736,7 +2736,7 @@
       "name": "HIGH CARD POKER",
       "price": 5.0,
       "percent_unsold": 15.7,
-      "total_unclaimed": 926150.0,
+      "total_unclaimed": 911300.0,
       "top_prizes": [
         {
           "level": 100000,
@@ -2757,36 +2757,36 @@
       ],
       "print_run": 960000,
       "remaining_tickets": 150720,
-      "ev_per_ticket": 6.144838,
-      "ev_ratio": 1.228968,
+      "ev_per_ticket": 6.046311,
+      "ev_ratio": 1.209262,
       "ev_ratio_adjusted": null,
-      "relative_score": 58990.44586,
+      "relative_score": 58044.585987,
       "top_prize_odds_now": 150720.0,
       "dead_game": false,
       "flags": [
         "anomaly_candidate"
       ],
       "confidence": "high",
-      "value_score": 84,
+      "value_score": 83,
       "grade": "A-",
       "rated": true,
       "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
       "remaining_tickets_min": 150240,
       "remaining_tickets_max": 151200,
-      "ev_ratio_min": 1.225066,
-      "ev_ratio_max": 1.232894,
+      "ev_ratio_min": 1.205423,
+      "ev_ratio_max": 1.213126,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.614484
+          "ev_ratio": 0.604631
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.245794
+          "ev_ratio": 0.241852
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.061448
+          "ev_ratio": 0.060463
         }
       ],
       "overall_odds_launch": 3.91
@@ -2796,7 +2796,7 @@
       "name": "GONE SQUATCHIN`",
       "price": 3.0,
       "percent_unsold": 79.6,
-      "total_unclaimed": 2310972.0,
+      "total_unclaimed": 2286438.0,
       "top_prizes": [
         {
           "level": 30000,
@@ -2812,7 +2812,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 29032.311558,
+      "relative_score": 28724.095477,
       "top_prize_odds_now": null,
       "dead_game": false,
       "flags": [
@@ -2835,7 +2835,7 @@
       "name": "FORTUNE",
       "price": 20.0,
       "percent_unsold": 67.8,
-      "total_unclaimed": 8399550.0,
+      "total_unclaimed": 8371280.0,
       "top_prizes": [
         {
           "level": 50000,
@@ -2855,7 +2855,7 @@
         },
         {
           "level": 500,
-          "remaining": 1170
+          "remaining": 1168
         }
       ],
       "print_run": null,
@@ -2863,7 +2863,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 123887.168142,
+      "relative_score": 123470.20649,
       "top_prize_odds_now": null,
       "dead_game": false,
       "flags": [
@@ -2886,7 +2886,7 @@
       "name": "7-11-21",
       "price": 1.0,
       "percent_unsold": 36.0,
-      "total_unclaimed": 354043.0,
+      "total_unclaimed": 351489.0,
       "top_prizes": [
         {
           "level": 1000,
@@ -2895,10 +2895,10 @@
       ],
       "print_run": 960000,
       "remaining_tickets": 345600,
-      "ev_per_ticket": 1.02443,
-      "ev_ratio": 1.02443,
+      "ev_per_ticket": 1.01704,
+      "ev_ratio": 1.01704,
       "ev_ratio_adjusted": null,
-      "relative_score": 9834.527778,
+      "relative_score": 9763.583333,
       "top_prize_odds_now": 49371.428571,
       "dead_game": false,
       "flags": [
@@ -2911,20 +2911,20 @@
       "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
       "remaining_tickets_min": 345120,
       "remaining_tickets_max": 346080,
-      "ev_ratio_min": 1.023009,
-      "ev_ratio_max": 1.025855,
+      "ev_ratio_min": 1.015629,
+      "ev_ratio_max": 1.018454,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.512215
+          "ev_ratio": 0.50852
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.204886
+          "ev_ratio": 0.203408
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.051222
+          "ev_ratio": 0.050852
         }
       ],
       "overall_odds_launch": 4.66
@@ -2934,7 +2934,7 @@
       "name": "GRAB A GRAND",
       "price": 1.0,
       "percent_unsold": 29.9,
-      "total_unclaimed": 317188.0,
+      "total_unclaimed": 315088.0,
       "top_prizes": [
         {
           "level": 1000,
@@ -2943,10 +2943,10 @@
       ],
       "print_run": 960000,
       "remaining_tickets": 287040,
-      "ev_per_ticket": 1.105031,
-      "ev_ratio": 1.105031,
+      "ev_per_ticket": 1.097715,
+      "ev_ratio": 1.097715,
       "ev_ratio_adjusted": null,
-      "relative_score": 10608.294314,
+      "relative_score": 10538.060201,
       "top_prize_odds_now": 57408.0,
       "dead_game": false,
       "flags": [
@@ -2959,20 +2959,20 @@
       "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
       "remaining_tickets_min": 286560,
       "remaining_tickets_max": 287520,
-      "ev_ratio_min": 1.103186,
-      "ev_ratio_max": 1.106882,
+      "ev_ratio_min": 1.095882,
+      "ev_ratio_max": 1.099553,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.552516
+          "ev_ratio": 0.548858
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.221006
+          "ev_ratio": 0.219543
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.055252
+          "ev_ratio": 0.054886
         }
       ],
       "overall_odds_launch": 4.43
@@ -2982,7 +2982,7 @@
       "name": "PUMPKIN SPICE PAYOUT",
       "price": 2.0,
       "percent_unsold": 30.0,
-      "total_unclaimed": 487905.0,
+      "total_unclaimed": 483006.0,
       "top_prizes": [
         {
           "level": 10000,
@@ -2998,7 +2998,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 16263.5,
+      "relative_score": 16100.2,
       "top_prize_odds_now": null,
       "dead_game": false,
       "flags": [
@@ -3021,7 +3021,7 @@
       "name": "PATRIOTS",
       "price": 5.0,
       "percent_unsold": 38.0,
-      "total_unclaimed": 1653600.0,
+      "total_unclaimed": 1637575.0,
       "top_prizes": [
         {
           "level": 100000,
@@ -3041,7 +3041,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 43515.789474,
+      "relative_score": 43094.078947,
       "top_prize_odds_now": null,
       "dead_game": false,
       "flags": [
@@ -3064,7 +3064,7 @@
       "name": "WILD BINGO",
       "price": 3.0,
       "percent_unsold": 67.2,
-      "total_unclaimed": 1940406.0,
+      "total_unclaimed": 1933262.0,
       "top_prizes": [
         {
           "level": 30000,
@@ -3080,7 +3080,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 28875.089286,
+      "relative_score": 28768.779762,
       "top_prize_odds_now": null,
       "dead_game": false,
       "flags": [
@@ -3103,7 +3103,7 @@
       "name": "LOTERIA",
       "price": 3.0,
       "percent_unsold": 19.7,
-      "total_unclaimed": 605547.0,
+      "total_unclaimed": 595990.0,
       "top_prizes": [
         {
           "level": 30000,
@@ -3116,36 +3116,36 @@
       ],
       "print_run": 840000,
       "remaining_tickets": 165480,
-      "ev_per_ticket": 3.659336,
-      "ev_ratio": 1.219779,
+      "ev_per_ticket": 3.601583,
+      "ev_ratio": 1.200528,
       "ev_ratio_adjusted": null,
-      "relative_score": 30738.426396,
+      "relative_score": 30253.299492,
       "top_prize_odds_now": 165480.0,
       "dead_game": false,
       "flags": [
         "anomaly_candidate"
       ],
       "confidence": "high",
-      "value_score": 84,
+      "value_score": 83,
       "grade": "A-",
       "rated": true,
       "reason": "Based on solid inventory data; the expected-value estimate is comparatively reliable.",
       "remaining_tickets_min": 165060,
       "remaining_tickets_max": 165900,
-      "ev_ratio_min": 1.216691,
-      "ev_ratio_max": 1.222883,
+      "ev_ratio_min": 1.197488,
+      "ev_ratio_max": 1.203583,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 0.60989
+          "ev_ratio": 0.600264
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 0.243956
+          "ev_ratio": 0.240106
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.060989
+          "ev_ratio": 0.060026
         }
       ],
       "overall_odds_launch": 3.51
@@ -3155,7 +3155,7 @@
       "name": "FIND $500!",
       "price": 5.0,
       "percent_unsold": 0.2,
-      "total_unclaimed": 88775.0,
+      "total_unclaimed": 87710.0,
       "top_prizes": [
         {
           "level": 500,
@@ -3164,10 +3164,10 @@
       ],
       "print_run": 960000,
       "remaining_tickets": 1920,
-      "ev_per_ticket": 46.236979,
-      "ev_ratio": 9.247396,
+      "ev_per_ticket": 45.682292,
+      "ev_ratio": 9.136458,
       "ev_ratio_adjusted": null,
-      "relative_score": 443875.0,
+      "relative_score": 438550.0,
       "top_prize_odds_now": 112.941176,
       "dead_game": false,
       "flags": [
@@ -3182,20 +3182,20 @@
       "reason": "Looks better than it is: most unclaimed prize money is likely on tickets already sold but not yet claimed (claim lag).",
       "remaining_tickets_min": 1440,
       "remaining_tickets_max": 2400,
-      "ev_ratio_min": 7.397917,
-      "ev_ratio_max": 12.329861,
+      "ev_ratio_min": 7.309167,
+      "ev_ratio_max": 12.181944,
       "ev_scenarios": [
         {
           "assumed_claimed_share": 0.5,
-          "ev_ratio": 4.623698
+          "ev_ratio": 4.568229
         },
         {
           "assumed_claimed_share": 0.8,
-          "ev_ratio": 1.849479
+          "ev_ratio": 1.827292
         },
         {
           "assumed_claimed_share": 0.95,
-          "ev_ratio": 0.46237
+          "ev_ratio": 0.456823
         }
       ],
       "overall_odds_launch": 3.58
@@ -3205,11 +3205,11 @@
       "name": "HOLIDAY $500S",
       "price": 5.0,
       "percent_unsold": 31.3,
-      "total_unclaimed": 1883290.0,
+      "total_unclaimed": 1813700.0,
       "top_prizes": [
         {
           "level": 500,
-          "remaining": 942
+          "remaining": 922
         }
       ],
       "print_run": null,
@@ -3217,7 +3217,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 60169.009585,
+      "relative_score": 57945.686901,
       "top_prize_odds_now": null,
       "dead_game": false,
       "flags": [
@@ -3240,7 +3240,7 @@
       "name": "HOLIDAY $1,000S",
       "price": 10.0,
       "percent_unsold": 35.9,
-      "total_unclaimed": 2824560.0,
+      "total_unclaimed": 2775245.0,
       "top_prizes": [
         {
           "level": 1000,
@@ -3248,7 +3248,7 @@
         },
         {
           "level": 500,
-          "remaining": 203
+          "remaining": 198
         }
       ],
       "print_run": null,
@@ -3256,7 +3256,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 78678.551532,
+      "relative_score": 77304.874652,
       "top_prize_odds_now": null,
       "dead_game": false,
       "flags": [
@@ -3279,7 +3279,7 @@
       "name": "MAINE CROSSWORD",
       "price": 3.0,
       "percent_unsold": 90.0,
-      "total_unclaimed": 10495897.0,
+      "total_unclaimed": 10476167.0,
       "top_prizes": [
         {
           "level": 30000,
@@ -3295,7 +3295,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 116621.077778,
+      "relative_score": 116401.855556,
       "top_prize_odds_now": null,
       "dead_game": false,
       "flags": [
@@ -3318,7 +3318,7 @@
       "name": "JACKPOT",
       "price": 20.0,
       "percent_unsold": 81.0,
-      "total_unclaimed": 12961210.0,
+      "total_unclaimed": 12931010.0,
       "top_prizes": [
         {
           "level": 500000,
@@ -3342,7 +3342,7 @@
         },
         {
           "level": 500,
-          "remaining": 1689
+          "remaining": 1688
         }
       ],
       "print_run": null,
@@ -3350,7 +3350,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 160014.938272,
+      "relative_score": 159642.098765,
       "top_prize_odds_now": null,
       "dead_game": false,
       "flags": [
@@ -3373,7 +3373,7 @@
       "name": "QUARTER MILLION CASH",
       "price": 20.0,
       "percent_unsold": 82.5,
-      "total_unclaimed": 13129170.0,
+      "total_unclaimed": 13075990.0,
       "top_prizes": [
         {
           "level": 250000,
@@ -3401,7 +3401,7 @@
         },
         {
           "level": 500,
-          "remaining": 2677
+          "remaining": 2670
         }
       ],
       "print_run": null,
@@ -3409,7 +3409,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 159141.454545,
+      "relative_score": 158496.848485,
       "top_prize_odds_now": null,
       "dead_game": false,
       "flags": [
@@ -3432,7 +3432,7 @@
       "name": "GOLD PREMIUM PLAY",
       "price": 5.0,
       "percent_unsold": 76.0,
-      "total_unclaimed": 3790370.0,
+      "total_unclaimed": 3741740.0,
       "top_prizes": [
         {
           "level": 100000,
@@ -3452,7 +3452,7 @@
       "ev_per_ticket": null,
       "ev_ratio": null,
       "ev_ratio_adjusted": null,
-      "relative_score": 49873.289474,
+      "relative_score": 49233.421053,
       "top_prize_odds_now": null,
       "dead_game": false,
       "flags": [
